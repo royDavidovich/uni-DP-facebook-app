@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Windows.Forms.DataVisualization.Charting;
+using BasicFacebookFeatures;
 
 namespace BasicFacebookFeatures
 {
@@ -81,6 +83,35 @@ namespace BasicFacebookFeatures
             m_LoginResult = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
+        }
+
+        private void linkLabelActivity_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            foreach (TabPage page in tabControl1.TabPages)
+            {
+                if (page.Name == "tabActivity")
+                {
+                    tabControl1.SelectedTab = page;
+                    return;
+                }
+            }
+
+            // אם לא קיים, ליצור טאב חדש
+            TabPage activityPage = new TabPage("Activity");
+            activityPage.Name = "tabActivity";
+
+            // ליצור מופע של ה UserControl שעיצבת בדיזיינר
+            chartActivity activityTabView = new chartActivity();
+            activityTabView.Dock = DockStyle.Fill; // שימלא את כל הטאב
+
+            // להוסיף את ה UserControl לתוך הטאב
+            activityPage.Controls.Add(activityTabView);
+
+            // להוסיף את הטאב ל TabControl
+            tabControl1.TabPages.Add(activityPage);
+
+            // לעבור לטאב החדש
+            tabControl1.SelectedTab = activityPage;
         }
     }
 }
