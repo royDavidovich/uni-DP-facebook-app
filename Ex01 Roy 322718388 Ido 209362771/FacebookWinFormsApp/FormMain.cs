@@ -34,7 +34,7 @@ namespace BasicFacebookFeatures
         private void login()
         {
             m_LoginResult = FacebookService.Login(
-                /// (This is Desig Patter's App ID. replace it with your own)
+                /// (This is Desig Patter's App ID. replace it with your own) 
                 textBoxAppID.Text,
                 /// requested permissions:
                 "email",
