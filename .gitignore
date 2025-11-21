@@ -40,3 +40,7 @@ Thumbs.db
 
 # Optional: ignore whole packages folder (if using NuGet with restore-on-build)
 # packages/
+
+!*/FBApi/*
+!*/FBApi/*.cs
+!*/FBApi/*.config
