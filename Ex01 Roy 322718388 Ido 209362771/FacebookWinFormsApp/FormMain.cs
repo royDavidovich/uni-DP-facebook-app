@@ -65,7 +65,7 @@ namespace BasicFacebookFeatures
 
         private void afterLogin()
         {
-
+            tabControl1.SelectedTab = tabPage2;
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
