@@ -47,9 +47,10 @@
             this.linkAlbums = new System.Windows.Forms.LinkLabel();
             this.linkPosts = new System.Windows.Forms.LinkLabel();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.listBoxMainTabMain = new System.Windows.Forms.ListBox();
+            this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
+            this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -58,7 +59,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -180,9 +182,10 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
             this.splitContainer1.Panel2.Controls.Add(this.listBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTabMain);
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTab);
+            this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTab);
             this.splitContainer1.Size = new System.Drawing.Size(850, 374);
             this.splitContainer1.SplitterDistance = 190;
             this.splitContainer1.TabIndex = 0;
@@ -216,6 +219,7 @@
             this.linkFavoriteTeams.TabIndex = 4;
             this.linkFavoriteTeams.TabStop = true;
             this.linkFavoriteTeams.Text = "Favorite Teams";
+            this.linkFavoriteTeams.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFavoriteTeams_LinkClicked_1);
             // 
             // linkGroups
             // 
@@ -263,27 +267,28 @@
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 18;
-            this.listBox2.Location = new System.Drawing.Point(183, 248);
+            this.listBox2.Location = new System.Drawing.Point(185, 247);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(468, 112);
             this.listBox2.TabIndex = 2;
             // 
-            // pictureBox1
+            // pictureBoxMainTab
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(474, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(178, 166);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxMainTab.Location = new System.Drawing.Point(477, 91);
+            this.pictureBoxMainTab.Name = "pictureBoxMainTab";
+            this.pictureBoxMainTab.Size = new System.Drawing.Size(150, 150);
+            this.pictureBoxMainTab.TabIndex = 1;
+            this.pictureBoxMainTab.TabStop = false;
             // 
-            // listBoxMainTabMain
+            // listBoxMainTab
             // 
-            this.listBoxMainTabMain.FormattingEnabled = true;
-            this.listBoxMainTabMain.ItemHeight = 18;
-            this.listBoxMainTabMain.Location = new System.Drawing.Point(3, 3);
-            this.listBoxMainTabMain.Name = "listBoxMainTabMain";
-            this.listBoxMainTabMain.Size = new System.Drawing.Size(468, 238);
-            this.listBoxMainTabMain.TabIndex = 0;
+            this.listBoxMainTab.FormattingEnabled = true;
+            this.listBoxMainTab.ItemHeight = 18;
+            this.listBoxMainTab.Location = new System.Drawing.Point(3, 3);
+            this.listBoxMainTab.Name = "listBoxMainTab";
+            this.listBoxMainTab.Size = new System.Drawing.Size(468, 238);
+            this.listBoxMainTab.TabIndex = 0;
+            this.listBoxMainTab.SelectedIndexChanged += new System.EventHandler(this.listBoxMainTabMain_SelectedIndexChanged);
             // 
             // tabPage3
             // 
@@ -294,6 +299,14 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxMainTabLogedInUser
+            // 
+            this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(583, 3);
+            this.pictureBoxMainTabLogedInUser.Name = "pictureBoxMainTabLogedInUser";
+            this.pictureBoxMainTabLogedInUser.Size = new System.Drawing.Size(70, 70);
+            this.pictureBoxMainTabLogedInUser.TabIndex = 3;
+            this.pictureBoxMainTabLogedInUser.TabStop = false;
             // 
             // FormMain
             // 
@@ -317,7 +330,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -343,8 +357,9 @@
         private System.Windows.Forms.LinkLabel linkFavoriteMusicArtists;
         private System.Windows.Forms.LinkLabel linkLikedPages;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListBox listBoxMainTabMain;
+        private System.Windows.Forms.PictureBox pictureBoxMainTab;
+        private System.Windows.Forms.ListBox listBoxMainTab;
+        private System.Windows.Forms.PictureBox pictureBoxMainTabLogedInUser;
     }
 }
 

@@ -22,6 +22,10 @@ namespace BasicFacebookFeatures
         LoginResult m_LoginResult;
         User m_LoggedInUser;
 
+        // This delegate will handle the selected item depending on current mode
+        private Action<object> m_OnMainSelectionChanged;
+
+
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
@@ -112,25 +116,25 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void fetchPosts()
         {
-            listBoxMainTabMain.Items.Clear();
+            listBoxMainTab.Items.Clear();
 
             foreach (Post post in m_LoggedInUser.Posts)
             {
                 if (post.Message != null)
                 {
-                    listBoxMainTabMain.Items.Add(post.Message);
+                    listBoxMainTab.Items.Add(post.Message);
                 }
                 else if (post.Caption != null)
                 {
-                    listBoxMainTabMain.Items.Add(post.Caption);
+                    listBoxMainTab.Items.Add(post.Caption);
                 }
                 else
                 {
-                    listBoxMainTabMain.Items.Add(string.Format("[{0}]", post.Type));
+                    listBoxMainTab.Items.Add(string.Format("[{0}]", post.Type));
                 }
             }
 
-            if (listBoxMainTabMain.Items.Count == 0)
+            if (listBoxMainTab.Items.Count == 0)
             {
                 MessageBox.Show("No Posts to retrieve :(");
             }
@@ -150,18 +154,71 @@ namespace BasicFacebookFeatures
 
         private void fetchAlbums()
         {
-            listBoxMainTabMain.Items.Clear();
-            listBoxMainTabMain.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleAlbumSelected;
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
             foreach (Album album in m_LoggedInUser.Albums)
             {
-                listBoxMainTabMain.Items.Add(album);
-                //album.ReFetch(DynamicWrapper.eLoadOptions.Full);
+                listBoxMainTab.Items.Add(album);
             }
 
-            if (listBoxMainTabMain.Items.Count == 0)
+            if (listBoxMainTab.Items.Count == 0)
             {
                 MessageBox.Show("No Albums to retrieve :(");
             }
+        }
+
+        private void handleAlbumSelected(object i_Item)
+        {
+            if (i_Item is Album album && album.PictureAlbumURL != null)
+            {
+                pictureBoxMainTab.LoadAsync(album.PictureAlbumURL);
+            }
+        }
+
+        private void linkFavoriteTeams_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            fetchFavoriteTeams();
+        }
+
+        private void fetchFavoriteTeams()
+        {
+            listBoxMainTab.Items.Clear();
+            m_OnMainSelectionChanged = handleTeamSelected;
+            listBoxMainTab.DisplayMember = "Name";
+            foreach (Page team in m_LoggedInUser.FavofriteTeams)
+            {
+                listBoxMainTab.Items.Add(team);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No teams to retrieve :(");
+            }
+        }
+
+        private void handleTeamSelected(object i_Item)
+        {
+            if (i_Item is Page team && team.PictureNormalURL != null)
+            {
+                pictureBoxMainTab.LoadAsync(team.PictureNormalURL);
+            }
+        }
+
+        private void listBoxMainTabMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (m_OnMainSelectionChanged == null)
+            {
+                return; // No mode set yet
+            }
+
+            if (listBoxMainTab.SelectedItems.Count != 1)
+            {
+                return;
+            }
+
+            // Call the current strategy
+            m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
         }
     }
 }
