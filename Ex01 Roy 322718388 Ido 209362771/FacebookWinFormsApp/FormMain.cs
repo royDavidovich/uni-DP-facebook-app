@@ -19,7 +19,8 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
-        FacebookWrapper.LoginResult m_LoginResult;
+        LoginResult m_LoginResult;
+        User m_LoggedInUser;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -38,9 +39,19 @@ namespace BasicFacebookFeatures
                 textBoxAppID.Text,
                 /// requested permissions:
                 "email",
-                "public_profile"
-                /// add any relevant permissions
-                );
+                "public_profile",
+                "user_age_range",
+                "user_birthday",
+                "user_events",
+                "user_friends",
+                "user_gender",
+                "user_hometown",
+                "user_likes",
+                "user_link",
+                "user_location",
+                "user_photos",
+                "user_posts",
+                "user_videos");
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
@@ -66,6 +77,7 @@ namespace BasicFacebookFeatures
         private void afterLogin()
         {
             tabControl1.SelectedTab = tabPage2;
+            m_LoggedInUser = m_LoginResult.LoggedInUser;
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
@@ -81,6 +93,75 @@ namespace BasicFacebookFeatures
             m_LoginResult = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
+        }
+
+        private void linkPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                fetchPosts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Fetching posts *** made by the logged in user ***:
+        /// </summary>
+        private void fetchPosts()
+        {
+            listBoxMainTabMain.Items.Clear();
+
+            foreach (Post post in m_LoggedInUser.Posts)
+            {
+                if (post.Message != null)
+                {
+                    listBoxMainTabMain.Items.Add(post.Message);
+                }
+                else if (post.Caption != null)
+                {
+                    listBoxMainTabMain.Items.Add(post.Caption);
+                }
+                else
+                {
+                    listBoxMainTabMain.Items.Add(string.Format("[{0}]", post.Type));
+                }
+            }
+
+            if (listBoxMainTabMain.Items.Count == 0)
+            {
+                MessageBox.Show("No Posts to retrieve :(");
+            }
+        }
+
+        private void linkAlbums_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                fetchAlbums();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void fetchAlbums()
+        {
+            listBoxMainTabMain.Items.Clear();
+            listBoxMainTabMain.DisplayMember = "Name";
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                listBoxMainTabMain.Items.Add(album);
+                //album.ReFetch(DynamicWrapper.eLoadOptions.Full);
+            }
+
+            if (listBoxMainTabMain.Items.Count == 0)
+            {
+                MessageBox.Show("No Albums to retrieve :(");
+            }
         }
     }
 }
