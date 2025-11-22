@@ -270,7 +270,6 @@ namespace BasicFacebookFeatures
             listBoxMainTab.Items.Clear();
             listBoxMainTab.DisplayMember = "Name";
             m_OnMainSelectionChanged = handleLikedPageSelected;
-
             try
             {
                 foreach (Page page in m_LoggedInUser.LikedPages)
@@ -303,7 +302,6 @@ namespace BasicFacebookFeatures
             listBoxMainTab.Items.Clear();
             listBoxMainTab.DisplayMember = "Name";
             m_OnMainSelectionChanged = handleGroupSelected;
-
             try
             {
                 foreach (Group group in m_LoggedInUser.Groups)
@@ -328,6 +326,43 @@ namespace BasicFacebookFeatures
             {
                 Group selectedGroup = listBoxMainTab.SelectedItem as Group;
                 pictureBoxMainTab.LoadAsync(selectedGroup.PictureNormalURL);
+            }
+        }
+
+        private void linkFavoriteMusicArtists_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                fetchMusic();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void fetchMusic()
+        {
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleMusicArtistSelected;
+            foreach (Page artistPage in m_LoggedInUser.Music)
+            {
+                listBoxMainTab.Items.Add(artistPage);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No artsits to retrieve :(");
+            }
+        }
+
+        private void handleMusicArtistSelected(object obj)
+        {
+            if (listBoxMainTab.SelectedItems.Count == 1)
+            {
+                Page selectedItem = listBoxMainTab.SelectedItem as Page;
+                pictureBoxMainTab.LoadAsync(selectedItem.PictureNormalURL);
             }
         }
     }

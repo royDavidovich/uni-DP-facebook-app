@@ -199,6 +199,7 @@
             this.linkFavoriteMusicArtists.TabIndex = 6;
             this.linkFavoriteMusicArtists.TabStop = true;
             this.linkFavoriteMusicArtists.Text = "Favorite Music Artists";
+            this.linkFavoriteMusicArtists.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFavoriteMusicArtists_LinkClicked);
             // 
             // linkLikedPages
             // 
@@ -268,9 +269,9 @@
             // 
             // pictureBoxMainTabLogedInUser
             // 
-            this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(571, 3);
+            this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(591, 6);
             this.pictureBoxMainTabLogedInUser.Name = "pictureBoxMainTabLogedInUser";
-            this.pictureBoxMainTabLogedInUser.Size = new System.Drawing.Size(82, 82);
+            this.pictureBoxMainTabLogedInUser.Size = new System.Drawing.Size(60, 60);
             this.pictureBoxMainTabLogedInUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxMainTabLogedInUser.TabIndex = 3;
             this.pictureBoxMainTabLogedInUser.TabStop = false;
@@ -286,9 +287,9 @@
             // 
             // pictureBoxMainTab
             // 
-            this.pictureBoxMainTab.Location = new System.Drawing.Point(477, 91);
+            this.pictureBoxMainTab.Location = new System.Drawing.Point(477, 72);
             this.pictureBoxMainTab.Name = "pictureBoxMainTab";
-            this.pictureBoxMainTab.Size = new System.Drawing.Size(150, 150);
+            this.pictureBoxMainTab.Size = new System.Drawing.Size(170, 170);
             this.pictureBoxMainTab.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxMainTab.TabIndex = 1;
             this.pictureBoxMainTab.TabStop = false;
