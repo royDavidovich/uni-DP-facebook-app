@@ -233,14 +233,21 @@ namespace BasicFacebookFeatures
             listBoxMainTab.Items.Clear();
             listBoxMainTab.DisplayMember = "Name";
             m_OnMainSelectionChanged = handleEventSelected;
-            foreach (Event fbEvent in m_LoggedInUser.Events)
+            try
             {
-                listBoxMainTab.Items.Add(fbEvent);
-            }
+                foreach (Event fbEvent in m_LoggedInUser.Events)
+                {
+                    listBoxMainTab.Items.Add(fbEvent);
+                }
 
-            if (listBoxMainTab.Items.Count == 0)
+                if (listBoxMainTab.Items.Count == 0)
+                {
+                    MessageBox.Show("No Events to retrieve :(");
+                }
+            }
+            catch(Exception e)
             {
-                MessageBox.Show("No Events to retrieve :(");
+                MessageBox.Show("No Facebook permissions to retrieve :(");
             }
         }
 
@@ -249,6 +256,44 @@ namespace BasicFacebookFeatures
             if (i_Item is Event fbEvent && fbEvent.Cover != null)
             {
                 pictureBoxMainTab.LoadAsync(fbEvent.Cover.SourceURL);
+            }
+        }
+
+        private void linkLikedPages_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            fetchLikedPages();
+        }
+
+        private void fetchLikedPages()
+        {
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleLikedPageSelected;
+
+            try
+            {
+                foreach (Page page in m_LoggedInUser.LikedPages)
+                {
+                    listBoxMainTab.Items.Add(page);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No liked pages to retrieve :(");
+            }
+        }
+
+        private void handleLikedPageSelected(object obj)
+        {
+            if (listBoxMainTab.SelectedItems.Count == 1)
+            {
+                Page selectedPage = listBoxMainTab.SelectedItem as Page;
+                pictureBoxMainTab.LoadAsync(selectedPage.PictureNormalURL);
             }
         }
     }

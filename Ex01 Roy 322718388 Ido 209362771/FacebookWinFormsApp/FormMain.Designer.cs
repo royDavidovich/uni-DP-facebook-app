@@ -209,6 +209,7 @@
             this.linkLikedPages.TabIndex = 5;
             this.linkLikedPages.TabStop = true;
             this.linkLikedPages.Text = "Liked Pages";
+            this.linkLikedPages.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLikedPages_LinkClicked);
             // 
             // linkFavoriteTeams
             // 
