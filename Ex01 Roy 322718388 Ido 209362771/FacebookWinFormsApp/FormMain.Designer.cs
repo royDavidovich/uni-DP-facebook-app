@@ -231,6 +231,7 @@
             this.linkGroups.TabIndex = 3;
             this.linkGroups.TabStop = true;
             this.linkGroups.Text = "Groups";
+            this.linkGroups.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGroups_LinkClicked);
             // 
             // linkFacebookEvents
             // 

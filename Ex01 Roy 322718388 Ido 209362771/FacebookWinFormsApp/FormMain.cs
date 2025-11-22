@@ -240,14 +240,15 @@ namespace BasicFacebookFeatures
                     listBoxMainTab.Items.Add(fbEvent);
                 }
 
-                if (listBoxMainTab.Items.Count == 0)
-                {
-                    MessageBox.Show("No Events to retrieve :(");
-                }
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                MessageBox.Show("No Facebook permissions to retrieve :(");
+                MessageBox.Show(ex.Message);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No Events to retrieve :(");
             }
         }
 
@@ -294,6 +295,39 @@ namespace BasicFacebookFeatures
             {
                 Page selectedPage = listBoxMainTab.SelectedItem as Page;
                 pictureBoxMainTab.LoadAsync(selectedPage.PictureNormalURL);
+            }
+        }
+
+        private void linkGroups_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleGroupSelected;
+
+            try
+            {
+                foreach (Group group in m_LoggedInUser.Groups)
+                {
+                    listBoxMainTab.Items.Add(group);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No groups to retrieve :(");
+            }
+        }
+
+        private void handleGroupSelected(object obj)
+        {
+            if (listBoxMainTab.SelectedItems.Count == 1)
+            {
+                Group selectedGroup = listBoxMainTab.SelectedItem as Group;
+                pictureBoxMainTab.LoadAsync(selectedGroup.PictureNormalURL);
             }
         }
     }
