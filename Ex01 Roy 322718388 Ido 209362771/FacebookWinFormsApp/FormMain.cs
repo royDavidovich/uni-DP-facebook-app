@@ -18,6 +18,7 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
+            this.MinimumSize = new Size(800, 400);
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
@@ -40,7 +41,8 @@ namespace BasicFacebookFeatures
                 textBoxAppID.Text,
                 /// requested permissions:
                 "email",
-                "public_profile"
+                "public_profile",
+                "user_posts"
                 /// add any relevant permissions
                 );
 
@@ -87,6 +89,12 @@ namespace BasicFacebookFeatures
 
         private void linkLabelActivity_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null)
+            {
+                MessageBox.Show("Please login to Facebook first.");
+                return;
+            }
+
             foreach (TabPage page in tabControl1.TabPages)
             {
                 if (page.Name == "tabActivity")
@@ -96,21 +104,16 @@ namespace BasicFacebookFeatures
                 }
             }
 
-            // אם לא קיים, ליצור טאב חדש
             TabPage activityPage = new TabPage("Activity");
             activityPage.Name = "tabActivity";
 
-            // ליצור מופע של ה UserControl שעיצבת בדיזיינר
             chartActivity activityTabView = new chartActivity();
-            activityTabView.Dock = DockStyle.Fill; // שימלא את כל הטאב
+            activityTabView.Dock = DockStyle.Fill;
 
-            // להוסיף את ה UserControl לתוך הטאב
+            activityTabView.SetLoggedInUser(m_LoginResult.LoggedInUser);
+
             activityPage.Controls.Add(activityTabView);
-
-            // להוסיף את הטאב ל TabControl
             tabControl1.TabPages.Add(activityPage);
-
-            // לעבור לטאב החדש
             tabControl1.SelectedTab = activityPage;
         }
     }
