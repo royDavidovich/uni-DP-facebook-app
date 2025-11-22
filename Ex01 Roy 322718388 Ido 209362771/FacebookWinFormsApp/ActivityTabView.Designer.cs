@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.comboBoxTime = new System.Windows.Forms.ComboBox();
             this.labelActivity = new System.Windows.Forms.Label();
             this.chartActivity1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -58,21 +58,36 @@
             this.labelActivity.Name = "labelActivity";
             this.labelActivity.Size = new System.Drawing.Size(836, 79);
             this.labelActivity.TabIndex = 1;
-            this.labelActivity.Text = "Activity";
+            this.labelActivity.Text = "Activity (posts)";
             this.labelActivity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chartActivity1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartActivity1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartActivity1.Legends.Add(legend1);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisX2.MajorGrid.Enabled = false;
+            chartArea2.AxisY.MajorGrid.Enabled = false;
+            chartArea2.AxisY.MajorTickMark.Enabled = false;
+            chartArea2.AxisY2.MajorGrid.Enabled = false;
+            chartArea2.BorderColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderWidth = 0;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.ShadowColor = System.Drawing.Color.Transparent;
+            this.chartActivity1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartActivity1.Legends.Add(legend2);
             this.chartActivity1.Location = new System.Drawing.Point(253, 105);
             this.chartActivity1.Name = "chartActivity1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartActivity1.Series.Add(series1);
+            series2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.MarkerBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            series2.MarkerColor = System.Drawing.Color.White;
+            series2.MarkerSize = 7;
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Series1";
+            this.chartActivity1.Series.Add(series2);
             this.chartActivity1.Size = new System.Drawing.Size(532, 293);
             this.chartActivity1.TabIndex = 2;
             this.chartActivity1.Text = "chart1";
