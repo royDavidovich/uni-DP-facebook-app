@@ -46,11 +46,11 @@
             this.linkFacebookEvents = new System.Windows.Forms.LinkLabel();
             this.linkAlbums = new System.Windows.Forms.LinkLabel();
             this.linkPosts = new System.Windows.Forms.LinkLabel();
+            this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -59,8 +59,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -240,6 +240,7 @@
             this.linkFacebookEvents.TabIndex = 2;
             this.linkFacebookEvents.TabStop = true;
             this.linkFacebookEvents.Text = "Events";
+            this.linkFacebookEvents.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFacebookEvents_LinkClicked);
             // 
             // linkAlbums
             // 
@@ -263,6 +264,15 @@
             this.linkPosts.Text = "Posts";
             this.linkPosts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPosts_LinkClicked);
             // 
+            // pictureBoxMainTabLogedInUser
+            // 
+            this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(571, 3);
+            this.pictureBoxMainTabLogedInUser.Name = "pictureBoxMainTabLogedInUser";
+            this.pictureBoxMainTabLogedInUser.Size = new System.Drawing.Size(82, 82);
+            this.pictureBoxMainTabLogedInUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxMainTabLogedInUser.TabIndex = 3;
+            this.pictureBoxMainTabLogedInUser.TabStop = false;
+            // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
@@ -277,6 +287,7 @@
             this.pictureBoxMainTab.Location = new System.Drawing.Point(477, 91);
             this.pictureBoxMainTab.Name = "pictureBoxMainTab";
             this.pictureBoxMainTab.Size = new System.Drawing.Size(150, 150);
+            this.pictureBoxMainTab.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxMainTab.TabIndex = 1;
             this.pictureBoxMainTab.TabStop = false;
             // 
@@ -300,14 +311,6 @@
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // pictureBoxMainTabLogedInUser
-            // 
-            this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(583, 3);
-            this.pictureBoxMainTabLogedInUser.Name = "pictureBoxMainTabLogedInUser";
-            this.pictureBoxMainTabLogedInUser.Size = new System.Drawing.Size(70, 70);
-            this.pictureBoxMainTabLogedInUser.TabIndex = 3;
-            this.pictureBoxMainTabLogedInUser.TabStop = false;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -330,8 +333,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
             this.ResumeLayout(false);
 
         }

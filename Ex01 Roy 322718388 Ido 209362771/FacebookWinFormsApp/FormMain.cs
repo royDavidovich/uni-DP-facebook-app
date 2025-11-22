@@ -85,6 +85,7 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
+            pictureBoxMainTabLogedInUser.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
         }
@@ -112,7 +113,7 @@ namespace BasicFacebookFeatures
         }
 
         /// <summary>
-        /// Fetching posts *** made by the logged in user ***:
+        /// Fetching posts *** made by the logged-in user ***:
         /// </summary>
         private void fetchPosts()
         {
@@ -207,18 +208,48 @@ namespace BasicFacebookFeatures
 
         private void listBoxMainTabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (m_OnMainSelectionChanged == null)
-            {
-                return; // No mode set yet
-            }
-
-            if (listBoxMainTab.SelectedItems.Count != 1)
+            if (m_OnMainSelectionChanged == null || listBoxMainTab.SelectedItems.Count != 1)
             {
                 return;
             }
 
-            // Call the current strategy
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
+        }
+
+        private void linkFacebookEvents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                fetchEvents();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void fetchEvents()
+        {
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleEventSelected;
+            foreach (Event fbEvent in m_LoggedInUser.Events)
+            {
+                listBoxMainTab.Items.Add(fbEvent);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No Events to retrieve :(");
+            }
+        }
+
+        private void handleEventSelected(object i_Item)
+        {
+            if (i_Item is Event fbEvent && fbEvent.Cover != null)
+            {
+                pictureBoxMainTab.LoadAsync(fbEvent.Cover.SourceURL);
+            }
         }
     }
 }
