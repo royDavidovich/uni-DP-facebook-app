@@ -39,17 +39,19 @@
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.linkLabel7 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkFavoriteMusicArtists = new System.Windows.Forms.LinkLabel();
+            this.linkLikedPages = new System.Windows.Forms.LinkLabel();
+            this.linkFavoriteTeams = new System.Windows.Forms.LinkLabel();
+            this.linkGroups = new System.Windows.Forms.LinkLabel();
+            this.linkFacebookEvents = new System.Windows.Forms.LinkLabel();
+            this.linkAlbums = new System.Windows.Forms.LinkLabel();
+            this.linkPosts = new System.Windows.Forms.LinkLabel();
+            this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
+            this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.linkLabelActivity = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -58,7 +60,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -90,7 +93,7 @@
             this.label1.Location = new System.Drawing.Point(314, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(311, 54);
+            this.label1.Size = new System.Drawing.Size(397, 72);
             this.label1.TabIndex = 53;
             this.label1.Text = "This is the AppID of \"Design Patterns App 2.4\".\r\nThe grader will use it to test y" +
     "our app.\r\nType here your own AppID to test it:\r\n";
@@ -115,10 +118,10 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Location = new System.Drawing.Point(4, 31);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(856, 610);
+            this.tabPage1.Size = new System.Drawing.Size(856, 380);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "loginTab";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -147,14 +150,14 @@
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(319, 126);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(446, 24);
+            this.textBoxAppID.Size = new System.Drawing.Size(446, 28);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "1919347028928660";
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.splitContainer1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 27);
+            this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(856, 380);
@@ -170,132 +173,163 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel7);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel6);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel5);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel4);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel3);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel2);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabel1);
+            this.splitContainer1.Panel1.Controls.Add(this.linkFavoriteMusicArtists);
+            this.splitContainer1.Panel1.Controls.Add(this.linkLikedPages);
+            this.splitContainer1.Panel1.Controls.Add(this.linkFavoriteTeams);
+            this.splitContainer1.Panel1.Controls.Add(this.linkGroups);
+            this.splitContainer1.Panel1.Controls.Add(this.linkFacebookEvents);
+            this.splitContainer1.Panel1.Controls.Add(this.linkAlbums);
+            this.splitContainer1.Panel1.Controls.Add(this.linkPosts);
+            this.splitContainer1.Panel1.Controls.Add(this.linkLabelActivity);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
             this.splitContainer1.Panel2.Controls.Add(this.listBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.listBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTab);
+            this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTab);
             this.splitContainer1.Size = new System.Drawing.Size(850, 374);
             this.splitContainer1.SplitterDistance = 190;
             this.splitContainer1.TabIndex = 0;
             // 
-            // linkLabel7
+            // linkFavoriteMusicArtists
             // 
-            this.linkLabel7.AutoSize = true;
-            this.linkLabel7.Location = new System.Drawing.Point(5, 224);
-            this.linkLabel7.Name = "linkLabel7";
-            this.linkLabel7.Size = new System.Drawing.Size(150, 18);
-            this.linkLabel7.TabIndex = 6;
-            this.linkLabel7.TabStop = true;
-            this.linkLabel7.Text = "Favorite Music Artists";
+            this.linkFavoriteMusicArtists.AutoSize = true;
+            this.linkFavoriteMusicArtists.Location = new System.Drawing.Point(5, 224);
+            this.linkFavoriteMusicArtists.Name = "linkFavoriteMusicArtists";
+            this.linkFavoriteMusicArtists.Size = new System.Drawing.Size(150, 18);
+            this.linkFavoriteMusicArtists.TabIndex = 6;
+            this.linkFavoriteMusicArtists.TabStop = true;
+            this.linkFavoriteMusicArtists.Text = "Favorite Music Artists";
+            this.linkFavoriteMusicArtists.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFavoriteMusicArtists_LinkClicked);
             // 
-            // linkLabel6
+            // linkLikedPages
             // 
-            this.linkLabel6.AutoSize = true;
-            this.linkLabel6.Location = new System.Drawing.Point(5, 187);
-            this.linkLabel6.Name = "linkLabel6";
-            this.linkLabel6.Size = new System.Drawing.Size(89, 18);
-            this.linkLabel6.TabIndex = 5;
-            this.linkLabel6.TabStop = true;
-            this.linkLabel6.Text = "Liked Pages";
+            this.linkLikedPages.AutoSize = true;
+            this.linkLikedPages.Location = new System.Drawing.Point(5, 187);
+            this.linkLikedPages.Name = "linkLikedPages";
+            this.linkLikedPages.Size = new System.Drawing.Size(89, 18);
+            this.linkLikedPages.TabIndex = 5;
+            this.linkLikedPages.TabStop = true;
+            this.linkLikedPages.Text = "Liked Pages";
+            this.linkLikedPages.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLikedPages_LinkClicked);
             // 
-            // linkLabel5
+            // linkFavoriteTeams
             // 
-            this.linkLabel5.AutoSize = true;
-            this.linkLabel5.Location = new System.Drawing.Point(5, 149);
-            this.linkLabel5.Name = "linkLabel5";
-            this.linkLabel5.Size = new System.Drawing.Size(111, 18);
-            this.linkLabel5.TabIndex = 4;
-            this.linkLabel5.TabStop = true;
-            this.linkLabel5.Text = "Favorite Teams";
+            this.linkFavoriteTeams.AutoSize = true;
+            this.linkFavoriteTeams.Location = new System.Drawing.Point(5, 149);
+            this.linkFavoriteTeams.Name = "linkFavoriteTeams";
+            this.linkFavoriteTeams.Size = new System.Drawing.Size(111, 18);
+            this.linkFavoriteTeams.TabIndex = 4;
+            this.linkFavoriteTeams.TabStop = true;
+            this.linkFavoriteTeams.Text = "Favorite Teams";
+            this.linkFavoriteTeams.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFavoriteTeams_LinkClicked_1);
             // 
-            // linkLabel4
+            // linkGroups
             // 
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(5, 115);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(58, 18);
-            this.linkLabel4.TabIndex = 3;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "Groups";
+            this.linkGroups.AutoSize = true;
+            this.linkGroups.Location = new System.Drawing.Point(5, 115);
+            this.linkGroups.Name = "linkGroups";
+            this.linkGroups.Size = new System.Drawing.Size(58, 18);
+            this.linkGroups.TabIndex = 3;
+            this.linkGroups.TabStop = true;
+            this.linkGroups.Text = "Groups";
+            this.linkGroups.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGroups_LinkClicked);
             // 
-            // linkLabel3
+            // linkFacebookEvents
             // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(5, 79);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(53, 18);
-            this.linkLabel3.TabIndex = 2;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Events";
+            this.linkFacebookEvents.AutoSize = true;
+            this.linkFacebookEvents.Location = new System.Drawing.Point(5, 79);
+            this.linkFacebookEvents.Name = "linkFacebookEvents";
+            this.linkFacebookEvents.Size = new System.Drawing.Size(53, 18);
+            this.linkFacebookEvents.TabIndex = 2;
+            this.linkFacebookEvents.TabStop = true;
+            this.linkFacebookEvents.Text = "Events";
+            this.linkFacebookEvents.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFacebookEvents_LinkClicked);
             // 
-            // linkLabel2
+            // linkAlbums
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(5, 44);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(57, 18);
-            this.linkLabel2.TabIndex = 1;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Albums";
+            this.linkAlbums.AutoSize = true;
+            this.linkAlbums.Location = new System.Drawing.Point(5, 44);
+            this.linkAlbums.Name = "linkAlbums";
+            this.linkAlbums.Size = new System.Drawing.Size(57, 18);
+            this.linkAlbums.TabIndex = 1;
+            this.linkAlbums.TabStop = true;
+            this.linkAlbums.Text = "Albums";
+            this.linkAlbums.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAlbums_LinkClicked);
             // 
-            // linkLabel1
+            // linkPosts
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(5, 9);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(47, 18);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Posts";
+            this.linkPosts.AutoSize = true;
+            this.linkPosts.Location = new System.Drawing.Point(5, 9);
+            this.linkPosts.Name = "linkPosts";
+            this.linkPosts.Size = new System.Drawing.Size(47, 18);
+            this.linkPosts.TabIndex = 0;
+            this.linkPosts.TabStop = true;
+            this.linkPosts.Text = "Posts";
+            this.linkPosts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPosts_LinkClicked);
+            // 
+            // pictureBoxMainTabLogedInUser
+            // 
+            this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(591, 6);
+            this.pictureBoxMainTabLogedInUser.Name = "pictureBoxMainTabLogedInUser";
+            this.pictureBoxMainTabLogedInUser.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxMainTabLogedInUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxMainTabLogedInUser.TabIndex = 3;
+            this.pictureBoxMainTabLogedInUser.TabStop = false;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 18;
-            this.listBox2.Location = new System.Drawing.Point(181, 229);
+            this.listBox2.Location = new System.Drawing.Point(185, 247);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(468, 94);
+            this.listBox2.Size = new System.Drawing.Size(468, 112);
             this.listBox2.TabIndex = 2;
             // 
-            // pictureBox1
+            // pictureBoxMainTab
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(474, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(178, 166);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxMainTab.Location = new System.Drawing.Point(477, 72);
+            this.pictureBoxMainTab.Name = "pictureBoxMainTab";
+            this.pictureBoxMainTab.Size = new System.Drawing.Size(170, 170);
+            this.pictureBoxMainTab.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxMainTab.TabIndex = 1;
+            this.pictureBoxMainTab.TabStop = false;
             // 
-            // listBox1
+            // listBoxMainTab
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 18;
-            this.listBox1.Location = new System.Drawing.Point(3, 3);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(468, 220);
-            this.listBox1.TabIndex = 0;
+            this.listBoxMainTab.FormattingEnabled = true;
+            this.listBoxMainTab.ItemHeight = 18;
+            this.listBoxMainTab.Location = new System.Drawing.Point(3, 3);
+            this.listBoxMainTab.Name = "listBoxMainTab";
+            this.listBoxMainTab.Size = new System.Drawing.Size(468, 238);
+            this.listBoxMainTab.TabIndex = 0;
+            this.listBoxMainTab.SelectedIndexChanged += new System.EventHandler(this.listBoxMainTabMain_SelectedIndexChanged);
             // 
             // tabPage3
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(854, 339);
+            this.tabPage3.Size = new System.Drawing.Size(856, 380);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // linkLabelActivity
+            // 
+            this.linkLabelActivity.AutoSize = true;
+            this.linkLabelActivity.Location = new System.Drawing.Point(5, 262);
+            this.linkLabelActivity.Name = "linkLabelActivity";
+            this.linkLabelActivity.Size = new System.Drawing.Size(67, 24);
+            this.linkLabelActivity.TabIndex = 7;
+            this.linkLabelActivity.TabStop = true;
+            this.linkLabelActivity.Text = "Activity";
+            this.linkLabelActivity.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelActivity_LinkClicked);
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 411);
             this.Controls.Add(this.tabControl1);
@@ -315,7 +349,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -333,16 +368,18 @@
         private System.Windows.Forms.Button buttonConnectAsDesig;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.LinkLabel linkLabel5;
-        private System.Windows.Forms.LinkLabel linkLabel4;
-        private System.Windows.Forms.LinkLabel linkLabel3;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.LinkLabel linkLabel7;
-        private System.Windows.Forms.LinkLabel linkLabel6;
+        private System.Windows.Forms.LinkLabel linkFavoriteTeams;
+        private System.Windows.Forms.LinkLabel linkGroups;
+        private System.Windows.Forms.LinkLabel linkFacebookEvents;
+        private System.Windows.Forms.LinkLabel linkAlbums;
+        private System.Windows.Forms.LinkLabel linkPosts;
+        private System.Windows.Forms.LinkLabel linkFavoriteMusicArtists;
+        private System.Windows.Forms.LinkLabel linkLikedPages;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.PictureBox pictureBoxMainTab;
+        private System.Windows.Forms.ListBox listBoxMainTab;
+        private System.Windows.Forms.PictureBox pictureBoxMainTabLogedInUser;
+        private System.Windows.Forms.LinkLabel linkLabelActivity;
     }
 }
 
