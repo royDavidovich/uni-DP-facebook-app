@@ -46,12 +46,12 @@
             this.linkFacebookEvents = new System.Windows.Forms.LinkLabel();
             this.linkAlbums = new System.Windows.Forms.LinkLabel();
             this.linkPosts = new System.Windows.Forms.LinkLabel();
+            this.linkLabelActivity = new System.Windows.Forms.LinkLabel();
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.linkLabelActivity = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -93,7 +93,7 @@
             this.label1.Location = new System.Drawing.Point(314, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 72);
+            this.label1.Size = new System.Drawing.Size(311, 54);
             this.label1.TabIndex = 53;
             this.label1.Text = "This is the AppID of \"Design Patterns App 2.4\".\r\nThe grader will use it to test y" +
     "our app.\r\nType here your own AppID to test it:\r\n";
@@ -118,7 +118,7 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 31);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(856, 380);
@@ -150,14 +150,14 @@
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(319, 126);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(446, 28);
+            this.textBoxAppID.Size = new System.Drawing.Size(446, 24);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "1919347028928660";
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.splitContainer1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 31);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(856, 380);
@@ -269,6 +269,17 @@
             this.linkPosts.Text = "Posts";
             this.linkPosts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPosts_LinkClicked);
             // 
+            // linkLabelActivity
+            // 
+            this.linkLabelActivity.AutoSize = true;
+            this.linkLabelActivity.Location = new System.Drawing.Point(5, 262);
+            this.linkLabelActivity.Name = "linkLabelActivity";
+            this.linkLabelActivity.Size = new System.Drawing.Size(53, 18);
+            this.linkLabelActivity.TabIndex = 7;
+            this.linkLabelActivity.TabStop = true;
+            this.linkLabelActivity.Text = "Activity";
+            this.linkLabelActivity.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelActivity_LinkClicked);
+            // 
             // pictureBoxMainTabLogedInUser
             // 
             this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(591, 6);
@@ -313,23 +324,12 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(856, 380);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "N8N";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelActivity
-            // 
-            this.linkLabelActivity.AutoSize = true;
-            this.linkLabelActivity.Location = new System.Drawing.Point(5, 262);
-            this.linkLabelActivity.Name = "linkLabelActivity";
-            this.linkLabelActivity.Size = new System.Drawing.Size(67, 24);
-            this.linkLabelActivity.TabIndex = 7;
-            this.linkLabelActivity.TabStop = true;
-            this.linkLabelActivity.Text = "Activity";
-            this.linkLabelActivity.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelActivity_LinkClicked);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 411);
             this.Controls.Add(this.tabControl1);
