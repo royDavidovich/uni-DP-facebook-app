@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Windows.Forms.DataVisualization.Charting;
+using BasicFacebookFeatures;
 
 namespace BasicFacebookFeatures
 {
@@ -16,6 +18,7 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
+            this.MinimumSize = new Size(800, 400);
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
@@ -100,6 +103,36 @@ namespace BasicFacebookFeatures
             buttonLogout.Enabled = false;
         }
 
+        private void linkLabelActivity_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null)
+            {
+                MessageBox.Show("Please login to Facebook first.");
+                return;
+            }
+
+            foreach (TabPage page in tabControl1.TabPages)
+            {
+                if (page.Name == "tabActivity")
+                {
+                    tabControl1.SelectedTab = page;
+                    return;
+                }
+            }
+
+            TabPage activityPage = new TabPage("Activity");
+            activityPage.Name = "tabActivity";
+
+            chartActivity activityTabView = new chartActivity();
+            activityTabView.Dock = DockStyle.Fill;
+
+            activityTabView.SetLoggedInUser(m_LoginResult.LoggedInUser);
+
+            activityPage.Controls.Add(activityTabView);
+            tabControl1.TabPages.Add(activityPage);
+            tabControl1.SelectedTab = activityPage;
+         }
+         
         private void linkPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
