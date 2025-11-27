@@ -38,23 +38,23 @@ namespace BasicFacebookFeatures
 
             switch (comboBoxTime.SelectedIndex)
             {
-                case 0: // חודש
+                case 0:
                     points = getActivityLastMonth();
                     mode = "Month";
-                    title = "Activity – last month";
+                    title = "Post Activity – last month";
                     break;
 
-                case 1: // שנה
+                case 1:
                     points = getActivityLastYear();
                     mode = "Year";
-                    title = "Activity – last year";
+                    title = "Post Activity – last year";
                     break;
 
-                case 2: // מאז ומתמיד
+                case 2:
                 default:
                     points = getActivityFromBeginning();
                     mode = "AllYears";
-                    title = "Activity – since account created";
+                    title = "Post Activity – since account created";
                     break;
             }
 
@@ -80,7 +80,7 @@ namespace BasicFacebookFeatures
             ChartArea area = new ChartArea("MainArea");
             chartActivity1.ChartAreas.Add(area);
 
-            Series series = new Series("Activity");
+            Series series = new Series("Post Activity");
             series.ChartType = SeriesChartType.Line;
             series.XValueType = ChartValueType.String;
             series.YValueType = ChartValueType.Int32;
