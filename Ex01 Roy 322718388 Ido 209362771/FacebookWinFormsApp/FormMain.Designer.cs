@@ -39,14 +39,6 @@
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.linkFavoriteMusicArtists = new System.Windows.Forms.LinkLabel();
-            this.linkLikedPages = new System.Windows.Forms.LinkLabel();
-            this.linkFavoriteTeams = new System.Windows.Forms.LinkLabel();
-            this.linkGroups = new System.Windows.Forms.LinkLabel();
-            this.linkFacebookEvents = new System.Windows.Forms.LinkLabel();
-            this.linkAlbums = new System.Windows.Forms.LinkLabel();
-            this.linkPosts = new System.Windows.Forms.LinkLabel();
-            this.linkLabelActivity = new System.Windows.Forms.LinkLabel();
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
@@ -190,14 +182,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.buttonEvent);
             this.splitContainer1.Panel1.Controls.Add(this.buttonAlbums);
             this.splitContainer1.Panel1.Controls.Add(this.buttonPosts);
-            this.splitContainer1.Panel1.Controls.Add(this.linkFavoriteMusicArtists);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLikedPages);
-            this.splitContainer1.Panel1.Controls.Add(this.linkFavoriteTeams);
-            this.splitContainer1.Panel1.Controls.Add(this.linkGroups);
-            this.splitContainer1.Panel1.Controls.Add(this.linkFacebookEvents);
-            this.splitContainer1.Panel1.Controls.Add(this.linkAlbums);
-            this.splitContainer1.Panel1.Controls.Add(this.linkPosts);
-            this.splitContainer1.Panel1.Controls.Add(this.linkLabelActivity);
             // 
             // splitContainer1.Panel2
             // 
@@ -209,94 +193,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(850, 370);
             this.splitContainer1.SplitterDistance = 190;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // linkFavoriteMusicArtists
-            // 
-            this.linkFavoriteMusicArtists.AutoSize = true;
-            this.linkFavoriteMusicArtists.Location = new System.Drawing.Point(5, 224);
-            this.linkFavoriteMusicArtists.Name = "linkFavoriteMusicArtists";
-            this.linkFavoriteMusicArtists.Size = new System.Drawing.Size(186, 24);
-            this.linkFavoriteMusicArtists.TabIndex = 6;
-            this.linkFavoriteMusicArtists.TabStop = true;
-            this.linkFavoriteMusicArtists.Text = "Favorite Music Artists";
-            this.linkFavoriteMusicArtists.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFavoriteMusicArtists_LinkClicked);
-            // 
-            // linkLikedPages
-            // 
-            this.linkLikedPages.AutoSize = true;
-            this.linkLikedPages.Location = new System.Drawing.Point(5, 187);
-            this.linkLikedPages.Name = "linkLikedPages";
-            this.linkLikedPages.Size = new System.Drawing.Size(113, 24);
-            this.linkLikedPages.TabIndex = 5;
-            this.linkLikedPages.TabStop = true;
-            this.linkLikedPages.Text = "Liked Pages";
-            this.linkLikedPages.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLikedPages_LinkClicked);
-            // 
-            // linkFavoriteTeams
-            // 
-            this.linkFavoriteTeams.AutoSize = true;
-            this.linkFavoriteTeams.Location = new System.Drawing.Point(5, 149);
-            this.linkFavoriteTeams.Name = "linkFavoriteTeams";
-            this.linkFavoriteTeams.Size = new System.Drawing.Size(140, 24);
-            this.linkFavoriteTeams.TabIndex = 4;
-            this.linkFavoriteTeams.TabStop = true;
-            this.linkFavoriteTeams.Text = "Favorite Teams";
-            this.linkFavoriteTeams.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFavoriteTeams_LinkClicked_1);
-            // 
-            // linkGroups
-            // 
-            this.linkGroups.AutoSize = true;
-            this.linkGroups.Location = new System.Drawing.Point(5, 115);
-            this.linkGroups.Name = "linkGroups";
-            this.linkGroups.Size = new System.Drawing.Size(72, 24);
-            this.linkGroups.TabIndex = 3;
-            this.linkGroups.TabStop = true;
-            this.linkGroups.Text = "Groups";
-            this.linkGroups.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGroups_LinkClicked);
-            // 
-            // linkFacebookEvents
-            // 
-            this.linkFacebookEvents.AutoSize = true;
-            this.linkFacebookEvents.Location = new System.Drawing.Point(5, 79);
-            this.linkFacebookEvents.Name = "linkFacebookEvents";
-            this.linkFacebookEvents.Size = new System.Drawing.Size(67, 24);
-            this.linkFacebookEvents.TabIndex = 2;
-            this.linkFacebookEvents.TabStop = true;
-            this.linkFacebookEvents.Text = "Events";
-            this.linkFacebookEvents.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFacebookEvents_LinkClicked);
-            // 
-            // linkAlbums
-            // 
-            this.linkAlbums.AutoSize = true;
-            this.linkAlbums.Location = new System.Drawing.Point(5, 44);
-            this.linkAlbums.Name = "linkAlbums";
-            this.linkAlbums.Size = new System.Drawing.Size(74, 24);
-            this.linkAlbums.TabIndex = 1;
-            this.linkAlbums.TabStop = true;
-            this.linkAlbums.Text = "Albums";
-            this.linkAlbums.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAlbums_LinkClicked);
-            // 
-            // linkPosts
-            // 
-            this.linkPosts.AutoSize = true;
-            this.linkPosts.Location = new System.Drawing.Point(5, 9);
-            this.linkPosts.Name = "linkPosts";
-            this.linkPosts.Size = new System.Drawing.Size(55, 24);
-            this.linkPosts.TabIndex = 0;
-            this.linkPosts.TabStop = true;
-            this.linkPosts.Text = "Posts";
-            this.linkPosts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPosts_LinkClicked);
-            // 
-            // linkLabelActivity
-            // 
-            this.linkLabelActivity.AutoSize = true;
-            this.linkLabelActivity.Location = new System.Drawing.Point(5, 262);
-            this.linkLabelActivity.Name = "linkLabelActivity";
-            this.linkLabelActivity.Size = new System.Drawing.Size(67, 24);
-            this.linkLabelActivity.TabIndex = 7;
-            this.linkLabelActivity.TabStop = true;
-            this.linkLabelActivity.Text = "Activity";
-            this.linkLabelActivity.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelActivity_LinkClicked);
             // 
             // pictureBoxMainTabLogedInUser
             // 
@@ -478,7 +374,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -500,18 +395,10 @@
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Button buttonConnectAsDesig;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.LinkLabel linkFavoriteTeams;
-        private System.Windows.Forms.LinkLabel linkGroups;
-        private System.Windows.Forms.LinkLabel linkFacebookEvents;
-        private System.Windows.Forms.LinkLabel linkAlbums;
-        private System.Windows.Forms.LinkLabel linkPosts;
-        private System.Windows.Forms.LinkLabel linkFavoriteMusicArtists;
-        private System.Windows.Forms.LinkLabel linkLikedPages;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.PictureBox pictureBoxMainTab;
         private System.Windows.Forms.ListBox listBoxMainTab;
         private System.Windows.Forms.PictureBox pictureBoxMainTabLogedInUser;
-        private System.Windows.Forms.LinkLabel linkLabelActivity;
         private System.Windows.Forms.Button buttonAlbums;
         private System.Windows.Forms.Button buttonPosts;
         private System.Windows.Forms.Button buttonFavMusic;
