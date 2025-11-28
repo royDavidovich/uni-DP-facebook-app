@@ -15,6 +15,9 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        LoginResult m_LoginResult;
+        User m_LoggedInUser;
+
         public FormMain()
         {
             InitializeComponent();
@@ -22,12 +25,8 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
-        LoginResult m_LoginResult;
-        User m_LoggedInUser;
-
         // This delegate will handle the selected item depending on current mode
         private Action<object> m_OnMainSelectionChanged;
-
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -66,7 +65,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-
         private void buttonConnectAsDesig_Click(object sender, EventArgs e)
         {
             try
@@ -91,6 +89,8 @@ namespace BasicFacebookFeatures
             pictureBoxMainTabLogedInUser.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
+            vibeShifter1.LoggedInUser = m_LoggedInUser;
+            vibeShifter1.AccessToken = m_LoginResult.AccessToken;
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -101,48 +101,6 @@ namespace BasicFacebookFeatures
             m_LoginResult = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
-        }
-
-        private void linkLabelActivity_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null)
-            {
-                MessageBox.Show("Please login to Facebook first.");
-                return;
-            }
-
-            foreach (TabPage page in tabControl1.TabPages)
-            {
-                if (page.Name == "tabActivity")
-                {
-                    tabControl1.SelectedTab = page;
-                    return;
-                }
-            }
-
-            TabPage activityPage = new TabPage("Activity");
-            activityPage.Name = "tabActivity";
-
-            chartActivity activityTabView = new chartActivity();
-            activityTabView.Dock = DockStyle.Fill;
-
-            activityTabView.SetLoggedInUser(m_LoginResult.LoggedInUser);
-
-            activityPage.Controls.Add(activityTabView);
-            tabControl1.TabPages.Add(activityPage);
-            tabControl1.SelectedTab = activityPage;
-         }
-         
-        private void linkPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                fetchPosts();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         /// <summary>
@@ -174,18 +132,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void linkAlbums_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                fetchAlbums();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void fetchAlbums()
         {
             m_OnMainSelectionChanged = handleAlbumSelected;
@@ -208,11 +154,6 @@ namespace BasicFacebookFeatures
             {
                 pictureBoxMainTab.LoadAsync(album.PictureAlbumURL);
             }
-        }
-
-        private void linkFavoriteTeams_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchFavoriteTeams();
         }
 
         private void fetchFavoriteTeams()
@@ -249,18 +190,6 @@ namespace BasicFacebookFeatures
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
         }
 
-        private void linkFacebookEvents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                fetchEvents();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void fetchEvents()
         {
             listBoxMainTab.Items.Clear();
@@ -274,7 +203,7 @@ namespace BasicFacebookFeatures
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -291,11 +220,6 @@ namespace BasicFacebookFeatures
             {
                 pictureBoxMainTab.LoadAsync(fbEvent.Cover.SourceURL);
             }
-        }
-
-        private void linkLikedPages_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchLikedPages();
         }
 
         private void fetchLikedPages()
@@ -330,47 +254,12 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void linkGroups_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleGroupSelected;
-            try
-            {
-                foreach (Group group in m_LoggedInUser.Groups)
-                {
-                    listBoxMainTab.Items.Add(group);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No groups to retrieve :(");
-            }
-        }
-
         private void handleGroupSelected(object obj)
         {
             if (listBoxMainTab.SelectedItems.Count == 1)
             {
                 Group selectedGroup = listBoxMainTab.SelectedItem as Group;
                 pictureBoxMainTab.LoadAsync(selectedGroup.PictureNormalURL);
-            }
-        }
-
-        private void linkFavoriteMusicArtists_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                fetchMusic();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -397,6 +286,157 @@ namespace BasicFacebookFeatures
                 Page selectedItem = listBoxMainTab.SelectedItem as Page;
                 pictureBoxMainTab.LoadAsync(selectedItem.PictureNormalURL);
             }
+        }
+
+        private void buttonPosts_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchPosts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonAlbums_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchAlbums();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonEvent_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchEvents();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonGroups_Click(object sender, EventArgs e)
+        {
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleGroupSelected;
+
+            try
+            {
+                foreach (Group group in m_LoggedInUser.Groups)
+                {
+                    listBoxMainTab.Items.Add(group);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No groups to retrieve :(");
+            }
+        }
+
+        private void buttonFavTeams_Click(object sender, EventArgs e)
+        {
+            fetchFavoriteTeams();
+        }
+
+        private void buttonLikedPaged_Click(object sender, EventArgs e)
+        {
+            fetchLikedPages();
+        }
+
+        private void buttonFavMusic_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchMusic();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonActivity_Click(object sender, EventArgs e)
+        {
+            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null)
+            {
+                MessageBox.Show("Please login to Facebook first.");
+                return;
+            }
+
+            foreach (TabPage page in tabControl1.TabPages)
+            {
+                if (page.Name == "tabActivity")
+                {
+                    tabControl1.SelectedTab = page;
+                    return;
+                }
+            }
+
+            TabPage activityPage = new TabPage("Activity");
+            activityPage.Name = "tabActivity";
+
+            chartActivity activityTabView = new chartActivity();
+            activityTabView.Dock = DockStyle.Fill;
+
+            activityTabView.SetLoggedInUser(m_LoginResult.LoggedInUser);
+
+            activityPage.Controls.Add(activityTabView);
+            tabControl1.TabPages.Add(activityPage);
+            tabControl1.SelectedTab = activityPage;
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            UpdateMainLayout();
+        }
+
+        private void UpdateMainLayout()
+        {
+            listBoxMainTab.Left = (int)(buttonPosts.Left);
+            listBoxMainTab.Width = (int)(this.ClientSize.Width * 0.5);
+            listBoxMainTab.Height = this.ClientSize.Height - listBoxMainTab.Top;
+
+            int leftAfterListBox = listBoxMainTab.Right;
+            int freeSpace = splitContainer1.Panel2.ClientSize.Width - leftAfterListBox;
+            pictureBoxMainTabLogedInUser.Width = (int)(freeSpace * 0.4);
+            pictureBoxMainTabLogedInUser.Height = pictureBoxMainTabLogedInUser.Width;
+            pictureBoxMainTabLogedInUser.Left = leftAfterListBox + (freeSpace - pictureBoxMainTabLogedInUser.Width) / 2;
+            pictureBoxMainTabLogedInUser.Top = (int)(0.1 * splitContainer1.Panel2.ClientSize.Height);
+            MakePictureCircular(pictureBoxMainTabLogedInUser);
+
+            pictureBoxMainTab.Width = (int)(freeSpace * 0.8);
+            pictureBoxMainTab.Height = pictureBoxMainTab.Width;
+            pictureBoxMainTab.Left = leftAfterListBox + (freeSpace - pictureBoxMainTab.Width) / 2;
+            pictureBoxMainTab.Top = pictureBoxMainTabLogedInUser.Bottom + (int)(0.5*(splitContainer1.Panel2.ClientSize.Height - pictureBoxMainTabLogedInUser.Bottom - pictureBoxMainTab.Height));
+
+        }
+
+        private void MakePictureCircular(PictureBox pb)
+        {
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddEllipse(0, 0, pb.Width, pb.Height);
+            pb.Region = new Region(path);
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            UpdateMainLayout();
         }
     }
 }
