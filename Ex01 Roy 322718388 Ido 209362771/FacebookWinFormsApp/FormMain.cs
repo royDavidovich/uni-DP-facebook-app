@@ -15,15 +15,15 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        LoginResult m_LoginResult;
+        User m_LoggedInUser;
+
         public FormMain()
         {
             InitializeComponent();
             this.MinimumSize = new Size(800, 400);
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
-
-        LoginResult m_LoginResult;
-        User m_LoggedInUser;
 
         // This delegate will handle the selected item depending on current mode
         private Action<object> m_OnMainSelectionChanged;
@@ -89,6 +89,8 @@ namespace BasicFacebookFeatures
             pictureBoxMainTabLogedInUser.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
+            vibeShifter1.LoggedInUser = m_LoggedInUser;
+            vibeShifter1.AccessToken = m_LoginResult.AccessToken;
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)

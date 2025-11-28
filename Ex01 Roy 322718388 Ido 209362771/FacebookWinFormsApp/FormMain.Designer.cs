@@ -50,6 +50,8 @@
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            //this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
             this.buttonPostWithAI = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -61,6 +63,7 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -92,7 +95,7 @@
             this.label1.Location = new System.Drawing.Point(314, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 72);
+            this.label1.Size = new System.Drawing.Size(311, 54);
             this.label1.TabIndex = 53;
             this.label1.Text = "This is the AppID of \"Design Patterns App 2.4\".\r\nThe grader will use it to test y" +
     "our app.\r\nType here your own AppID to test it:\r\n";
@@ -149,7 +152,7 @@
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(319, 126);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(446, 28);
+            this.textBoxAppID.Size = new System.Drawing.Size(446, 24);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "1919347028928660";
             // 
@@ -314,6 +317,17 @@
             this.buttonPosts.UseVisualStyleBackColor = false;
             this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
             // 
+            // linkLabelActivity
+            // 
+            this.linkLabelActivity.AutoSize = true;
+            this.linkLabelActivity.Location = new System.Drawing.Point(5, 262);
+            this.linkLabelActivity.Name = "linkLabelActivity";
+            this.linkLabelActivity.Size = new System.Drawing.Size(53, 18);
+            this.linkLabelActivity.TabIndex = 7;
+            this.linkLabelActivity.TabStop = true;
+            this.linkLabelActivity.Text = "Activity";
+            this.linkLabelActivity.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelActivity_LinkClicked);
+            // 
             // pictureBoxMainTabLogedInUser
             // 
             this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(591, 6);
@@ -344,6 +358,26 @@
             this.listBoxMainTab.TabIndex = 0;
             this.listBoxMainTab.SelectedIndexChanged += new System.EventHandler(this.listBoxMainTabMain_SelectedIndexChanged);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.vibeShifter1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(856, 380);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "postingTab";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // vibeShifter1
+            // 
+            this.vibeShifter1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vibeShifter1.Location = new System.Drawing.Point(3, 3);
+            this.vibeShifter1.LoggedInUser = null;
+            this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vibeShifter1.Name = "vibeShifter1";
+            this.vibeShifter1.Size = new System.Drawing.Size(850, 374);
+            this.vibeShifter1.TabIndex = 0;
             // buttonPostWithAI
             // 
             this.buttonPostWithAI.BackColor = System.Drawing.Color.MidnightBlue;
@@ -360,7 +394,7 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(864, 446);
@@ -384,6 +418,7 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -403,6 +438,8 @@
         private System.Windows.Forms.PictureBox pictureBoxMainTab;
         private System.Windows.Forms.ListBox listBoxMainTab;
         private System.Windows.Forms.PictureBox pictureBoxMainTabLogedInUser;
+//         private System.Windows.Forms.LinkLabel linkLabelActivity;
+        private VibeShifter vibeShifter1;
         private System.Windows.Forms.Button buttonAlbums;
         private System.Windows.Forms.Button buttonPosts;
         private System.Windows.Forms.Button buttonFavMusic;
