@@ -41,20 +41,20 @@ namespace BasicFacebookFeatures
                 case 0:
                     points = getActivityLastMonth();
                     mode = "Month";
-                    title = "Post Activity – last month";
+                    title = "Activity – last month";
                     break;
 
                 case 1:
                     points = getActivityLastYear();
                     mode = "Year";
-                    title = "Post Activity – last year";
+                    title = "Activity – last year";
                     break;
 
                 case 2:
                 default:
                     points = getActivityFromBeginning();
                     mode = "AllYears";
-                    title = "Post Activity – since account created";
+                    title = "Activity – since account created";
                     break;
             }
 

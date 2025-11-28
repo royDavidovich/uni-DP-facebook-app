@@ -39,18 +39,18 @@
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonActivity = new System.Windows.Forms.Button();
+            this.buttonFavMusic = new System.Windows.Forms.Button();
+            this.buttonLikedPaged = new System.Windows.Forms.Button();
+            this.buttonFavTeams = new System.Windows.Forms.Button();
+            this.buttonGroups = new System.Windows.Forms.Button();
+            this.buttonEvent = new System.Windows.Forms.Button();
+            this.buttonAlbums = new System.Windows.Forms.Button();
+            this.buttonPosts = new System.Windows.Forms.Button();
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
-            this.buttonPosts = new System.Windows.Forms.Button();
-            this.buttonAlbums = new System.Windows.Forms.Button();
-            this.buttonEvent = new System.Windows.Forms.Button();
-            this.buttonGroups = new System.Windows.Forms.Button();
-            this.buttonFavTeams = new System.Windows.Forms.Button();
-            this.buttonLikedPaged = new System.Windows.Forms.Button();
-            this.buttonFavMusic = new System.Windows.Forms.Button();
-            this.buttonActivity = new System.Windows.Forms.Button();
+            this.buttonPostWithAI = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -105,7 +105,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(864, 411);
+            this.tabControl1.Size = new System.Drawing.Size(864, 446);
             this.tabControl1.TabIndex = 54;
             // 
             // tabPage1
@@ -161,7 +161,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(856, 376);
+            this.tabPage2.Size = new System.Drawing.Size(856, 411);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "mainTab";
             // 
@@ -174,6 +174,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.splitContainer1.Panel1.Controls.Add(this.buttonPostWithAI);
             this.splitContainer1.Panel1.Controls.Add(this.buttonActivity);
             this.splitContainer1.Panel1.Controls.Add(this.buttonFavMusic);
             this.splitContainer1.Panel1.Controls.Add(this.buttonLikedPaged);
@@ -187,12 +188,131 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
-            this.splitContainer1.Panel2.Controls.Add(this.listBox2);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTab);
             this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTab);
-            this.splitContainer1.Size = new System.Drawing.Size(850, 370);
+            this.splitContainer1.Size = new System.Drawing.Size(850, 405);
             this.splitContainer1.SplitterDistance = 190;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // buttonActivity
+            // 
+            this.buttonActivity.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonActivity.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonActivity.FlatAppearance.BorderSize = 0;
+            this.buttonActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonActivity.ForeColor = System.Drawing.Color.White;
+            this.buttonActivity.Location = new System.Drawing.Point(0, 287);
+            this.buttonActivity.Name = "buttonActivity";
+            this.buttonActivity.Size = new System.Drawing.Size(190, 41);
+            this.buttonActivity.TabIndex = 15;
+            this.buttonActivity.Text = "Activity";
+            this.buttonActivity.UseVisualStyleBackColor = false;
+            this.buttonActivity.Click += new System.EventHandler(this.buttonActivity_Click);
+            // 
+            // buttonFavMusic
+            // 
+            this.buttonFavMusic.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonFavMusic.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonFavMusic.FlatAppearance.BorderSize = 0;
+            this.buttonFavMusic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFavMusic.ForeColor = System.Drawing.Color.White;
+            this.buttonFavMusic.Location = new System.Drawing.Point(0, 246);
+            this.buttonFavMusic.Name = "buttonFavMusic";
+            this.buttonFavMusic.Size = new System.Drawing.Size(190, 41);
+            this.buttonFavMusic.TabIndex = 14;
+            this.buttonFavMusic.Text = "Favorite Music";
+            this.buttonFavMusic.UseVisualStyleBackColor = false;
+            this.buttonFavMusic.Click += new System.EventHandler(this.buttonFavMusic_Click);
+            // 
+            // buttonLikedPaged
+            // 
+            this.buttonLikedPaged.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonLikedPaged.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonLikedPaged.FlatAppearance.BorderSize = 0;
+            this.buttonLikedPaged.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLikedPaged.ForeColor = System.Drawing.Color.White;
+            this.buttonLikedPaged.Location = new System.Drawing.Point(0, 205);
+            this.buttonLikedPaged.Name = "buttonLikedPaged";
+            this.buttonLikedPaged.Size = new System.Drawing.Size(190, 41);
+            this.buttonLikedPaged.TabIndex = 13;
+            this.buttonLikedPaged.Text = "Liked Paged";
+            this.buttonLikedPaged.UseVisualStyleBackColor = false;
+            this.buttonLikedPaged.Click += new System.EventHandler(this.buttonLikedPaged_Click);
+            // 
+            // buttonFavTeams
+            // 
+            this.buttonFavTeams.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonFavTeams.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonFavTeams.FlatAppearance.BorderSize = 0;
+            this.buttonFavTeams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFavTeams.ForeColor = System.Drawing.Color.White;
+            this.buttonFavTeams.Location = new System.Drawing.Point(0, 164);
+            this.buttonFavTeams.Name = "buttonFavTeams";
+            this.buttonFavTeams.Size = new System.Drawing.Size(190, 41);
+            this.buttonFavTeams.TabIndex = 12;
+            this.buttonFavTeams.Text = "Favorite Teams";
+            this.buttonFavTeams.UseVisualStyleBackColor = false;
+            this.buttonFavTeams.Click += new System.EventHandler(this.buttonFavTeams_Click);
+            // 
+            // buttonGroups
+            // 
+            this.buttonGroups.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonGroups.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonGroups.FlatAppearance.BorderSize = 0;
+            this.buttonGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGroups.ForeColor = System.Drawing.Color.White;
+            this.buttonGroups.Location = new System.Drawing.Point(0, 123);
+            this.buttonGroups.Name = "buttonGroups";
+            this.buttonGroups.Size = new System.Drawing.Size(190, 41);
+            this.buttonGroups.TabIndex = 11;
+            this.buttonGroups.Text = "Groups";
+            this.buttonGroups.UseVisualStyleBackColor = false;
+            this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
+            // 
+            // buttonEvent
+            // 
+            this.buttonEvent.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonEvent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonEvent.FlatAppearance.BorderSize = 0;
+            this.buttonEvent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEvent.ForeColor = System.Drawing.Color.White;
+            this.buttonEvent.Location = new System.Drawing.Point(0, 82);
+            this.buttonEvent.Name = "buttonEvent";
+            this.buttonEvent.Size = new System.Drawing.Size(190, 41);
+            this.buttonEvent.TabIndex = 10;
+            this.buttonEvent.Text = "Event";
+            this.buttonEvent.UseVisualStyleBackColor = false;
+            this.buttonEvent.Click += new System.EventHandler(this.buttonEvent_Click);
+            // 
+            // buttonAlbums
+            // 
+            this.buttonAlbums.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonAlbums.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonAlbums.FlatAppearance.BorderSize = 0;
+            this.buttonAlbums.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAlbums.ForeColor = System.Drawing.Color.White;
+            this.buttonAlbums.Location = new System.Drawing.Point(0, 41);
+            this.buttonAlbums.Name = "buttonAlbums";
+            this.buttonAlbums.Size = new System.Drawing.Size(190, 41);
+            this.buttonAlbums.TabIndex = 9;
+            this.buttonAlbums.Text = "Albums";
+            this.buttonAlbums.UseVisualStyleBackColor = false;
+            this.buttonAlbums.Click += new System.EventHandler(this.buttonAlbums_Click);
+            // 
+            // buttonPosts
+            // 
+            this.buttonPosts.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonPosts.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonPosts.FlatAppearance.BorderSize = 0;
+            this.buttonPosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPosts.ForeColor = System.Drawing.Color.White;
+            this.buttonPosts.Location = new System.Drawing.Point(0, 0);
+            this.buttonPosts.Name = "buttonPosts";
+            this.buttonPosts.Size = new System.Drawing.Size(190, 41);
+            this.buttonPosts.TabIndex = 8;
+            this.buttonPosts.Text = "Posts";
+            this.buttonPosts.UseVisualStyleBackColor = false;
+            this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
             // 
             // pictureBoxMainTabLogedInUser
             // 
@@ -202,17 +322,6 @@
             this.pictureBoxMainTabLogedInUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxMainTabLogedInUser.TabIndex = 3;
             this.pictureBoxMainTabLogedInUser.TabStop = false;
-            // 
-            // listBox2
-            // 
-            this.listBox2.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 22;
-            this.listBox2.Location = new System.Drawing.Point(185, 247);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(468, 110);
-            this.listBox2.TabIndex = 2;
             // 
             // pictureBoxMainTab
             // 
@@ -235,132 +344,26 @@
             this.listBoxMainTab.TabIndex = 0;
             this.listBoxMainTab.SelectedIndexChanged += new System.EventHandler(this.listBoxMainTabMain_SelectedIndexChanged);
             // 
-            // buttonPosts
+            // buttonPostWithAI
             // 
-            this.buttonPosts.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonPosts.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonPosts.FlatAppearance.BorderSize = 0;
-            this.buttonPosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPosts.ForeColor = System.Drawing.Color.White;
-            this.buttonPosts.Location = new System.Drawing.Point(0, 0);
-            this.buttonPosts.Name = "buttonPosts";
-            this.buttonPosts.Size = new System.Drawing.Size(190, 41);
-            this.buttonPosts.TabIndex = 8;
-            this.buttonPosts.Text = "Posts";
-            this.buttonPosts.UseVisualStyleBackColor = false;
-            this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
-            // 
-            // buttonAlbums
-            // 
-            this.buttonAlbums.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonAlbums.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonAlbums.FlatAppearance.BorderSize = 0;
-            this.buttonAlbums.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAlbums.ForeColor = System.Drawing.Color.White;
-            this.buttonAlbums.Location = new System.Drawing.Point(0, 41);
-            this.buttonAlbums.Name = "buttonAlbums";
-            this.buttonAlbums.Size = new System.Drawing.Size(190, 41);
-            this.buttonAlbums.TabIndex = 9;
-            this.buttonAlbums.Text = "Albums";
-            this.buttonAlbums.UseVisualStyleBackColor = false;
-            this.buttonAlbums.Click += new System.EventHandler(this.buttonAlbums_Click);
-            // 
-            // buttonEvent
-            // 
-            this.buttonEvent.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonEvent.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonEvent.FlatAppearance.BorderSize = 0;
-            this.buttonEvent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonEvent.ForeColor = System.Drawing.Color.White;
-            this.buttonEvent.Location = new System.Drawing.Point(0, 82);
-            this.buttonEvent.Name = "buttonEvent";
-            this.buttonEvent.Size = new System.Drawing.Size(190, 41);
-            this.buttonEvent.TabIndex = 10;
-            this.buttonEvent.Text = "Event";
-            this.buttonEvent.UseVisualStyleBackColor = false;
-            this.buttonEvent.Click += new System.EventHandler(this.buttonEvent_Click);
-            // 
-            // buttonGroups
-            // 
-            this.buttonGroups.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonGroups.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonGroups.FlatAppearance.BorderSize = 0;
-            this.buttonGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGroups.ForeColor = System.Drawing.Color.White;
-            this.buttonGroups.Location = new System.Drawing.Point(0, 123);
-            this.buttonGroups.Name = "buttonGroups";
-            this.buttonGroups.Size = new System.Drawing.Size(190, 41);
-            this.buttonGroups.TabIndex = 11;
-            this.buttonGroups.Text = "Groups";
-            this.buttonGroups.UseVisualStyleBackColor = false;
-            this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
-            // 
-            // buttonFavTeams
-            // 
-            this.buttonFavTeams.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonFavTeams.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonFavTeams.FlatAppearance.BorderSize = 0;
-            this.buttonFavTeams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonFavTeams.ForeColor = System.Drawing.Color.White;
-            this.buttonFavTeams.Location = new System.Drawing.Point(0, 164);
-            this.buttonFavTeams.Name = "buttonFavTeams";
-            this.buttonFavTeams.Size = new System.Drawing.Size(190, 41);
-            this.buttonFavTeams.TabIndex = 12;
-            this.buttonFavTeams.Text = "Favorite Teams";
-            this.buttonFavTeams.UseVisualStyleBackColor = false;
-            this.buttonFavTeams.Click += new System.EventHandler(this.buttonFavTeams_Click);
-            // 
-            // buttonLikedPaged
-            // 
-            this.buttonLikedPaged.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonLikedPaged.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonLikedPaged.FlatAppearance.BorderSize = 0;
-            this.buttonLikedPaged.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLikedPaged.ForeColor = System.Drawing.Color.White;
-            this.buttonLikedPaged.Location = new System.Drawing.Point(0, 205);
-            this.buttonLikedPaged.Name = "buttonLikedPaged";
-            this.buttonLikedPaged.Size = new System.Drawing.Size(190, 41);
-            this.buttonLikedPaged.TabIndex = 13;
-            this.buttonLikedPaged.Text = "Liked Paged";
-            this.buttonLikedPaged.UseVisualStyleBackColor = false;
-            this.buttonLikedPaged.Click += new System.EventHandler(this.buttonLikedPaged_Click);
-            // 
-            // buttonFavMusic
-            // 
-            this.buttonFavMusic.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonFavMusic.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonFavMusic.FlatAppearance.BorderSize = 0;
-            this.buttonFavMusic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonFavMusic.ForeColor = System.Drawing.Color.White;
-            this.buttonFavMusic.Location = new System.Drawing.Point(0, 246);
-            this.buttonFavMusic.Name = "buttonFavMusic";
-            this.buttonFavMusic.Size = new System.Drawing.Size(190, 41);
-            this.buttonFavMusic.TabIndex = 14;
-            this.buttonFavMusic.Text = "Favorite Music";
-            this.buttonFavMusic.UseVisualStyleBackColor = false;
-            this.buttonFavMusic.Click += new System.EventHandler(this.buttonFavMusic_Click);
-            // 
-            // buttonActivity
-            // 
-            this.buttonActivity.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonActivity.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonActivity.FlatAppearance.BorderSize = 0;
-            this.buttonActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonActivity.ForeColor = System.Drawing.Color.White;
-            this.buttonActivity.Location = new System.Drawing.Point(0, 287);
-            this.buttonActivity.Name = "buttonActivity";
-            this.buttonActivity.Size = new System.Drawing.Size(190, 41);
-            this.buttonActivity.TabIndex = 15;
-            this.buttonActivity.Text = "Activity";
-            this.buttonActivity.UseVisualStyleBackColor = false;
-            this.buttonActivity.Click += new System.EventHandler(this.buttonActivity_Click);
+            this.buttonPostWithAI.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonPostWithAI.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonPostWithAI.FlatAppearance.BorderSize = 0;
+            this.buttonPostWithAI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPostWithAI.ForeColor = System.Drawing.Color.White;
+            this.buttonPostWithAI.Location = new System.Drawing.Point(0, 328);
+            this.buttonPostWithAI.Name = "buttonPostWithAI";
+            this.buttonPostWithAI.Size = new System.Drawing.Size(190, 41);
+            this.buttonPostWithAI.TabIndex = 16;
+            this.buttonPostWithAI.Text = "Post With AI";
+            this.buttonPostWithAI.UseVisualStyleBackColor = false;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(864, 411);
+            this.ClientSize = new System.Drawing.Size(864, 446);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -368,6 +371,8 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "  Facebook";
+            this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -395,7 +400,6 @@
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Button buttonConnectAsDesig;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.PictureBox pictureBoxMainTab;
         private System.Windows.Forms.ListBox listBoxMainTab;
         private System.Windows.Forms.PictureBox pictureBoxMainTabLogedInUser;
@@ -407,6 +411,7 @@
         private System.Windows.Forms.Button buttonGroups;
         private System.Windows.Forms.Button buttonEvent;
         private System.Windows.Forms.Button buttonActivity;
+        private System.Windows.Forms.Button buttonPostWithAI;
     }
 }
 

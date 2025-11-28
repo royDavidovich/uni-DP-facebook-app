@@ -28,7 +28,6 @@ namespace BasicFacebookFeatures
         // This delegate will handle the selected item depending on current mode
         private Action<object> m_OnMainSelectionChanged;
 
-
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
@@ -202,7 +201,7 @@ namespace BasicFacebookFeatures
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -397,6 +396,45 @@ namespace BasicFacebookFeatures
             activityPage.Controls.Add(activityTabView);
             tabControl1.TabPages.Add(activityPage);
             tabControl1.SelectedTab = activityPage;
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            UpdateMainLayout();
+        }
+
+        private void UpdateMainLayout()
+        {
+            listBoxMainTab.Left = (int)(buttonPosts.Left);
+            listBoxMainTab.Width = (int)(this.ClientSize.Width * 0.5);
+            listBoxMainTab.Height = this.ClientSize.Height - listBoxMainTab.Top;
+
+            int leftAfterListBox = listBoxMainTab.Right;
+            int freeSpace = splitContainer1.Panel2.ClientSize.Width - leftAfterListBox;
+            pictureBoxMainTabLogedInUser.Width = (int)(freeSpace * 0.4);
+            pictureBoxMainTabLogedInUser.Height = pictureBoxMainTabLogedInUser.Width;
+            pictureBoxMainTabLogedInUser.Left = leftAfterListBox + (freeSpace - pictureBoxMainTabLogedInUser.Width) / 2;
+            pictureBoxMainTabLogedInUser.Top = (int)(0.1 * splitContainer1.Panel2.ClientSize.Height);
+            MakePictureCircular(pictureBoxMainTabLogedInUser);
+
+            pictureBoxMainTab.Width = (int)(freeSpace * 0.8);
+            pictureBoxMainTab.Height = pictureBoxMainTab.Width;
+            pictureBoxMainTab.Left = leftAfterListBox + (freeSpace - pictureBoxMainTab.Width) / 2;
+            pictureBoxMainTab.Top = pictureBoxMainTabLogedInUser.Bottom + (int)(0.5*(splitContainer1.Panel2.ClientSize.Height - pictureBoxMainTabLogedInUser.Bottom - pictureBoxMainTab.Height));
+
+        }
+
+        private void MakePictureCircular(PictureBox pb)
+        {
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddEllipse(0, 0, pb.Width, pb.Height);
+            pb.Region = new Region(path);
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            UpdateMainLayout();
         }
     }
 }
