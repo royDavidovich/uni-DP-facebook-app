@@ -367,6 +367,7 @@
             this.buttonAlbums.TabIndex = 9;
             this.buttonAlbums.Text = "Albums";
             this.buttonAlbums.UseVisualStyleBackColor = false;
+            this.buttonAlbums.Click += new System.EventHandler(this.buttonAlbums_Click);
             // 
             // buttonEvent
             // 
@@ -381,6 +382,7 @@
             this.buttonEvent.TabIndex = 10;
             this.buttonEvent.Text = "Event";
             this.buttonEvent.UseVisualStyleBackColor = false;
+            this.buttonEvent.Click += new System.EventHandler(this.buttonEvent_Click);
             // 
             // buttonGroups
             // 
@@ -395,6 +397,7 @@
             this.buttonGroups.TabIndex = 11;
             this.buttonGroups.Text = "Groups";
             this.buttonGroups.UseVisualStyleBackColor = false;
+            this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
             // 
             // buttonFavTeams
             // 
@@ -409,6 +412,7 @@
             this.buttonFavTeams.TabIndex = 12;
             this.buttonFavTeams.Text = "Favorite Teams";
             this.buttonFavTeams.UseVisualStyleBackColor = false;
+            this.buttonFavTeams.Click += new System.EventHandler(this.buttonFavTeams_Click);
             // 
             // buttonLikedPaged
             // 
@@ -423,6 +427,7 @@
             this.buttonLikedPaged.TabIndex = 13;
             this.buttonLikedPaged.Text = "Liked Paged";
             this.buttonLikedPaged.UseVisualStyleBackColor = false;
+            this.buttonLikedPaged.Click += new System.EventHandler(this.buttonLikedPaged_Click);
             // 
             // buttonFavMusic
             // 
@@ -437,6 +442,7 @@
             this.buttonFavMusic.TabIndex = 14;
             this.buttonFavMusic.Text = "Favorite Music";
             this.buttonFavMusic.UseVisualStyleBackColor = false;
+            this.buttonFavMusic.Click += new System.EventHandler(this.buttonFavMusic_Click);
             // 
             // buttonActivity
             // 
@@ -451,6 +457,7 @@
             this.buttonActivity.TabIndex = 15;
             this.buttonActivity.Text = "Activity";
             this.buttonActivity.UseVisualStyleBackColor = false;
+            this.buttonActivity.Click += new System.EventHandler(this.buttonActivity_Click);
             // 
             // FormMain
             // 

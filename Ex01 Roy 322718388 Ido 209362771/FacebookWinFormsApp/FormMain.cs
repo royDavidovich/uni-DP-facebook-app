@@ -66,7 +66,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-
         private void buttonConnectAsDesig_Click(object sender, EventArgs e)
         {
             try
@@ -105,7 +104,7 @@ namespace BasicFacebookFeatures
 
         private void linkLabelActivity_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null)
+            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null) // delete
             {
                 MessageBox.Show("Please login to Facebook first.");
                 return;
@@ -131,11 +130,11 @@ namespace BasicFacebookFeatures
             activityPage.Controls.Add(activityTabView);
             tabControl1.TabPages.Add(activityPage);
             tabControl1.SelectedTab = activityPage;
-         }
+        }
          
         private void linkPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
+            try // delete
             {
                 fetchPosts();
             }
@@ -176,7 +175,7 @@ namespace BasicFacebookFeatures
 
         private void linkAlbums_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
+            try // delete
             {
                 fetchAlbums();
             }
@@ -212,7 +211,7 @@ namespace BasicFacebookFeatures
 
         private void linkFavoriteTeams_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            fetchFavoriteTeams();
+            fetchFavoriteTeams(); // delete
         }
 
         private void fetchFavoriteTeams()
@@ -251,7 +250,7 @@ namespace BasicFacebookFeatures
 
         private void linkFacebookEvents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
+            try // delete
             {
                 fetchEvents();
             }
@@ -295,7 +294,7 @@ namespace BasicFacebookFeatures
 
         private void linkLikedPages_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            fetchLikedPages();
+            fetchLikedPages(); // delete
         }
 
         private void fetchLikedPages()
@@ -332,9 +331,10 @@ namespace BasicFacebookFeatures
 
         private void linkGroups_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxMainTab.Items.Clear();
+            listBoxMainTab.Items.Clear(); // delete
             listBoxMainTab.DisplayMember = "Name";
             m_OnMainSelectionChanged = handleGroupSelected;
+            
             try
             {
                 foreach (Group group in m_LoggedInUser.Groups)
@@ -364,7 +364,7 @@ namespace BasicFacebookFeatures
 
         private void linkFavoriteMusicArtists_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
+            try // delete
             {
                 fetchMusic();
             }
@@ -401,7 +401,114 @@ namespace BasicFacebookFeatures
 
         private void buttonPosts_Click(object sender, EventArgs e)
         {
+            try
+            {
+                fetchPosts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
+        private void buttonAlbums_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchAlbums();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonEvent_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchEvents();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonGroups_Click(object sender, EventArgs e)
+        {
+            listBoxMainTab.Items.Clear();
+            listBoxMainTab.DisplayMember = "Name";
+            m_OnMainSelectionChanged = handleGroupSelected;
+
+            try
+            {
+                foreach (Group group in m_LoggedInUser.Groups)
+                {
+                    listBoxMainTab.Items.Add(group);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (listBoxMainTab.Items.Count == 0)
+            {
+                MessageBox.Show("No groups to retrieve :(");
+            }
+        }
+
+        private void buttonFavTeams_Click(object sender, EventArgs e)
+        {
+            fetchFavoriteTeams();
+        }
+
+        private void buttonLikedPaged_Click(object sender, EventArgs e)
+        {
+            fetchLikedPages();
+        }
+
+        private void buttonFavMusic_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fetchMusic();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonActivity_Click(object sender, EventArgs e)
+        {
+            if (m_LoginResult == null || m_LoginResult.LoggedInUser == null)
+            {
+                MessageBox.Show("Please login to Facebook first.");
+                return;
+            }
+
+            foreach (TabPage page in tabControl1.TabPages)
+            {
+                if (page.Name == "tabActivity")
+                {
+                    tabControl1.SelectedTab = page;
+                    return;
+                }
+            }
+
+            TabPage activityPage = new TabPage("Activity");
+            activityPage.Name = "tabActivity";
+
+            chartActivity activityTabView = new chartActivity();
+            activityTabView.Dock = DockStyle.Fill;
+
+            activityTabView.SetLoggedInUser(m_LoginResult.LoggedInUser);
+
+            activityPage.Controls.Add(activityTabView);
+            tabControl1.TabPages.Add(activityPage);
+            tabControl1.SelectedTab = activityPage;
         }
     }
 }
