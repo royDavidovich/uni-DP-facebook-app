@@ -140,6 +140,7 @@ namespace BasicFacebookFeatures
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Be aware that this facebook API doesn't support posting posts anymore.");
                 MessageBox.Show("Facebook Error: " + ex.Message);
             }
         }
