@@ -84,12 +84,14 @@
             this.comboBoxStyles.FormattingEnabled = true;
             this.comboBoxStyles.Items.AddRange(new object[] {
             "Original (No AI - Post Direct)",
-            "Dramatic Soap Opera",
             "Cool Influencer",
             "Angry Pirate",
             "Yoda from Star Wars",
             "Trump",
-            "Sleepy Biden",
+            "Sleepy (Joe) Biden",
+            "Kanye West",
+            "Stephen Hawking",
+            "Gordon Ramsay",
             "Nicky Goldstein (Israeli Singer/Actor)"});
             this.comboBoxStyles.Location = new System.Drawing.Point(481, 116);
             this.comboBoxStyles.Name = "comboBoxStyles";

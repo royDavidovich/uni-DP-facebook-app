@@ -39,6 +39,7 @@
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonPostWithAI = new System.Windows.Forms.Button();
             this.buttonActivity = new System.Windows.Forms.Button();
             this.buttonFavMusic = new System.Windows.Forms.Button();
             this.buttonLikedPaged = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
-            this.buttonPostWithAI = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
             this.tabControl1.SuspendLayout();
@@ -104,6 +104,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -121,10 +122,10 @@
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
             this.tabPage1.ForeColor = System.Drawing.Color.Black;
-            this.tabPage1.Location = new System.Drawing.Point(4, 31);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(856, 376);
+            this.tabPage1.Size = new System.Drawing.Size(856, 415);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "loginTab";
             // 
@@ -161,10 +162,10 @@
             this.tabPage2.BackColor = System.Drawing.Color.Navy;
             this.tabPage2.Controls.Add(this.splitContainer1);
             this.tabPage2.ForeColor = System.Drawing.Color.White;
-            this.tabPage2.Location = new System.Drawing.Point(4, 31);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(856, 411);
+            this.tabPage2.Size = new System.Drawing.Size(856, 415);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "mainTab";
             // 
@@ -193,9 +194,23 @@
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTab);
             this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTab);
-            this.splitContainer1.Size = new System.Drawing.Size(850, 405);
+            this.splitContainer1.Size = new System.Drawing.Size(850, 409);
             this.splitContainer1.SplitterDistance = 190;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // buttonPostWithAI
+            // 
+            this.buttonPostWithAI.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonPostWithAI.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonPostWithAI.FlatAppearance.BorderSize = 0;
+            this.buttonPostWithAI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPostWithAI.ForeColor = System.Drawing.Color.White;
+            this.buttonPostWithAI.Location = new System.Drawing.Point(0, 328);
+            this.buttonPostWithAI.Name = "buttonPostWithAI";
+            this.buttonPostWithAI.Size = new System.Drawing.Size(190, 41);
+            this.buttonPostWithAI.TabIndex = 16;
+            this.buttonPostWithAI.Text = "Post With AI";
+            this.buttonPostWithAI.UseVisualStyleBackColor = false;
             // 
             // buttonActivity
             // 
@@ -317,17 +332,6 @@
             this.buttonPosts.UseVisualStyleBackColor = false;
             this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
             // 
-            // linkLabelActivity
-            // 
-            this.linkLabelActivity.AutoSize = true;
-            this.linkLabelActivity.Location = new System.Drawing.Point(5, 262);
-            this.linkLabelActivity.Name = "linkLabelActivity";
-            this.linkLabelActivity.Size = new System.Drawing.Size(53, 18);
-            this.linkLabelActivity.TabIndex = 7;
-            this.linkLabelActivity.TabStop = true;
-            this.linkLabelActivity.Text = "Activity";
-            this.linkLabelActivity.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelActivity_LinkClicked);
-            // 
             // pictureBoxMainTabLogedInUser
             // 
             this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(591, 6);
@@ -351,26 +355,13 @@
             this.listBoxMainTab.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.listBoxMainTab.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBoxMainTab.FormattingEnabled = true;
-            this.listBoxMainTab.ItemHeight = 22;
+            this.listBoxMainTab.ItemHeight = 18;
             this.listBoxMainTab.Location = new System.Drawing.Point(3, 3);
             this.listBoxMainTab.Name = "listBoxMainTab";
-            this.listBoxMainTab.Size = new System.Drawing.Size(468, 220);
+            this.listBoxMainTab.Size = new System.Drawing.Size(468, 216);
             this.listBoxMainTab.TabIndex = 0;
             this.listBoxMainTab.SelectedIndexChanged += new System.EventHandler(this.listBoxMainTabMain_SelectedIndexChanged);
             // 
-            // buttonPostWithAI
-            // 
-            this.buttonPostWithAI.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonPostWithAI.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonPostWithAI.FlatAppearance.BorderSize = 0;
-            this.buttonPostWithAI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPostWithAI.ForeColor = System.Drawing.Color.White;
-            this.buttonPostWithAI.Location = new System.Drawing.Point(0, 328);
-            this.buttonPostWithAI.Name = "buttonPostWithAI";
-            this.buttonPostWithAI.Size = new System.Drawing.Size(190, 41);
-            this.buttonPostWithAI.TabIndex = 16;
-            this.buttonPostWithAI.Text = "Post With AI";
-            this.buttonPostWithAI.UseVisualStyleBackColor = false;
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.vibeShifter1);
@@ -384,10 +375,11 @@
             // 
             // vibeShifter1
             // 
+            this.vibeShifter1.AccessToken = null;
             this.vibeShifter1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vibeShifter1.Location = new System.Drawing.Point(3, 3);
             this.vibeShifter1.LoggedInUser = null;
-            this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4);
             this.vibeShifter1.Name = "vibeShifter1";
             this.vibeShifter1.Size = new System.Drawing.Size(850, 374);
             this.vibeShifter1.TabIndex = 0;
@@ -431,6 +423,7 @@
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox textBoxAppID;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Button buttonConnectAsDesig;
@@ -447,7 +440,7 @@
         private System.Windows.Forms.Button buttonEvent;
         private System.Windows.Forms.Button buttonActivity;
         private System.Windows.Forms.Button buttonPostWithAI;
-        private System.Windows.Forms.LinkLabel linkLabelActivity;
+        //private System.Windows.Forms.LinkLabel linkLabelActivity;
         private VibeShifter vibeShifter1;
     }
 }
