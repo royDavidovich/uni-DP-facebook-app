@@ -52,6 +52,7 @@
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -62,6 +63,7 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -319,13 +321,24 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.vibeShifter1);
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(856, 380);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "N8N";
+            this.tabPage3.Text = "postingTab";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // vibeShifter1
+            // 
+            this.vibeShifter1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vibeShifter1.Location = new System.Drawing.Point(3, 3);
+            this.vibeShifter1.LoggedInUser = null;
+            this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vibeShifter1.Name = "vibeShifter1";
+            this.vibeShifter1.Size = new System.Drawing.Size(850, 374);
+            this.vibeShifter1.TabIndex = 0;
             // 
             // FormMain
             // 
@@ -351,6 +364,7 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -380,6 +394,7 @@
         private System.Windows.Forms.ListBox listBoxMainTab;
         private System.Windows.Forms.PictureBox pictureBoxMainTabLogedInUser;
         private System.Windows.Forms.LinkLabel linkLabelActivity;
+        private VibeShifter vibeShifter1;
     }
 }
 
