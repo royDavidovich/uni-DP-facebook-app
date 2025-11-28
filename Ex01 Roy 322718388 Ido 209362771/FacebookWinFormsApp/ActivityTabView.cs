@@ -308,5 +308,10 @@ namespace BasicFacebookFeatures
             chartActivity1.Height = (int)(this.ClientSize.Height * 0.5);
             chartActivity1.Width = (int)(this.ClientSize.Width * 0.5);
         }
+
+        private void labelActivity_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
