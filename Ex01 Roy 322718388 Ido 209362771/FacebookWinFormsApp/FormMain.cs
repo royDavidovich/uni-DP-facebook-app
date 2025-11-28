@@ -398,5 +398,10 @@ namespace BasicFacebookFeatures
                 pictureBoxMainTab.LoadAsync(selectedItem.PictureNormalURL);
             }
         }
+
+        private void buttonPosts_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
