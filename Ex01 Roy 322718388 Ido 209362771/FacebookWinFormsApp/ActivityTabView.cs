@@ -41,20 +41,20 @@ namespace BasicFacebookFeatures
                 case 0:
                     points = getActivityLastMonth();
                     mode = "Month";
-                    title = "Post Activity – last month";
+                    title = "Activity – last month";
                     break;
 
                 case 1:
                     points = getActivityLastYear();
                     mode = "Year";
-                    title = "Post Activity – last year";
+                    title = "Activity – last year";
                     break;
 
                 case 2:
                 default:
                     points = getActivityFromBeginning();
                     mode = "AllYears";
-                    title = "Post Activity – since account created";
+                    title = "Activity – since account created";
                     break;
             }
 
@@ -307,6 +307,11 @@ namespace BasicFacebookFeatures
             chartActivity1.Top = (int)(labelActivity.Top + labelActivity.Height * 1.5);
             chartActivity1.Height = (int)(this.ClientSize.Height * 0.5);
             chartActivity1.Width = (int)(this.ClientSize.Width * 0.5);
+        }
+
+        private void labelActivity_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
