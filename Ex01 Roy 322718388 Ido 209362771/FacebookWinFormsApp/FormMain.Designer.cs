@@ -53,6 +53,7 @@
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
+            this.labelAIPost = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -366,6 +367,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.labelAIPost);
             this.tabPage3.Controls.Add(this.vibeShifter1);
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
@@ -378,6 +380,7 @@
             // vibeShifter1
             // 
             this.vibeShifter1.AccessToken = null;
+            this.vibeShifter1.BackColor = System.Drawing.Color.MidnightBlue;
             this.vibeShifter1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vibeShifter1.Location = new System.Drawing.Point(3, 3);
             this.vibeShifter1.LoggedInUser = null;
@@ -385,6 +388,19 @@
             this.vibeShifter1.Name = "vibeShifter1";
             this.vibeShifter1.Size = new System.Drawing.Size(850, 405);
             this.vibeShifter1.TabIndex = 0;
+            // 
+            // labelAIPost
+            // 
+            this.labelAIPost.BackColor = System.Drawing.Color.MidnightBlue;
+            this.labelAIPost.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelAIPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.labelAIPost.ForeColor = System.Drawing.Color.White;
+            this.labelAIPost.Location = new System.Drawing.Point(3, 3);
+            this.labelAIPost.Name = "labelAIPost";
+            this.labelAIPost.Size = new System.Drawing.Size(850, 49);
+            this.labelAIPost.TabIndex = 2;
+            this.labelAIPost.Text = "Create Your Perfect Post";
+            this.labelAIPost.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormMain
             // 
@@ -444,6 +460,7 @@
         private System.Windows.Forms.Button buttonPostWithAI;
         //private System.Windows.Forms.LinkLabel linkLabelActivity;
         private VibeShifter vibeShifter1;
+        private System.Windows.Forms.Label labelAIPost;
     }
 }
 
