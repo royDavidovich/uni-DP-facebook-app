@@ -52,8 +52,8 @@
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
             this.labelAIPost = new System.Windows.Forms.Label();
+            this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -128,7 +128,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(856, 411);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "loginTab";
+            this.tabPage1.Text = "Login";
             // 
             // buttonConnectAsDesig
             // 
@@ -168,7 +168,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(856, 411);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "mainTab";
+            this.tabPage2.Text = "Menu";
             // 
             // splitContainer1
             // 
@@ -374,20 +374,8 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(856, 411);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "postingTab";
+            this.tabPage3.Text = "Posting";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // vibeShifter1
-            // 
-            this.vibeShifter1.AccessToken = null;
-            this.vibeShifter1.BackColor = System.Drawing.Color.MidnightBlue;
-            this.vibeShifter1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vibeShifter1.Location = new System.Drawing.Point(3, 3);
-            this.vibeShifter1.LoggedInUser = null;
-            this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4);
-            this.vibeShifter1.Name = "vibeShifter1";
-            this.vibeShifter1.Size = new System.Drawing.Size(850, 405);
-            this.vibeShifter1.TabIndex = 0;
             // 
             // labelAIPost
             // 
@@ -401,6 +389,18 @@
             this.labelAIPost.TabIndex = 2;
             this.labelAIPost.Text = "Create Your Perfect Post";
             this.labelAIPost.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // vibeShifter1
+            // 
+            this.vibeShifter1.AccessToken = null;
+            this.vibeShifter1.BackColor = System.Drawing.Color.MidnightBlue;
+            this.vibeShifter1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vibeShifter1.Location = new System.Drawing.Point(3, 3);
+            this.vibeShifter1.LoggedInUser = null;
+            this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4);
+            this.vibeShifter1.Name = "vibeShifter1";
+            this.vibeShifter1.Size = new System.Drawing.Size(850, 405);
+            this.vibeShifter1.TabIndex = 0;
             // 
             // FormMain
             // 
