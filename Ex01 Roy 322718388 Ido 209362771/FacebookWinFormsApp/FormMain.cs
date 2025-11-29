@@ -16,6 +16,7 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private TabPage m_PostingTab;
+        private TabPage m_MainTab;
         LoginResult m_LoginResult;
         User m_LoggedInUser;
 
@@ -82,7 +83,7 @@ namespace BasicFacebookFeatures
 
         private void afterLogin()
         {
-            tabControl1.SelectedTab = tabPage2;
+            //tabControl1.SelectedTab = tabPage2;
             m_LoggedInUser = m_LoginResult.LoggedInUser;
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
@@ -92,6 +93,13 @@ namespace BasicFacebookFeatures
             buttonLogout.Enabled = true;
             vibeShifter1.LoggedInUser = m_LoggedInUser;
             vibeShifter1.AccessToken = m_LoginResult.AccessToken;
+
+            if (!tabControl1.TabPages.Contains(m_MainTab))
+            {
+                tabControl1.TabPages.Add(m_MainTab);
+            }
+
+            tabControl1.SelectedTab = m_MainTab;
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -438,8 +446,12 @@ namespace BasicFacebookFeatures
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            m_MainTab = tabPage2;
+            tabControl1.TabPages.Remove(tabPage2);
+
             m_PostingTab = tabPage3;
             tabControl1.TabPages.Remove(tabPage3);
+
             UpdateMainLayout();
         }
 
