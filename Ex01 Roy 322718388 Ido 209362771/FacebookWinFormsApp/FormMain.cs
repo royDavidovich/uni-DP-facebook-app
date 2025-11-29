@@ -15,6 +15,7 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        private TabPage m_PostingTab;
         LoginResult m_LoginResult;
         User m_LoggedInUser;
 
@@ -410,6 +411,7 @@ namespace BasicFacebookFeatures
             listBoxMainTab.Left = (int)(buttonPosts.Left);
             listBoxMainTab.Width = (int)(this.ClientSize.Width * 0.5);
             listBoxMainTab.Height = this.ClientSize.Height - listBoxMainTab.Top;
+            listBoxMainTab.BorderStyle = BorderStyle.None;
 
             int leftAfterListBox = listBoxMainTab.Right;
             int freeSpace = splitContainer1.Panel2.ClientSize.Width - leftAfterListBox;
@@ -436,7 +438,19 @@ namespace BasicFacebookFeatures
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            m_PostingTab = tabPage3;
+            tabControl1.TabPages.Remove(tabPage3);
             UpdateMainLayout();
+        }
+
+        private void buttonPostWithAI_Click(object sender, EventArgs e)
+        {
+            if (!tabControl1.TabPages.Contains(m_PostingTab))
+            {
+                tabControl1.TabPages.Add(m_PostingTab);
+            }
+
+            tabControl1.SelectedTab = m_PostingTab;
         }
     }
 }
