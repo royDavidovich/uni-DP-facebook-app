@@ -43,7 +43,7 @@
             this.buttonPostToFb.Enabled = false;
             this.buttonPostToFb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPostToFb.ForeColor = System.Drawing.SystemColors.Info;
-            this.buttonPostToFb.Location = new System.Drawing.Point(481, 262);
+            this.buttonPostToFb.Location = new System.Drawing.Point(481, 248);
             this.buttonPostToFb.Name = "buttonPostToFb";
             this.buttonPostToFb.Size = new System.Drawing.Size(145, 60);
             this.buttonPostToFb.TabIndex = 11;
@@ -55,11 +55,11 @@
             // 
             this.textBoxGeneratedText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxGeneratedText.Enabled = false;
             this.textBoxGeneratedText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxGeneratedText.Location = new System.Drawing.Point(18, 228);
             this.textBoxGeneratedText.Multiline = true;
             this.textBoxGeneratedText.Name = "textBoxGeneratedText";
+            this.textBoxGeneratedText.ReadOnly = true;
             this.textBoxGeneratedText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxGeneratedText.Size = new System.Drawing.Size(444, 94);
             this.textBoxGeneratedText.TabIndex = 10;
@@ -68,7 +68,7 @@
             // 
             this.buttonGeneratePost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGeneratePost.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGeneratePost.Location = new System.Drawing.Point(649, 116);
+            this.buttonGeneratePost.Location = new System.Drawing.Point(649, 185);
             this.buttonGeneratePost.Name = "buttonGeneratePost";
             this.buttonGeneratePost.Size = new System.Drawing.Size(145, 60);
             this.buttonGeneratePost.TabIndex = 9;
@@ -93,7 +93,7 @@
             "Stephen Hawking",
             "Gordon Ramsay",
             "Nicky Goldstein (Israeli Singer/Actor)"});
-            this.comboBoxStyles.Location = new System.Drawing.Point(481, 116);
+            this.comboBoxStyles.Location = new System.Drawing.Point(481, 150);
             this.comboBoxStyles.Name = "comboBoxStyles";
             this.comboBoxStyles.Size = new System.Drawing.Size(143, 24);
             this.comboBoxStyles.TabIndex = 8;
@@ -117,18 +117,20 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(242, 12);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(186, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(422, 85);
             this.label2.TabIndex = 6;
             this.label2.Text = "Create Your Perfect Post\r\n\r\nWrite what\'s on your mind below.\r\nWant to spice it up" +
     "? Select a Vibe and let AI rewrite it for you.\r\nPrefer your own words? Select \"O" +
     "riginal (No AI)\" and post directly!";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // VibeShifter
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.MidnightBlue;
             this.Controls.Add(this.buttonPostToFb);
             this.Controls.Add(this.textBoxGeneratedText);
             this.Controls.Add(this.buttonGeneratePost);

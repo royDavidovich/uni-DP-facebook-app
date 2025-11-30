@@ -15,6 +15,8 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        private TabPage m_PostingTab;
+        private TabPage m_MainTab;
         LoginResult m_LoginResult;
         User m_LoggedInUser;
 
@@ -81,7 +83,7 @@ namespace BasicFacebookFeatures
 
         private void afterLogin()
         {
-            tabControl1.SelectedTab = tabPage2;
+            //tabControl1.SelectedTab = tabPage2;
             m_LoggedInUser = m_LoginResult.LoggedInUser;
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
@@ -91,6 +93,13 @@ namespace BasicFacebookFeatures
             buttonLogout.Enabled = true;
             vibeShifter1.LoggedInUser = m_LoggedInUser;
             vibeShifter1.AccessToken = m_LoginResult.AccessToken;
+
+            if (!tabControl1.TabPages.Contains(m_MainTab))
+            {
+                tabControl1.TabPages.Add(m_MainTab);
+            }
+
+            tabControl1.SelectedTab = m_MainTab;
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -410,6 +419,7 @@ namespace BasicFacebookFeatures
             listBoxMainTab.Left = (int)(buttonPosts.Left);
             listBoxMainTab.Width = (int)(this.ClientSize.Width * 0.5);
             listBoxMainTab.Height = this.ClientSize.Height - listBoxMainTab.Top;
+            listBoxMainTab.BorderStyle = BorderStyle.None;
 
             int leftAfterListBox = listBoxMainTab.Right;
             int freeSpace = splitContainer1.Panel2.ClientSize.Width - leftAfterListBox;
@@ -436,7 +446,23 @@ namespace BasicFacebookFeatures
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            m_MainTab = tabPage2;
+            tabControl1.TabPages.Remove(tabPage2);
+
+            m_PostingTab = tabPage3;
+            tabControl1.TabPages.Remove(tabPage3);
+
             UpdateMainLayout();
+        }
+
+        private void buttonPostWithAI_Click(object sender, EventArgs e)
+        {
+            if (!tabControl1.TabPages.Contains(m_PostingTab))
+            {
+                tabControl1.TabPages.Add(m_PostingTab);
+            }
+
+            tabControl1.SelectedTab = m_PostingTab;
         }
     }
 }
