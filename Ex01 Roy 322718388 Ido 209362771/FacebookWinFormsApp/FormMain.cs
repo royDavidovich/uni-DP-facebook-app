@@ -427,7 +427,7 @@ namespace BasicFacebookFeatures
             pictureBoxMainTabLogedInUser.Height = pictureBoxMainTabLogedInUser.Width;
             pictureBoxMainTabLogedInUser.Left = leftAfterListBox + (freeSpace - pictureBoxMainTabLogedInUser.Width) / 2;
             pictureBoxMainTabLogedInUser.Top = (int)(0.1 * splitContainer1.Panel2.ClientSize.Height);
-            MakePictureCircular(pictureBoxMainTabLogedInUser);
+            makePictureCircular(pictureBoxMainTabLogedInUser);
 
             pictureBoxMainTab.Width = (int)(freeSpace * 0.8);
             pictureBoxMainTab.Height = pictureBoxMainTab.Width;
@@ -436,7 +436,7 @@ namespace BasicFacebookFeatures
 
         }
 
-        private void MakePictureCircular(PictureBox pb)
+        private void makePictureCircular(PictureBox pb)
         {
             var path = new System.Drawing.Drawing2D.GraphicsPath();
             path.AddEllipse(0, 0, pb.Width, pb.Height);
