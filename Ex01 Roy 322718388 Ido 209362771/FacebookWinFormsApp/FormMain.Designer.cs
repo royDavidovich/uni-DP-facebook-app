@@ -210,7 +210,7 @@
             this.buttonPostWithAI.Name = "buttonPostWithAI";
             this.buttonPostWithAI.Size = new System.Drawing.Size(190, 41);
             this.buttonPostWithAI.TabIndex = 16;
-            this.buttonPostWithAI.Text = "Post With AI";
+            this.buttonPostWithAI.Text = "Posting (AI opt.)";
             this.buttonPostWithAI.UseVisualStyleBackColor = false;
             this.buttonPostWithAI.Click += new System.EventHandler(this.buttonPostWithAI_Click);
             // 
