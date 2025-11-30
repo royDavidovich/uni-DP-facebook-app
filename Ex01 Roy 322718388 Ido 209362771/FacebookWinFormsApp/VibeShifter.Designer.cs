@@ -55,11 +55,11 @@
             // 
             this.textBoxGeneratedText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxGeneratedText.Enabled = false;
             this.textBoxGeneratedText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxGeneratedText.Location = new System.Drawing.Point(18, 228);
             this.textBoxGeneratedText.Multiline = true;
             this.textBoxGeneratedText.Name = "textBoxGeneratedText";
+            this.textBoxGeneratedText.ReadOnly = true;
             this.textBoxGeneratedText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxGeneratedText.Size = new System.Drawing.Size(444, 94);
             this.textBoxGeneratedText.TabIndex = 10;
@@ -95,7 +95,7 @@
             "Nicky Goldstein (Israeli Singer/Actor)"});
             this.comboBoxStyles.Location = new System.Drawing.Point(481, 150);
             this.comboBoxStyles.Name = "comboBoxStyles";
-            this.comboBoxStyles.Size = new System.Drawing.Size(143, 28);
+            this.comboBoxStyles.Size = new System.Drawing.Size(143, 24);
             this.comboBoxStyles.TabIndex = 8;
             this.comboBoxStyles.DropDown += new System.EventHandler(this.comboBoxStyles_DropDown);
             // 
@@ -120,7 +120,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(186, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(504, 100);
+            this.label2.Size = new System.Drawing.Size(422, 85);
             this.label2.TabIndex = 6;
             this.label2.Text = "Create Your Perfect Post\r\n\r\nWrite what\'s on your mind below.\r\nWant to spice it up" +
     "? Select a Vibe and let AI rewrite it for you.\r\nPrefer your own words? Select \"O" +
