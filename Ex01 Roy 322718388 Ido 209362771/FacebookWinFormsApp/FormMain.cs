@@ -11,6 +11,7 @@ using FacebookWrapper;
 using System.Windows.Forms.DataVisualization.Charting;
 using BasicFacebookFeatures;
 using BasicFacebookFeatures.Facades;
+using BasicFacebookFeatures.ContentDisplayers;
 
 namespace BasicFacebookFeatures
 {
@@ -85,14 +86,14 @@ namespace BasicFacebookFeatures
         {
             buttonLogin.Text = $"Logged in as {m_FacebookFacade.GetUserName()}";
             buttonLogin.BackColor = Color.LightGreen;
-            
+
             string profileUrl = m_FacebookFacade.GetUserProfileImageUrl();
             if (!string.IsNullOrEmpty(profileUrl))
             {
                 pictureBoxProfile.ImageLocation = profileUrl;
                 pictureBoxMainTabLogedInUser.ImageLocation = profileUrl;
             }
-            
+
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             vibeShifter1.LoggedInUser = m_FacebookFacade.LoggedInUser;
@@ -115,88 +116,6 @@ namespace BasicFacebookFeatures
             buttonLogout.Enabled = false;
         }
 
-        private void fetchPosts()
-        {
-            listBoxMainTab.Items.Clear();
-
-            var posts = m_FacebookFacade.GetUserPosts();
-
-            foreach (Post post in posts)
-            {
-                if (post.Message != null)
-                {
-                    listBoxMainTab.Items.Add(post.Message);
-                }
-                else if (post.Caption != null)
-                {
-                    listBoxMainTab.Items.Add(post.Caption);
-                }
-                else
-                {
-                    listBoxMainTab.Items.Add(string.Format("[{0}]", post.Type));
-                }
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No Posts to retrieve :(");
-            }
-        }
-
-        private void fetchAlbums()
-        {
-            m_OnMainSelectionChanged = handleAlbumSelected;
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            
-            var albums = m_FacebookFacade.GetUserAlbums();
-            
-            foreach (Album album in albums)
-            {
-                listBoxMainTab.Items.Add(album);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No Albums to retrieve :(");
-            }
-        }
-
-        private void handleAlbumSelected(object i_Item)
-        {
-            if (i_Item is Album album && album.PictureAlbumURL != null)
-            {
-                pictureBoxMainTab.LoadAsync(album.PictureAlbumURL);
-            }
-        }
-
-        private void fetchFavoriteTeams()
-        {
-            listBoxMainTab.Items.Clear();
-            m_OnMainSelectionChanged = handleTeamSelected;
-            listBoxMainTab.DisplayMember = "Name";
-            
-            var teams = m_FacebookFacade.GetFavoriteTeams();
-            
-            foreach (Page team in teams)
-            {
-                listBoxMainTab.Items.Add(team);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No teams to retrieve :(");
-            }
-        }
-
-        private void handleTeamSelected(object i_Item)
-        {
-            if (i_Item is Page team && team.PictureNormalURL != null)
-            {
-                pictureBoxMainTab.LoadAsync(team.PictureNormalURL);
-            }
-        }
-
         private void listBoxMainTabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (m_OnMainSelectionChanged == null || listBoxMainTab.SelectedItems.Count != 1)
@@ -207,194 +126,60 @@ namespace BasicFacebookFeatures
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
         }
 
-        private void fetchEvents()
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleEventSelected;
-            
-            try
-            {
-                var events = m_FacebookFacade.GetUserEvents();
-                
-                foreach (Event fbEvent in events)
-                {
-                    listBoxMainTab.Items.Add(fbEvent);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No Events to retrieve :(");
-            }
-        }
-
-        private void handleEventSelected(object i_Item)
-        {
-            if (i_Item is Event fbEvent && fbEvent.Cover != null)
-            {
-                pictureBoxMainTab.LoadAsync(fbEvent.Cover.SourceURL);
-            }
-        }
-
-        private void fetchLikedPages()
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleLikedPageSelected;
-            
-            try
-            {
-                var pages = m_FacebookFacade.GetLikedPages();
-                
-                foreach (Page page in pages)
-                {
-                    listBoxMainTab.Items.Add(page);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No liked pages to retrieve :(");
-            }
-        }
-
-        private void handleLikedPageSelected(object obj)
-        {
-            if (listBoxMainTab.SelectedItems.Count == 1)
-            {
-                Page selectedPage = listBoxMainTab.SelectedItem as Page;
-                pictureBoxMainTab.LoadAsync(selectedPage.PictureNormalURL);
-            }
-        }
-
-        private void handleGroupSelected(object obj)
-        {
-            if (listBoxMainTab.SelectedItems.Count == 1)
-            {
-                Group selectedGroup = listBoxMainTab.SelectedItem as Group;
-                pictureBoxMainTab.LoadAsync(selectedGroup.PictureNormalURL);
-            }
-        }
-
-        private void fetchMusic()
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleMusicArtistSelected;
-            
-            var music = m_FacebookFacade.GetMusic();
-            
-            foreach (Page artistPage in music)
-            {
-                listBoxMainTab.Items.Add(artistPage);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No artists to retrieve :(");
-            }
-        }
-
         private void handleMusicArtistSelected(object obj)
         {
-            if (listBoxMainTab.SelectedItems.Count == 1)
-            {
-                Page selectedItem = listBoxMainTab.SelectedItem as Page;
-                pictureBoxMainTab.LoadAsync(selectedItem.PictureNormalURL);
-            }
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("music", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonPosts_Click(object sender, EventArgs e)
         {
-            try
-            {
-                fetchPosts();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("posts", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
-            try
-            {
-                fetchAlbums();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("albums", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonEvent_Click(object sender, EventArgs e)
         {
-            try
-            {
-                fetchEvents();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("events", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleGroupSelected;
-
-            try
-            {
-                var groups = m_FacebookFacade.GetUserGroups();
-                
-                foreach (Group group in groups)
-                {
-                    listBoxMainTab.Items.Add(group);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No groups to retrieve :(");
-            }
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("groups", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonFavTeams_Click(object sender, EventArgs e)
         {
-            fetchFavoriteTeams();
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("teams", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonLikedPaged_Click(object sender, EventArgs e)
         {
-            fetchLikedPages();
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("pages", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonFavMusic_Click(object sender, EventArgs e)
         {
-            try
-            {
-                fetchMusic();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("music", this);
+            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
         }
 
         private void buttonActivity_Click(object sender, EventArgs e)
@@ -450,7 +235,7 @@ namespace BasicFacebookFeatures
             pictureBoxMainTab.Width = (int)(freeSpace * 0.8);
             pictureBoxMainTab.Height = pictureBoxMainTab.Width;
             pictureBoxMainTab.Left = leftAfterListBox + (freeSpace - pictureBoxMainTab.Width) / 2;
-            pictureBoxMainTab.Top = pictureBoxMainTabLogedInUser.Bottom + (int)(0.5*(splitContainer1.Panel2.ClientSize.Height - pictureBoxMainTabLogedInUser.Bottom - pictureBoxMainTab.Height));
+            pictureBoxMainTab.Top = pictureBoxMainTabLogedInUser.Bottom + (int)(0.5 * (splitContainer1.Panel2.ClientSize.Height - pictureBoxMainTabLogedInUser.Bottom - pictureBoxMainTab.Height));
         }
 
         private void makePictureCircular(PictureBox pb)
@@ -480,6 +265,14 @@ namespace BasicFacebookFeatures
             }
 
             tabControl1.SelectedTab = m_PostingTab;
+        }
+
+        public void LoadImageToPictureBox(string url)
+        {
+            if (!string.IsNullOrEmpty(url))
+            {
+                pictureBoxMainTab.LoadAsync(url);
+            }
         }
     }
 }

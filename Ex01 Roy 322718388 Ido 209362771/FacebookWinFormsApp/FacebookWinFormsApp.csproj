@@ -88,7 +88,15 @@
     <Compile Include="ActivityTabView.Designer.cs">
       <DependentUpon>ActivityTabView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ContentDisplayers\AlbumDisplayer.cs" />
+    <Compile Include="ContentDisplayers\EventDisplayer.cs" />
+    <Compile Include="ContentDisplayers\GroupDisplayer.cs" />
+    <Compile Include="ContentDisplayers\LikedPagesDisplayer.cs" />
+    <Compile Include="ContentDisplayers\MusicDisplayer.cs" />
+    <Compile Include="ContentDisplayers\PostDisplayer.cs" />
+    <Compile Include="ContentDisplayers\TeamDisplayer.cs" />
     <Compile Include="Facades\FacebookFacade.cs" />
+    <Compile Include="ContentDisplayers\FacebookContentDisplayer.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,5 +152,6 @@
       <Version>13.0.4</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
