@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Builders;
 using BasicFacebookFeatures.Forms;
+using BasicFacebookFeatures.Utilities;
 using System.Drawing;
 
 namespace BasicFacebookFeatures
@@ -136,7 +137,8 @@ namespace BasicFacebookFeatures
             {
                 try
                 {
-                    Image img = loadImageWithMemoryManagement(m_SelectedImagePaths[i]);
+                    Image img = ImageHelper.LoadImageWithMemoryManagement(m_SelectedImagePaths[i]);
+
                     previewBoxes[i].Image = img;
                     previewBoxes[i].Visible = true;
                 }
@@ -199,7 +201,6 @@ namespace BasicFacebookFeatures
                 return;
             }
 
-            // Add to both UI state and builder
             addTagToBuilder(tag);
             textBoxTag.Clear();
             updateTagDisplay();
@@ -227,7 +228,6 @@ namespace BasicFacebookFeatures
 
             foreach (string tag in m_SelectedTags)
             {
-                // Create panel for each tag
                 Panel tagPanel = new Panel()
                 {
                     Width = 120,
@@ -237,7 +237,6 @@ namespace BasicFacebookFeatures
                     Margin = new Padding(3)
                 };
 
-                // Create Tag label
                 Label tagLabel = new Label()
                 {
                     Text = tag,
@@ -248,7 +247,6 @@ namespace BasicFacebookFeatures
                     Padding = new Padding(5, 0, 20, 0)
                 };
 
-                // Create Remove button (X)
                 Button removeButton = new Button()
                 {
                     Text = "X",
@@ -261,154 +259,98 @@ namespace BasicFacebookFeatures
                     Cursor = Cursors.Hand
                 };
 
-                // Merge tagLabel and removeButton for closure
                 string currentTag = tag;
-                removeButton.Click += (s, e) => removeTag(currentTag);
 
+                removeButton.Click += (s, e) => removeTag(currentTag);
                 tagPanel.Controls.Add(tagLabel);
                 tagPanel.Controls.Add(removeButton);
                 flowLayoutPanelTags.Controls.Add(tagPanel);
             }
         }
 
-        // ========== IMAGE HELPERS (code wouldn't let us load regular images) ==========
-        private static Image loadImageWithMemoryManagement(string i_ImagePath)
-        {
-            if (string.IsNullOrEmpty(i_ImagePath) || !File.Exists(i_ImagePath))
-            {
-                return null;
-            }
-
-            try
-            {
-                FileInfo fileInfo = new FileInfo(i_ImagePath);
-                long fileSizeInBytes = fileInfo.Length;
-                const long k_MaxSizeInBytes = 5 * 1024 * 1024;
-
-                if (fileSizeInBytes > k_MaxSizeInBytes)
-                {
-                    MessageBox.Show($"Image file size ({fileSizeInBytes / (1024 * 1024)}MB) is large. Resizing for preview...", "Large File", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-                using (FileStream fileStream = new FileStream(i_ImagePath, FileMode.Open, FileAccess.Read))
-                {
-                    Image originalImage = Image.FromStream(fileStream);
-
-                    if (originalImage.Width > 800 || originalImage.Height > 800)
-                    {
-                        Image resizedImage = resizeImage(originalImage, 100, 100);
-                        originalImage.Dispose();
-                        return resizedImage;
-                    }
-
-                    return originalImage;
-                }
-            }
-            catch (OutOfMemoryException)
-            {
-                throw new OutOfMemoryException("Image is too large to load.");
-            }
-        }
-
-        private static Image resizeImage(Image i_Image, int i_MaxWidth, int i_MaxHeight)
-        {
-            try
-            {
-                double ratioX = (double)i_MaxWidth / i_Image.Width;
-                double ratioY = (double)i_MaxHeight / i_Image.Height;
-                double ratio = Math.Min(ratioX, ratioY);
-
-                int newWidth = (int)(i_Image.Width * ratio);
-                int newHeight = (int)(i_Image.Height * ratio);
-
-                Bitmap resizedBitmap = new Bitmap(newWidth, newHeight);
-                Graphics graphics = Graphics.FromImage(resizedBitmap);
-
-                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphics.DrawImage(i_Image, 0, 0, newWidth, newHeight);
-
-                graphics.Dispose();
-
-                return resizedBitmap;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Failed to resize image: {ex.Message}");
-            }
-        }
-        // ====================
-
-        private async void buttonGeneratePost_Click(object sender, EventArgs e)
+        private void buttonGeneratePost_Click(object sender, EventArgs e)
         {
             string originalText = textBoxOriginalText.Text;
 
             if (string.IsNullOrWhiteSpace(originalText))
             {
                 MessageBox.Show("Please enter some text first!");
+
                 return;
             }
 
             if (comboBoxStyles.SelectedItem == null)
             {
                 MessageBox.Show("Please select a style!");
+
                 return;
             }
 
             string selectedStyle = comboBoxStyles.SelectedItem.ToString();
 
-            buttonGeneratePost.Text = "Processing......";
-            buttonGeneratePost.Enabled = false;
-            textBoxGeneratedText.Text = "Thinking....... ";
+            disableActionButtons();
+            updateUIOnMainThread(() =>
+            {
+                buttonGeneratePost.Text = "Processing......";
+                textBoxGeneratedText.Text = "Thinking....... ";
+            });
 
+            Thread aiTextTransformationThread = new Thread(() =>
+            {
+                transformPostInBackground(originalText, selectedStyle);
+            });
+
+            aiTextTransformationThread.IsBackground = true;
+            aiTextTransformationThread.Start();
+        }
+
+        private void transformPostInBackground(string i_OriginalText, string i_Style)
+        {
             try
             {
-                string transformedText = await transformTextAsync(originalText, selectedStyle);
-                textBoxGeneratedText.Text = transformedText;
-                buildPostWithCurrentState(originalText, selectedStyle, transformedText);
-                buttonPostToFb.Enabled = true;
+                string transformedText = transformTextBlocking(i_OriginalText, i_Style);
+
+                buildPostWithCurrentState(i_OriginalText, i_Style, transformedText);
+                updateUIOnMainThread(() =>
+                {
+                    textBoxGeneratedText.Text = transformedText;
+                    buttonPostToFb.Enabled = true;
+                    buttonGeneratePost.Text = "Make it Cool!";
+                    enableActionButtons();
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Transformation Error: " + ex.Message);
-                textBoxGeneratedText.Text = "Error.";
-                buttonPostToFb.Enabled = false;
-            }
-            finally
-            {
-                buttonGeneratePost.Text = "Make it Cool!";
-                buttonGeneratePost.Enabled = true;
+                updateUIOnMainThread(() =>
+                {
+                    MessageBox.Show("Transformation Error: " + ex.Message);
+                    textBoxGeneratedText.Text = "Error.";
+                    buttonPostToFb.Enabled = false;
+                    buttonGeneratePost.Text = "Make it Cool!";
+                    enableActionButtons();
+                });
             }
         }
 
-        private void buildPostWithCurrentState(string i_OriginalText, string i_Style, string i_TransformedText)
-        {
-            m_PostBuilder.Reset()
-                .WithContent(i_OriginalText)
-                .WithStyle(i_Style)
-                .SetTransformedContent(i_TransformedText)
-                .WithAuthor(LoggedInUser)
-                .WithPrivacy((ePrivacyLevel)comboBoxPrivacy.SelectedIndex);
-        }
-
-        private async Task<string> transformTextAsync(string i_Text, string i_Style)
+        private string transformTextBlocking(string i_Text, string i_Style)
         {
             if (i_Style.Contains("Original"))
             {
                 return i_Text;
             }
 
+            if (string.IsNullOrWhiteSpace(i_Text))
+            {
+                throw new ArgumentException("Text cannot be empty");
+            }
+
+            if (string.IsNullOrWhiteSpace(i_Style))
+            {
+                throw new ArgumentException("Style cannot be empty");
+            }
+
             try
             {
-                if (string.IsNullOrWhiteSpace(i_Text))
-                {
-                    throw new ArgumentException("Text cannot be empty");
-                }
-
-                if (string.IsNullOrWhiteSpace(i_Style))
-                {
-                    throw new ArgumentException("Style cannot be empty");
-                }
-
                 var dataPayload = new { text = i_Text, style = i_Style };
                 string jsonContent = JsonConvert.SerializeObject(dataPayload);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -421,8 +363,8 @@ namespace BasicFacebookFeatures
                     client.DefaultRequestHeaders.Add("Accept", "application/json");
                     client.DefaultRequestHeaders.Add("User-Agent", "VibeShifter-App/1.0");
 
-                    HttpResponseMessage response = await client.PostAsync(k_MakeWebhookUrl, httpContent);
-                    string responseContent = await response.Content.ReadAsStringAsync();
+                    HttpResponseMessage response = client.PostAsync(k_MakeWebhookUrl, httpContent).Result;
+                    string responseContent = response.Content.ReadAsStringAsync().Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -434,7 +376,6 @@ namespace BasicFacebookFeatures
                         }
 
                         resultText = System.Text.RegularExpressions.Regex.Unescape(resultText);
-
                         if (string.IsNullOrWhiteSpace(resultText))
                         {
                             throw new Exception("Webhook returned empty response");
@@ -456,13 +397,62 @@ namespace BasicFacebookFeatures
             {
                 throw new Exception($"Network error connecting to Make.com: {ex.Message}", ex);
             }
-            catch (TaskCanceledException ex)
+            catch (Exception ex)
             {
-                throw new Exception($"Request timeout - Make.com service took too long to respond: {ex.Message}", ex);
+                throw new Exception($"Transformation failed: {ex.Message}", ex);
             }
-            catch (JsonException ex)
+        }
+
+        private void updateUIOnMainThread(Action i_UiAction)
+        {
+            if (this.InvokeRequired)
             {
-                throw new Exception($"JSON parsing error: {ex.Message}", ex);
+                this.Invoke(i_UiAction);
+            }
+            else
+            {
+                i_UiAction();
+            }
+        }
+
+        private void disableActionButtons()
+        {
+            updateUIOnMainThread(() =>
+            {
+                buttonGeneratePost.Enabled = false;
+                buttonPostToFb.Enabled = false;
+            });
+        }
+
+        private void enableActionButtons()
+        {
+            updateUIOnMainThread(() =>
+            {
+                buttonGeneratePost.Enabled = true;
+                // Note:
+                // buttonPostToFb enabled only if transformation succeeded,
+                // so if PostToFb fails, you need to generate text again
+            });
+        }
+
+        private void buildPostWithCurrentState(string i_OriginalText, string i_Style, string i_TransformedText)
+        {
+            m_PostBuilder.Reset()
+                .WithContent(i_OriginalText)
+                .WithStyle(i_Style)
+                .SetTransformedContent(i_TransformedText)
+                .WithAuthor(LoggedInUser)
+                .WithPrivacy((ePrivacyLevel)comboBoxPrivacy.SelectedIndex);
+
+            // Ensure all images and tags are in builder
+            foreach (string imagePath in m_SelectedImagePaths)
+            {
+                m_PostBuilder.AddImage(imagePath);
+            }
+
+            foreach (string tag in m_SelectedTags)
+            {
+                m_PostBuilder.AddTag(tag);
             }
         }
 
@@ -473,58 +463,87 @@ namespace BasicFacebookFeatures
             if (string.IsNullOrWhiteSpace(textToPost) || textToPost == "Error.")
             {
                 MessageBox.Show("There is no valid text to post.");
+
                 return;
             }
 
             if (string.IsNullOrEmpty(AccessToken))
             {
                 MessageBox.Show("Error: Access Token is missing. Please login again.");
+
                 return;
             }
 
-            (bool success, FacebookPost post, string error) = m_PostBuilder.TryBuild();
+            bool success = m_PostBuilder.TryBuild(out FacebookPost post, out string error);
 
             if (!success)
             {
                 MessageBox.Show($"Cannot post:\n{error}");
+
                 return;
             }
 
-            postToFacebook(post);
+            Thread postingThread = new Thread(() =>
+            {
+                postToFacebookInBackground(post);
+            });
+
+            postingThread.IsBackground = true;
+            postingThread.Start();
         }
 
-        private void postToFacebook(FacebookPost i_Post)
+        private void postToFacebookInBackground(FacebookPost i_Post)
         {
+            disableActionButtons();
+            updateUIOnMainThread(() =>
+            {
+                buttonPostToFb.Text = "Posting....";
+            });
+
             try
             {
                 FacebookClient fbClient = new FacebookClient(AccessToken);
+
                 fbClient.Post("me/feed", new { message = i_Post.Content });
                 Status postedStatus = LoggedInUser.PostStatus(i_Post.Content);
 
-                string imageInfo = i_Post.ImagePaths.Count > 0
-                    ? $"\nImages: {i_Post.ImagePaths.Count}"
-                    : "";
-
-                string tagInfo = i_Post.Tags.Count > 0
-                    ? $"\nTags: {string.Join(", ", i_Post.Tags)}"
-                    : "";
-
-                MessageBox.Show(
-                    $"Status Posted Successfully!\nPost ID: {postedStatus.Id}\n" +
-                    $"Type: {i_Post.PostType}\n" +
-                    $"Privacy: {i_Post.Privacy}" +
-                    imageInfo +
-                    tagInfo,
-                    "Success"
-                );
-
-                resetUiAfterSuccessfulPost();
+                updateUIOnMainThread(() =>
+                {
+                    displayPostResult(i_Post, postedStatus);
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Facebook API Error: {ex.Message}\n\nShowing mock preview of your post...", "Post Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                showMockPostDisplay(i_Post);
+                updateUIOnMainThread(() =>
+                {
+                    MessageBox.Show($"Facebook API Error: {ex.Message}\n\nShowing mock preview of your post...", "Post Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    showMockPostDisplay(i_Post);
+                    enableActionButtons();
+                    buttonPostToFb.Text = "Post to Facebook";
+                });
             }
+        }
+
+        private void displayPostResult(FacebookPost i_Post, Status i_PostedStatus)
+        {
+            string imageInfo = i_Post.ImagePaths.Count > 0
+                ? $"\nImages: {i_Post.ImagePaths.Count}"
+                : "";
+
+            string tagInfo = i_Post.Tags.Count > 0
+                ? $"\nTags: {string.Join(", ", i_Post.Tags)}"
+                : "";
+
+            MessageBox.Show(
+                $"Status Posted Successfully!\nPost ID: {i_PostedStatus.Id}\n" +
+                $"Type: {i_Post.PostType}\n" +
+                $"Privacy: {i_Post.Privacy}" +
+                imageInfo +
+                tagInfo,
+                "Success"
+            );
+
+            resetUiAfterSuccessfulPost();
         }
 
         private void resetUiAfterSuccessfulPost()
@@ -532,9 +551,11 @@ namespace BasicFacebookFeatures
             textBoxOriginalText.Clear();
             textBoxGeneratedText.Clear();
             buttonPostToFb.Enabled = false;
+            buttonPostToFb.Text = "Post to Facebook";
             ClearImages();
             ClearTags();
             m_PostBuilder.Reset();
+            enableActionButtons();
         }
 
         private void showMockPostDisplay(FacebookPost i_Post)
@@ -545,67 +566,19 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public void AddImageToPost(string i_ImagePath)
-        {
-            if (File.Exists(i_ImagePath))
-            {
-                if (!m_SelectedImagePaths.Contains(i_ImagePath) && m_SelectedImagePaths.Count < k_MaxImages)
-                {
-                    addImageToBuilder(i_ImagePath);
-                    updateImagePreviews();
-                }
-                else if (m_SelectedImagePaths.Count >= k_MaxImages)
-                {
-                    MessageBox.Show($"Maximum {k_MaxImages} images allowed.", "Max Images", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
-                MessageBox.Show($"Image not found: {i_ImagePath}");
-            }
-        }
-
-        public void SetPostPrivacy(ePrivacyLevel i_PrivacyLevel)
-        {
-            m_PostBuilder.WithPrivacy(i_PrivacyLevel);
-            comboBoxPrivacy.SelectedIndex = (int)i_PrivacyLevel;
-        }
-
-        public void AddPostTags(params string[] i_Tags)
-        {
-            foreach (string tag in i_Tags)
-            {
-                if (!m_SelectedTags.Contains(tag) && m_SelectedTags.Count < k_MaxTags)
-                {
-                    addTagToBuilder(tag);
-                }
-            }
-            updateTagDisplay();
-        }
-
-        public List<string> GetValidationErrors()
-        {
-            return m_PostBuilder.GetValidationErrors();
-        }
-
         public void ClearImages()
         {
-            // Dispose images
-            if (pictureBoxPreview1.Image != null)
-            {
-                pictureBoxPreview1.Image.Dispose();
-                pictureBoxPreview1.Image = null;
-            }
-            if (pictureBoxPreview2.Image != null)
-            {
-                pictureBoxPreview2.Image.Dispose();
-                pictureBoxPreview2.Image = null;
-            }
-            if (pictureBoxPreview3.Image != null)
-            {
-                pictureBoxPreview3.Image.Dispose();
-                pictureBoxPreview3.Image = null;
-            }
+            Image img1 = pictureBoxPreview1.Image;
+            ImageHelper.SafeDisposeImage(ref img1);
+            pictureBoxPreview1.Image = null;
+
+            Image img2 = pictureBoxPreview2.Image;
+            ImageHelper.SafeDisposeImage(ref img2);
+            pictureBoxPreview2.Image = null;
+
+            Image img3 = pictureBoxPreview3.Image;
+            ImageHelper.SafeDisposeImage(ref img3);
+            pictureBoxPreview3.Image = null;
 
             m_SelectedImagePaths.Clear();
             m_PostBuilder.ClearImages();
@@ -624,7 +597,7 @@ namespace BasicFacebookFeatures
             updateTagDisplay();
         }
 
-        // Making style comboBox's width auto adjust
+        //special function to make the comboBoxStyles_DropDown auto adjust
         private void comboBoxStyles_DropDown(object sender, EventArgs e)
         {
             ComboBox senderComboBox = (ComboBox)sender;
@@ -632,12 +605,12 @@ namespace BasicFacebookFeatures
             Graphics g = senderComboBox.CreateGraphics();
             Font font = senderComboBox.Font;
 
-            int vertScrollBarWidth = (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
+            int verticalScrollBarWidth = (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
                                          ? SystemInformation.VerticalScrollBarWidth : 0;
 
             foreach (object s in senderComboBox.Items)
             {
-                int newWidth = (int)g.MeasureString(s.ToString(), font).Width + vertScrollBarWidth;
+                int newWidth = (int)g.MeasureString(s.ToString(), font).Width + verticalScrollBarWidth;
 
                 if (dropDownWidth < newWidth)
                 {

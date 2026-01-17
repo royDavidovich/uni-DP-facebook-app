@@ -257,20 +257,26 @@ namespace BasicFacebookFeatures.Builders
         /// <summary>
         /// Try to build without throwing exception (safer for UI)
         /// </summary>
-        public (bool success, FacebookPost post, string error) TryBuild()
+        public bool TryBuild(out FacebookPost o_Post, out string o_ErrorMessage)
         {
+            o_Post = null;
+            o_ErrorMessage = null;
+
             if (!Validate())
             {
-                return (false, null, GetValidationErrorsAsString());
+                o_ErrorMessage = GetValidationErrorsAsString();
+                return false;
             }
 
             try
             {
-                return (true, Build(), null);
+                o_Post = Build();
+                return true;
             }
             catch (Exception ex)
             {
-                return (false, null, ex.Message);
+                o_ErrorMessage = ex.Message;
+                return false;
             }
         }
 
