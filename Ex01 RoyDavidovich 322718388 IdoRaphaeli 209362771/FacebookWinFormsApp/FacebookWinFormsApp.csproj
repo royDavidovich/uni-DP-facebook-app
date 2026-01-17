@@ -88,11 +88,19 @@
     <Compile Include="ActivityTabView.Designer.cs">
       <DependentUpon>ActivityTabView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Builders\FacebookPost.cs" />
+    <Compile Include="Builders\FacebookPostBuilder.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MockPostDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MockPostDisplay.Designer.cs">
+      <DependentUpon>MockPostDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Logics\ActivityPoint.cs" />
     <Compile Include="Program.cs" />
@@ -122,6 +130,7 @@
     <EmbeddedResource Include="VibeShifter.resx">
       <DependentUpon>VibeShifter.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="FormMain.cs %28additions%29" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
