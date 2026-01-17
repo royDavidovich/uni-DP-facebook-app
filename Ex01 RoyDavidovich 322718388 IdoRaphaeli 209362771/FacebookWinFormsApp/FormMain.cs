@@ -11,12 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-<<<<<<< HEAD:Ex01 RoyDavidovich 322718388 IdoRaphaeli 209362771/FacebookWinFormsApp/FormMain.cs
-=======
 using BasicFacebookFeatures;
 using BasicFacebookFeatures.Facades;
 using BasicFacebookFeatures.ContentDisplayers;
->>>>>>> EX02_FACTORY:Ex01 Roy 322718388 Ido 209362771/FacebookWinFormsApp/FormMain.cs
 
 namespace BasicFacebookFeatures
 {
@@ -77,11 +74,7 @@ namespace BasicFacebookFeatures
         {
             try
             {
-<<<<<<< HEAD:Ex01 RoyDavidovich 322718388 IdoRaphaeli 209362771/FacebookWinFormsApp/FormMain.cs
-                m_LoginResult = FacebookService.Connect("EAAUm6cZC4eUEBQTAa3rRgO39UZCIJLeD9OpF5SYAevqSaFI16sfjT6JznpAUbyX5Soyj4Uv2ZBRkesoHO9omNcJ3KSYPZCExgaKrIprACUMIVnhiHzT5a46zbdC2VkvZC04n1ZARj8WmvOCYyuIdmRZBNjtWZCFJrbjFoms5t3sU8G9dO1xDCYH7kkfU67heIUZCFDIuTtL0CzF2JUHBpRpwPdXYilOJW811z3C5fY9TOyBiUwZAqx4ZAV6YS5ZBBtYKdsb7");
-=======
                 var loginResult = m_FacebookFacade.ConnectWithToken("EAAUm6cZC4eUEBQTAa3rRgO39UZCIJLeD9OpF5SYAevqSaFI16sfjT6JznpAUbyX5Soyj4Uv2ZBRkesoHO9omNcJ3KSYPZCExgaKrIprACUMIVnhiHzT5a46zbdC2VkvZC04n1ZARj8WmvOCYyuIdmRZBNjtWZCFJrbjFoms5t3sU8G9dO1xDCYH7kkfU67heIUZCFDIuTtL0CzF2JUHBpRpwPdXYilOJW811z3C5fY9TOyBiUwZAqx4ZAV6YS5ZBBtYKdsb7");
->>>>>>> EX02_FACTORY:Ex01 Roy 322718388 Ido 209362771/FacebookWinFormsApp/FormMain.cs
 
                 afterLogin();
             }
@@ -135,107 +128,6 @@ namespace BasicFacebookFeatures
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
         }
 
-<<<<<<< HEAD:Ex01 RoyDavidovich 322718388 IdoRaphaeli 209362771/FacebookWinFormsApp/FormMain.cs
-        private void fetchEvents()
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleEventSelected;
-            try
-            {
-                foreach (Event fbEvent in m_LoggedInUser.Events)
-                {
-                    listBoxMainTab.Items.Add(fbEvent);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No Events to retrieve :(");
-            }
-        }
-
-        private void handleEventSelected(object i_Item)
-        {
-            if (i_Item is Event fbEvent && fbEvent.Cover != null)
-            {
-                pictureBoxMainTab.LoadAsync(fbEvent.Cover.SourceURL);
-            }
-        }
-
-        private void fetchLikedPages()
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleLikedPageSelected;
-            try
-            {
-                foreach (Page page in m_LoggedInUser.LikedPages)
-                {
-                    listBoxMainTab.Items.Add(page);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No liked pages to retrieve :(");
-            }
-        }
-
-        private void handleLikedPageSelected(object i_SelectedPage)
-        {
-            if (listBoxMainTab.SelectedItems.Count == 1)
-            {
-                Page selectedPage = listBoxMainTab.SelectedItem as Page;
-                pictureBoxMainTab.LoadAsync(selectedPage.PictureNormalURL);
-            }
-        }
-
-        private void handleGroupSelected(object i_SelectedGroup)
-        {
-            if (listBoxMainTab.SelectedItems.Count == 1)
-            {
-                Group selectedGroup = listBoxMainTab.SelectedItem as Group;
-                pictureBoxMainTab.LoadAsync(selectedGroup.PictureNormalURL);
-            }
-        }
-
-        private void fetchMusic()
-        {
-            listBoxMainTab.Items.Clear();
-            listBoxMainTab.DisplayMember = "Name";
-            m_OnMainSelectionChanged = handleMusicArtistSelected;
-            foreach (Page artistPage in m_LoggedInUser.Music)
-            {
-                listBoxMainTab.Items.Add(artistPage);
-            }
-
-            if (listBoxMainTab.Items.Count == 0)
-            {
-                MessageBox.Show("No artsits to retrieve :(");
-            }
-        }
-
-        private void handleMusicArtistSelected(object obj)
-        {
-            if (listBoxMainTab.SelectedItems.Count == 1)
-            {
-                Page selectedItem = listBoxMainTab.SelectedItem as Page;
-                pictureBoxMainTab.LoadAsync(selectedItem.PictureNormalURL);
-            }
-        }
-
-=======
->>>>>>> EX02_FACTORY:Ex01 Roy 322718388 Ido 209362771/FacebookWinFormsApp/FormMain.cs
         private void buttonPosts_Click(object sender, EventArgs e)
         {
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("posts", this);
