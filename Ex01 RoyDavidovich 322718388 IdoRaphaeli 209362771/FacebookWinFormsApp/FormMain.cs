@@ -254,7 +254,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void handleLikedPageSelected(object obj)
+        private void handleLikedPageSelected(object i_SelectedPage)
         {
             if (listBoxMainTab.SelectedItems.Count == 1)
             {
@@ -263,7 +263,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void handleGroupSelected(object obj)
+        private void handleGroupSelected(object i_SelectedGroup)
         {
             if (listBoxMainTab.SelectedItems.Count == 1)
             {
