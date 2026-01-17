@@ -10,8 +10,8 @@ using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Builders;
 using BasicFacebookFeatures.Forms;
-using BasicFacebookFeatures.Utilities;
 using System.Drawing;
+using BasicFacebookFeatures.Utilities;
 
 namespace BasicFacebookFeatures
 {
@@ -445,15 +445,8 @@ namespace BasicFacebookFeatures
                 .WithPrivacy((ePrivacyLevel)comboBoxPrivacy.SelectedIndex);
 
             // Ensure all images and tags are in builder
-            foreach (string imagePath in m_SelectedImagePaths)
-            {
-                m_PostBuilder.AddImage(imagePath);
-            }
-
-            foreach (string tag in m_SelectedTags)
-            {
-                m_PostBuilder.AddTag(tag);
-            }
+            m_PostBuilder.AddImages(m_SelectedImagePaths);
+            m_PostBuilder.AddTags(m_SelectedTags);
         }
 
         private void buttonPostToFb_Click(object sender, EventArgs e)
@@ -495,10 +488,7 @@ namespace BasicFacebookFeatures
         private void postToFacebookInBackground(FacebookPost i_Post)
         {
             disableActionButtons();
-            updateUIOnMainThread(() =>
-            {
-                buttonPostToFb.Text = "Posting....";
-            });
+            updateUIOnMainThread(() => { buttonPostToFb.Text = "Posting...."; });
 
             try
             {
@@ -508,42 +498,25 @@ namespace BasicFacebookFeatures
                 Status postedStatus = LoggedInUser.PostStatus(i_Post.Content);
 
                 updateUIOnMainThread(() =>
-                {
-                    displayPostResult(i_Post, postedStatus);
-                });
+                    {
+                        MessageBox.Show("Success! status posted to Facebook");
+                        resetUiAfterSuccessfulPost();
+                    });
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 updateUIOnMainThread(() =>
-                {
-                    MessageBox.Show($"Facebook API Error: {ex.Message}\n\nShowing mock preview of your post...", "Post Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    showMockPostDisplay(i_Post);
-                    enableActionButtons();
-                    buttonPostToFb.Text = "Post to Facebook";
-                });
+                    {
+                        MessageBox.Show(
+                            $"Facebook API Error: {ex.Message}\n\nShowing mock preview of your post...",
+                            "Post Failed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                        showMockPostDisplay(i_Post);
+                        enableActionButtons();
+                        buttonPostToFb.Text = "Post to Facebook";
+                    });
             }
-        }
-
-        private void displayPostResult(FacebookPost i_Post, Status i_PostedStatus)
-        {
-            string imageInfo = i_Post.ImagePaths.Count > 0
-                ? $"\nImages: {i_Post.ImagePaths.Count}"
-                : "";
-
-            string tagInfo = i_Post.Tags.Count > 0
-                ? $"\nTags: {string.Join(", ", i_Post.Tags)}"
-                : "";
-
-            MessageBox.Show(
-                $"Status Posted Successfully!\nPost ID: {i_PostedStatus.Id}\n" +
-                $"Type: {i_Post.PostType}\n" +
-                $"Privacy: {i_Post.Privacy}" +
-                imageInfo +
-                tagInfo,
-                "Success"
-            );
-
-            resetUiAfterSuccessfulPost();
         }
 
         private void resetUiAfterSuccessfulPost()

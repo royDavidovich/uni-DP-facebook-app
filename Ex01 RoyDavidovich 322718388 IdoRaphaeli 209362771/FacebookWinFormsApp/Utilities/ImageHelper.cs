@@ -6,14 +6,16 @@ using System.Windows.Forms;
 
 namespace BasicFacebookFeatures.Utilities
 {
+    /// Note - this was created with the help of AI, because it was only for UI purposes,
+    /// in order to "view" images we had to shrink their size
+
     /// <summary>
     /// Utility class for image loading and manipulation operations
     /// Provides memory-efficient image loading with automatic resizing
-    /// BEST PRACTICE: Separated for reusability across the application
     /// </summary>
     public static class ImageHelper
     {
-        private const long k_MaxSizeInBytes = 5 * 1024 * 1024; // 5MB
+        private const long k_MaxSizeInBytes = 5 * 1024 * 1024; //5MB
         private const int k_MaxImageDimension = 800;
         private const int k_PreviewWidth = 100;
         private const int k_PreviewHeight = 100;

@@ -31,7 +31,6 @@ namespace BasicFacebookFeatures.Builders
             else
             {
                 m_Post.Content = i_Content;
-                // Auto-detect post type if not set
                 if (m_Post.PostType == ePostType.TextOnly && m_Post.ImagePaths.Count == 0)
                 {
                     m_Post.PostType = ePostType.TextOnly;
@@ -82,6 +81,7 @@ namespace BasicFacebookFeatures.Builders
         public FacebookPostBuilder WithPrivacy(ePrivacyLevel i_PrivacyLevel)
         {
             m_Post.Privacy = i_PrivacyLevel;
+
             return this;
         }
 
@@ -98,14 +98,13 @@ namespace BasicFacebookFeatures.Builders
             else
             {
                 m_Post.ImagePaths.Add(i_ImagePath);
-                // Auto-update post type
                 m_Post.PostType = m_Post.ImagePaths.Count > 1 ? ePostType.ImageGallery : ePostType.TextWithImages;
             }
 
             return this;
         }
 
-        public FacebookPostBuilder AddImages(params string[] i_ImagePaths)
+        public FacebookPostBuilder AddImages(List<string> i_ImagePaths)
         {
             if (i_ImagePaths != null)
             {
@@ -123,7 +122,6 @@ namespace BasicFacebookFeatures.Builders
             if (m_Post.ImagePaths.Contains(i_ImagePath))
             {
                 m_Post.ImagePaths.Remove(i_ImagePath);
-                // Auto-update post type
                 if (m_Post.ImagePaths.Count == 0)
                 {
                     m_Post.PostType = ePostType.TextOnly;
@@ -154,7 +152,7 @@ namespace BasicFacebookFeatures.Builders
             return this;
         }
 
-        public FacebookPostBuilder AddTags(params string[] i_Tags)
+        public FacebookPostBuilder AddTags(List<string> i_Tags)
         {
             if (i_Tags != null)
             {
@@ -179,11 +177,6 @@ namespace BasicFacebookFeatures.Builders
             return this;
         }
 
-        // ========== Validation ==========
-
-        /// <summary>
-        /// Validate the post before building
-        /// </summary>
         public bool Validate()
         {
             m_ValidationErrors.Clear();
@@ -208,17 +201,6 @@ namespace BasicFacebookFeatures.Builders
             return m_ValidationErrors.Count == 0;
         }
 
-        /// <summary>
-        /// Get all validation errors
-        /// </summary>
-        public List<string> GetValidationErrors()
-        {
-            return new List<string>(m_ValidationErrors);
-        }
-
-        /// <summary>
-        /// Get validation errors as a single formatted string
-        /// </summary>
         public string GetValidationErrorsAsString()
         {
             return string.Join("\n• ", m_ValidationErrors);
@@ -244,7 +226,7 @@ namespace BasicFacebookFeatures.Builders
             {
                 Content = m_Post.Content,
                 TransformedStyle = m_Post.TransformedStyle,
-                TransformedContent = m_Post.TransformedContent,  // NEW: Include transformed text
+                TransformedContent = m_Post.TransformedContent,
                 Author = m_Post.Author,
                 Privacy = m_Post.Privacy,
                 Tags = new List<string>(m_Post.Tags),
@@ -254,9 +236,6 @@ namespace BasicFacebookFeatures.Builders
             };
         }
 
-        /// <summary>
-        /// Try to build without throwing exception (safer for UI)
-        /// </summary>
         public bool TryBuild(out FacebookPost o_Post, out string o_ErrorMessage)
         {
             o_Post = null;
@@ -280,33 +259,11 @@ namespace BasicFacebookFeatures.Builders
             }
         }
 
-        /// <summary>
-        /// Reset the builder for a new post
-        /// </summary>
         public FacebookPostBuilder Reset()
         {
             m_Post = new FacebookPost();
             m_ValidationErrors.Clear();
             return this;
-        }
-
-        /// <summary>
-        /// Get current post state without building (for preview)
-        /// </summary>
-        public FacebookPost GetCurrentState()
-        {
-            return new FacebookPost
-            {
-                Content = m_Post.Content,
-                TransformedStyle = m_Post.TransformedStyle,
-                TransformedContent = m_Post.TransformedContent,  // NEW: Include transformed text
-                Author = m_Post.Author,
-                Privacy = m_Post.Privacy,
-                Tags = new List<string>(m_Post.Tags),
-                ImagePaths = new List<string>(m_Post.ImagePaths),
-                CreatedAt = m_Post.CreatedAt,
-                PostType = m_Post.PostType
-            };
         }
     }
 }

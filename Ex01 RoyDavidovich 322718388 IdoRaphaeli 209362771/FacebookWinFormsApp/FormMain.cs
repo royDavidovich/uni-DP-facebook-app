@@ -465,29 +465,5 @@ namespace BasicFacebookFeatures
 
             tabControl1.SelectedTab = m_PostingTab;
         }
-
-        /// <summary>
-        /// Example: Advanced posting with images
-        /// Demonstrates the Builder pattern features available in VibeShifter
-        /// This is a tutorial method showing how to use the fluent API
-        /// </summary>
-        //private void AdvancedPostingExample()
-        //{
-        //    // This demonstrates how to use the VibeShifter builder
-        //    // via the public API methods
-
-        //    // Add a single image (replaces any previous image)
-        //    vibeShifter1.AddImageToPost(@"C:\path\to\image.jpg");
-
-        //    // Set privacy level
-        //    vibeShifter1.SetPostPrivacy(ePrivacyLevel.FriendsOnly);
-
-        //    // Add tags
-        //    vibeShifter1.AddPostTags("Friends", "Work", "Update");
-
-        //    // Get preview before posting
-        //    string preview = vibeShifter1.GetPostPreview();
-        //    MessageBox.Show(preview);
-        //}
     }
 }
