@@ -126,13 +126,6 @@ namespace BasicFacebookFeatures
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
         }
 
-        private void handleMusicArtistSelected(object obj)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("music", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-        }
-
         private void buttonPosts_Click(object sender, EventArgs e)
         {
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("posts", this);
