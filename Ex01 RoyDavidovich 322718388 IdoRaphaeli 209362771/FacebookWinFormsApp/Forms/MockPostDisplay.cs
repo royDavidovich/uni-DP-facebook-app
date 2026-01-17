@@ -8,41 +8,20 @@ using BasicFacebookFeatures.Utilities;
 namespace BasicFacebookFeatures.Forms
 {
     /// <summary>
-    /// Mock display form simulating how a Facebook post would appear
-    /// REQUIREMENT: Strategy Pattern - receives complete FacebookPost object
-    /// Shows: Author, Timestamp, Content, Images (Thumbnails), Tags, Action Bar
-    /// 
-    /// DESIGN PRINCIPLE: Pure "Viewer" Strategy
-    /// - Extracts ALL content EXCLUSIVELY from the FacebookPost object passed to constructor
-    /// - Does NOT query data from any other source (VibeShifter, Builder, etc.)
-    /// - Displays data as-is without modification
-    /// 
-    /// IMAGE DISPLAY: Compact Thumbnails
-    /// - Fixed-size squares (150x150 px) to optimize screen real estate
-    /// - FlowLayoutPanel arranges thumbnails side-by-side
-    /// - PictureBox.SizeMode = Zoom for neat fitting
+    /// Note - this was created with the help of AI, because it was only for UI purposes,
+    /// in order to "view" posts, because posting to FB is unavailable due to security reasons.
     /// </summary>
     public partial class MockPostDisplay : Form
     {
         private FacebookPost m_Post;
-
-        // Color palette
         private static readonly Color MIDNIGHT_BLUE = Color.MidnightBlue;
-        private static readonly Color DARK_SLATE_BLUE = Color.DarkSlateBlue;
         private static readonly Color ROYAL_BLUE = Color.RoyalBlue;
         private static readonly Color WHITE = Color.White;
         private static readonly Color LIGHT_GRAY = Color.LightGray;
         private static readonly Color FACEBOOK_BLUE = Color.FromArgb(59, 89, 152);
+        private const int k_ThumbnailSize = 150;
+        private const int k_ThumbnailSpacing = 5;
 
-        // Image thumbnail constants - COMPACT DISPLAY
-        private const int k_ThumbnailSize = 150;  // Fixed square size (150x150 px)
-        private const int k_ThumbnailSpacing = 5; // Spacing between thumbnails
-
-        /// <summary>
-        /// Constructor receives FacebookPost object
-        /// REQUIREMENT: Pure Viewer Strategy - data source authority
-        /// All display data comes EXCLUSIVELY from i_Post parameter
-        /// </summary>
         public MockPostDisplay(FacebookPost i_Post)
         {
             m_Post = i_Post ?? throw new ArgumentNullException(nameof(i_Post));
@@ -69,7 +48,6 @@ namespace BasicFacebookFeatures.Forms
                 Padding = new Padding(20)
             };
 
-            // Post card - Facebook-like design
             Panel postCard = new Panel()
             {
                 Dock = DockStyle.Top,
@@ -79,37 +57,30 @@ namespace BasicFacebookFeatures.Forms
                 Margin = new Padding(0, 0, 0, 20)
             };
 
-            // REQUIREMENT a: Author & Date
-            // Data source: m_Post.Author, m_Post.Privacy, m_Post.CreatedAt
             Panel headerPanel = createHeaderPanel();
+            
             postCard.Controls.Add(headerPanel);
-
-            // REQUIREMENT c: Transformed Text
-            // Data source: m_Post.TransformedContent (fallback to m_Post.Content)
             Panel contentPanel = createContentPanel();
+
             postCard.Controls.Add(contentPanel);
 
-            // REQUIREMENT b: Compact Image Thumbnails (if images exist)
-            // Data source: m_Post.ImagePaths list
             if (m_Post.ImagePaths != null && m_Post.ImagePaths.Count > 0)
             {
                 Panel imagePanel = createCompactImagePanel();
+            
                 postCard.Controls.Add(imagePanel);
             }
-
-            // REQUIREMENT d: Tags
-            // Data source: m_Post.Tags list
+            
             if (m_Post.Tags != null && m_Post.Tags.Count > 0)
             {
                 Panel tagsPanel = createTagsPanel();
+                
                 postCard.Controls.Add(tagsPanel);
             }
 
-            // REQUIREMENT e: Action Bar
             Panel actionBarPanel = createActionBarPanel();
-            postCard.Controls.Add(actionBarPanel);
 
-            // Close button
+            postCard.Controls.Add(actionBarPanel);
             Button closeButton = new Button()
             {
                 Text = "Close Preview",
@@ -128,10 +99,6 @@ namespace BasicFacebookFeatures.Forms
             this.Controls.Add(mainPanel);
         }
 
-        /// <summary>
-        /// REQUIREMENT a: Author Name & Date of Posting
-        /// DATA SOURCE: m_Post.Author (name), m_Post.Privacy (privacy level), m_Post.CreatedAt (timestamp)
-        /// </summary>
         private Panel createHeaderPanel()
         {
             Panel headerPanel = new Panel()
@@ -144,7 +111,6 @@ namespace BasicFacebookFeatures.Forms
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // Author name - DATA SOURCE: m_Post.Author?.Name
             Label authorLabel = new Label()
             {
                 Text = m_Post.Author?.Name ?? "Unknown User",
@@ -155,8 +121,8 @@ namespace BasicFacebookFeatures.Forms
                 Margin = new Padding(0, 0, 0, 5)
             };
 
-            // Timestamp & Privacy - DATA SOURCE: m_Post.Privacy
             string privacyIcon = getPrivacyIcon(m_Post.Privacy);
+
             Label timestampLabel = new Label()
             {
                 Text = $"Just now • {privacyIcon} {getPrivacyDisplay(m_Post.Privacy)}",
@@ -172,11 +138,6 @@ namespace BasicFacebookFeatures.Forms
             return headerPanel;
         }
 
-        /// <summary>
-        /// REQUIREMENT c: Transformed/Generated Text
-        /// DATA SOURCE: m_Post.TransformedContent (priority), fallback to m_Post.Content
-        /// This is the AI-generated text from the Builder
-        /// </summary>
         private Panel createContentPanel()
         {
             Panel contentPanel = new Panel()
@@ -190,7 +151,6 @@ namespace BasicFacebookFeatures.Forms
                 Margin = new Padding(0, 0, 0, 1)
             };
 
-            // Display transformed text if available, otherwise original content
             string displayText = !string.IsNullOrEmpty(m_Post.TransformedContent)
                 ? m_Post.TransformedContent
                 : m_Post.Content;
@@ -211,16 +171,6 @@ namespace BasicFacebookFeatures.Forms
             return contentPanel;
         }
 
-        /// <summary>
-        /// REQUIREMENT b: Compact Image Thumbnails
-        /// DATA SOURCE: m_Post.ImagePaths list (EXCLUSIVE)
-        /// 
-        /// DESIGN: Fixed-Size Thumbnails (150x150 px)
-        /// - FlowLayoutPanel arranges thumbnails horizontally
-        /// - PictureBox.SizeMode = Zoom for proper aspect ratio fit
-        /// - Each thumbnail has border and consistent spacing
-        /// - Optimizes screen real estate vs full-resolution display
-        /// </summary>
         private Panel createCompactImagePanel()
         {
             Panel imageContainerPanel = new Panel()
@@ -234,7 +184,6 @@ namespace BasicFacebookFeatures.Forms
                 Padding = new Padding(10)
             };
 
-            // FlowLayoutPanel for compact thumbnail arrangement
             FlowLayoutPanel flowLayoutThumbnails = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Fill,
@@ -245,16 +194,14 @@ namespace BasicFacebookFeatures.Forms
                 BackColor = WHITE
             };
 
-            // REQUIREMENT: Loop through m_Post.ImagePaths and create thumbnail for EACH image
-            // DATA SOURCE: m_Post.ImagePaths list (this is the ONLY source of truth)
             for (int i = 0; i < m_Post.ImagePaths.Count; i++)
             {
                 string imagePath = m_Post.ImagePaths[i];
-                PictureBox thumbnail = createImageThumbnail(imagePath, i + 1, m_Post.ImagePaths.Count);
+
+                PictureBox thumbnail = createImageThumbnail(imagePath, i + 1);
                 flowLayoutThumbnails.Controls.Add(thumbnail);
             }
 
-            // Image count label
             Label imageCountLabel = new Label()
             {
                 Text = $"{m_Post.ImagePaths.Count} image{(m_Post.ImagePaths.Count != 1 ? "s" : "")} in this post",
@@ -271,17 +218,7 @@ namespace BasicFacebookFeatures.Forms
             return imageContainerPanel;
         }
 
-        /// <summary>
-        /// Create a single compact thumbnail (150x150 px)
-        /// DESIGN: Fixed square with Zoom mode for aspect ratio preservation
-        /// 
-        /// Constraints:
-        /// - Width: k_ThumbnailSize (150 px)
-        /// - Height: k_ThumbnailSize (150 px)
-        /// - SizeMode: Zoom (maintains aspect ratio)
-        /// - Error handling: Shows placeholder if image fails to load
-        /// </summary>
-        private PictureBox createImageThumbnail(string i_ImagePath, int i_ImageNumber, int i_TotalImages)
+        private static PictureBox createImageThumbnail(string i_ImagePath, int i_ImageNumber)
         {
             PictureBox thumbnail = new PictureBox()
             {
@@ -318,10 +255,6 @@ namespace BasicFacebookFeatures.Forms
             return thumbnail;
         }
 
-        /// <summary>
-        /// REQUIREMENT d: Tagged Friends
-        /// DATA SOURCE: m_Post.Tags list (EXCLUSIVE)
-        /// </summary>
         private Panel createTagsPanel()
         {
             Panel tagsPanel = new Panel()
@@ -335,8 +268,8 @@ namespace BasicFacebookFeatures.Forms
                 Margin = new Padding(0, 0, 0, 1)
             };
 
-            // Display all tags from m_Post.Tags list
             string tagsDisplay = string.Join(", ", m_Post.Tags);
+
             Label tagsLabel = new Label()
             {
                 Text = $"🏷️ Tagged with: {tagsDisplay}",
@@ -352,12 +285,7 @@ namespace BasicFacebookFeatures.Forms
             return tagsPanel;
         }
 
-        /// <summary>
-        /// REQUIREMENT e: Dummy Action Bar
-        /// Visual representation of Like, Comment, Share
-        /// These buttons are NOT functional (Enabled = false) - visual only
-        /// </summary>
-        private Panel createActionBarPanel()
+        private static Panel createActionBarPanel()
         {
             Panel actionBarPanel = new Panel()
             {
@@ -369,7 +297,6 @@ namespace BasicFacebookFeatures.Forms
                 Padding = new Padding(5)
             };
 
-            // Like button - VISUAL ONLY
             Button likeButton = new Button()
             {
                 Text = "👍 Like",
@@ -383,7 +310,6 @@ namespace BasicFacebookFeatures.Forms
                 Margin = new Padding(2)
             };
 
-            // Comment button - VISUAL ONLY
             Button commentButton = new Button()
             {
                 Text = "💬 Comment",
@@ -397,7 +323,6 @@ namespace BasicFacebookFeatures.Forms
                 Margin = new Padding(2)
             };
 
-            // Share button - VISUAL ONLY
             Button shareButton = new Button()
             {
                 Text = "↗️ Share",
@@ -418,19 +343,13 @@ namespace BasicFacebookFeatures.Forms
             return actionBarPanel;
         }
 
-        /// <summary>
-        /// Convert PrivacyLevel enum to icon emoji
-        /// </summary>
-        private string getPrivacyIcon(ePrivacyLevel i_Privacy)
+        private static string getPrivacyIcon(ePrivacyLevel i_Privacy)
         {
             return i_Privacy == ePrivacyLevel.Private ? "🔒" :
                    i_Privacy == ePrivacyLevel.FriendsOnly ? "👥" : "🌍";
         }
 
-        /// <summary>
-        /// Convert PrivacyLevel enum to user-friendly display string
-        /// </summary>
-        private string getPrivacyDisplay(ePrivacyLevel i_Privacy)
+        private static string getPrivacyDisplay(ePrivacyLevel i_Privacy)
         {
             return i_Privacy == ePrivacyLevel.Public ? "Public" :
                    i_Privacy == ePrivacyLevel.FriendsOnly ? "Friends Only" : "Private";
