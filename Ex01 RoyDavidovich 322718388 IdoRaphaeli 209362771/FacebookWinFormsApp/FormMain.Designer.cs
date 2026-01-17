@@ -48,6 +48,8 @@
             this.buttonEvent = new System.Windows.Forms.Button();
             this.buttonAlbums = new System.Windows.Forms.Button();
             this.buttonPosts = new System.Windows.Forms.Button();
+            this.buttonChangePost = new System.Windows.Forms.Button();
+            this.textBoxPostEdit = new System.Windows.Forms.TextBox();
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
             this.pictureBoxMainTab = new System.Windows.Forms.PictureBox();
             this.listBoxMainTab = new System.Windows.Forms.ListBox();
@@ -192,6 +194,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.splitContainer1.Panel2.Controls.Add(this.buttonChangePost);
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxPostEdit);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTab);
             this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTab);
@@ -334,6 +338,26 @@
             this.buttonPosts.UseVisualStyleBackColor = false;
             this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
             // 
+            // buttonChangePost
+            // 
+            this.buttonChangePost.BackColor = System.Drawing.Color.DarkGreen;
+            this.buttonChangePost.Location = new System.Drawing.Point(480, 364);
+            this.buttonChangePost.Name = "buttonChangePost";
+            this.buttonChangePost.Size = new System.Drawing.Size(171, 26);
+            this.buttonChangePost.TabIndex = 5;
+            this.buttonChangePost.Text = "Change!";
+            this.buttonChangePost.UseVisualStyleBackColor = false;
+            // 
+            // textBoxPostEdit
+            // 
+            this.textBoxPostEdit.Location = new System.Drawing.Point(480, 330);
+            this.textBoxPostEdit.Multiline = true;
+            this.textBoxPostEdit.Name = "textBoxPostEdit";
+            this.textBoxPostEdit.Size = new System.Drawing.Size(171, 28);
+            this.textBoxPostEdit.TabIndex = 4;
+            this.textBoxPostEdit.Text = "Change Post Here!";
+            this.textBoxPostEdit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // pictureBoxMainTabLogedInUser
             // 
             this.pictureBoxMainTabLogedInUser.Location = new System.Drawing.Point(591, 6);
@@ -424,6 +448,7 @@
             this.tabPage2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
@@ -461,6 +486,8 @@
         //private System.Windows.Forms.LinkLabel linkLabelActivity;
         private VibeShifter vibeShifter1;
         private System.Windows.Forms.Label labelAIPost;
+        private System.Windows.Forms.Button buttonChangePost;
+        private System.Windows.Forms.TextBox textBoxPostEdit;
     }
 }
 
