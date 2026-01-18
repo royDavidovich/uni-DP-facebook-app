@@ -158,12 +158,19 @@ namespace BasicFacebookFeatures
             
             if (vibeShifter1 != null)
                 vibeShifter1.Visible = false;
+
+            if (textBoxPostEdit != null)
+            {
+                textBoxPostEdit.Visible = false;
+                textBoxPostEdit.Clear();
+                textBoxPostEdit.DataBindings.Clear();
+            }
         }
 
         private void buttonPosts_Click(object sender, EventArgs e)
         {
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("posts", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+            displayer.DisplayContent(listBoxMainTab, textBoxPostEdit, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
             ShowPostEditorControls();
         }
@@ -316,6 +323,20 @@ namespace BasicFacebookFeatures
             if (!string.IsNullOrEmpty(url))
             {
                 pictureBoxMainTab.LoadAsync(url);
+            }
+        }
+
+        private void buttonChangePost_Click(object sender, EventArgs e)
+        {
+            var binding = textBoxPostEdit.DataBindings["Text"];
+
+            if (binding != null)
+            {
+                binding.WriteValue();
+
+                listBoxMainTab.Refresh();
+
+                MessageBox.Show("Post updated!");
             }
         }
     }

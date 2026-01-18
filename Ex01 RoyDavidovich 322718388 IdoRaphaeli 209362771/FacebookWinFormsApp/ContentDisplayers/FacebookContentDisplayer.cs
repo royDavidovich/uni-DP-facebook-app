@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Windows.Forms;
+﻿using BasicFacebookFeatures.Facades;
 using FacebookWrapper.ObjectModel;
-using BasicFacebookFeatures.Facades;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace BasicFacebookFeatures.ContentDisplayers
 {
@@ -33,6 +34,7 @@ namespace BasicFacebookFeatures.ContentDisplayers
 
         public void DisplayContent(ListBox listBox, FacebookFacade facade)
         {
+            listBox.DataSource = null;
             listBox.Items.Clear();
             listBox.DisplayMember = GetDisplayMember();
 
@@ -69,6 +71,43 @@ namespace BasicFacebookFeatures.ContentDisplayers
         public virtual Action<object> GetSelectionHandler()
         {
             return null;
+        }
+
+        public void DisplayContent(ListBox listBox, TextBox textBox, FacebookFacade facade, Label labelCount = null)
+        {
+            listBox.DataSource = null;
+            listBox.Items.Clear();
+            if (textBox != null)
+            {
+                textBox.DataBindings.Clear();
+                textBox.Clear();
+            }
+
+            listBox.DisplayMember = GetDisplayMember();
+
+            try
+            {
+                IEnumerable data = GetContent(facade);
+                if (data == null) return;
+
+                var list = new List<object>();
+                foreach (var item in data) list.Add(item);
+
+                if (list.Count == 0) return;
+
+                BindingSource bindingSource = new BindingSource();
+                bindingSource.DataSource = list;
+                listBox.DataSource = bindingSource;
+
+                if (textBox != null)
+                {
+                    textBox.DataBindings.Add("Text", bindingSource, GetDisplayMember(), true, DataSourceUpdateMode.Never);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

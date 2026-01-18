@@ -347,6 +347,7 @@
             this.buttonChangePost.TabIndex = 5;
             this.buttonChangePost.Text = "Change!";
             this.buttonChangePost.UseVisualStyleBackColor = false;
+            this.buttonChangePost.Click += new System.EventHandler(this.buttonChangePost_Click);
             // 
             // textBoxPostEdit
             // 
@@ -423,7 +424,7 @@
             this.vibeShifter1.LoggedInUser = null;
             this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4);
             this.vibeShifter1.Name = "vibeShifter1";
-            this.vibeShifter1.Size = new System.Drawing.Size(850, 405);
+            this.vibeShifter1.Size = new System.Drawing.Size(850, 411);
             this.vibeShifter1.TabIndex = 0;
             // 
             // FormMain
@@ -483,7 +484,6 @@
         private System.Windows.Forms.Button buttonEvent;
         private System.Windows.Forms.Button buttonActivity;
         private System.Windows.Forms.Button buttonPostWithAI;
-        //private System.Windows.Forms.LinkLabel linkLabelActivity;
         private VibeShifter vibeShifter1;
         private System.Windows.Forms.Label labelAIPost;
         private System.Windows.Forms.Button buttonChangePost;
