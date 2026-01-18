@@ -144,9 +144,6 @@ namespace BasicFacebookFeatures
 
         private void HidePostEditorControls()
         {
-            if (buttonPostWithAI != null)
-                buttonPostWithAI.Visible = false;
-            
             if (labelAIPost != null)
                 labelAIPost.Visible = false;
             
@@ -156,9 +153,6 @@ namespace BasicFacebookFeatures
             if (textBoxPostEdit != null)
                 textBoxPostEdit.Visible = false;
             
-            if (vibeShifter1 != null)
-                vibeShifter1.Visible = false;
-
             if (textBoxPostEdit != null)
             {
                 textBoxPostEdit.Visible = false;
