@@ -11,7 +11,7 @@ namespace BasicFacebookFeatures.Facades
     public class FacebookFacade
     {
         private static FacebookFacade s_Instance;
-        private static readonly object s_Lock = new object();
+        private static readonly object sr_Lock = new object();
         
         private LoginResult m_LoginResult;
         private User m_LoggedInUser;
@@ -27,7 +27,7 @@ namespace BasicFacebookFeatures.Facades
             {
                 if (s_Instance == null)
                 {
-                    lock (s_Lock) // Thread-safe singleton
+                    lock (sr_Lock) // Thread-safe singleton
                     {
                         if (s_Instance == null)
                         {
@@ -43,9 +43,9 @@ namespace BasicFacebookFeatures.Facades
         public string AccessToken => m_LoginResult?.AccessToken;
         public bool IsLoggedIn => m_LoggedInUser != null;
 
-        public LoginResult Login(string appId, params string[] permissions)
+        public LoginResult Login(string i_AppId, params string[] i_Permissions)
         {
-            m_LoginResult = FacebookService.Login(appId, permissions);
+            m_LoginResult = FacebookService.Login(i_AppId, i_Permissions);
             
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
@@ -55,9 +55,9 @@ namespace BasicFacebookFeatures.Facades
             return m_LoginResult;
         }
 
-        public LoginResult ConnectWithToken(string accessToken)
+        public LoginResult ConnectWithToken(string i_AccessToken)
         {
-            m_LoginResult = FacebookService.Connect(accessToken);
+            m_LoginResult = FacebookService.Connect(i_AccessToken);
             
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {

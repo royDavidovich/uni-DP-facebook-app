@@ -10,9 +10,9 @@ namespace BasicFacebookFeatures.ContentDisplayers
 {
     public class PostDisplayer : FacebookContentDisplayer
     {
-        protected override IEnumerable GetContent(FacebookFacade facade)
+        protected override IEnumerable GetContent(FacebookFacade i_Facade)
         {
-            return facade.GetUserPosts();
+            return i_Facade.GetUserPosts();
         }
 
         protected override string GetContentTypeName()

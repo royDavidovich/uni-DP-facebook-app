@@ -13,14 +13,14 @@ namespace BasicFacebookFeatures.ContentDisplayers
     {
         private readonly FormMain m_FormMain;
 
-        public TeamDisplayer(FormMain formMain)
+        public TeamDisplayer(FormMain i_FormMain)
         {
-            m_FormMain = formMain;
+            m_FormMain = i_FormMain;
         }
 
-        protected override IEnumerable GetContent(FacebookFacade facade)
+        protected override IEnumerable GetContent(FacebookFacade i_Facade)
         {
-            return facade.GetFavoriteTeams();
+            return i_Facade.GetFavoriteTeams();
         }
 
         protected override string GetContentTypeName()

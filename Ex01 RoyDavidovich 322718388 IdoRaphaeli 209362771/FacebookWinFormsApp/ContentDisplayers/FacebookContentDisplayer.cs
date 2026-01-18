@@ -9,47 +9,47 @@ namespace BasicFacebookFeatures.ContentDisplayers
 {
     public abstract class FacebookContentDisplayer
     {
-        public static FacebookContentDisplayer Create(string type, FormMain formMain)
+        public static FacebookContentDisplayer Create(string i_Type, FormMain i_FormMain)
         {
-            switch (type.ToLower())
+            switch (i_Type.ToLower())
             {
                 case "albums":
-                    return new AlbumDisplayer(formMain);
+                    return new AlbumDisplayer(i_FormMain);
                 case "posts":
                     return new PostDisplayer();
                 case "events":
-                    return new EventDisplayer(formMain);
+                    return new EventDisplayer(i_FormMain);
                 case "groups":
-                    return new GroupDisplayer(formMain);
+                    return new GroupDisplayer(i_FormMain);
                 case "pages":
-                    return new LikedPagesDisplayer(formMain);
+                    return new LikedPagesDisplayer(i_FormMain);
                 case "teams":
-                    return new TeamDisplayer(formMain);
+                    return new TeamDisplayer(i_FormMain);
                 case "music":
-                    return new MusicDisplayer(formMain);
+                    return new MusicDisplayer(i_FormMain);
                 default:
-                    throw new ArgumentException($"The content type '{type}' is not supported.");
+                    throw new ArgumentException($"The content type '{i_Type}' is not supported.");
             }
         }
 
-        public void DisplayContent(ListBox listBox, FacebookFacade facade)
+        public void DisplayContent(ListBox i_ListBox, FacebookFacade i_Facade)
         {
-            listBox.DataSource = null;
-            listBox.Items.Clear();
-            listBox.DisplayMember = GetDisplayMember();
+            i_ListBox.DataSource = null;
+            i_ListBox.Items.Clear();
+            i_ListBox.DisplayMember = GetDisplayMember();
 
             try
             {
-                IEnumerable data = GetContent(facade);
+                IEnumerable data = GetContent(i_Facade);
 
                 if (data == null) return;
 
                 foreach (var item in data)
                 {
-                    listBox.Items.Add(item);
+                    i_ListBox.Items.Add(item);
                 }
 
-                if (listBox.Items.Count == 0)
+                if (i_ListBox.Items.Count == 0)
                 {
                     MessageBox.Show($"No {GetContentTypeName()} to retrieve :(");
                 }
@@ -60,7 +60,7 @@ namespace BasicFacebookFeatures.ContentDisplayers
             }
         }
 
-        protected abstract IEnumerable GetContent(FacebookFacade facade);
+        protected abstract IEnumerable GetContent(FacebookFacade i_Facade);
         protected abstract string GetContentTypeName();
 
         protected virtual string GetDisplayMember()
@@ -73,21 +73,21 @@ namespace BasicFacebookFeatures.ContentDisplayers
             return null;
         }
 
-        public void DisplayContent(ListBox listBox, TextBox textBox, FacebookFacade facade, Label labelCount = null)
+        public void DisplayContent(ListBox i_ListBox, TextBox i_TextBox, FacebookFacade i_Facade, Label i_LabelCount = null)
         {
-            listBox.DataSource = null;
-            listBox.Items.Clear();
-            if (textBox != null)
+            i_ListBox.DataSource = null;
+            i_ListBox.Items.Clear();
+            if (i_TextBox != null)
             {
-                textBox.DataBindings.Clear();
-                textBox.Clear();
+                i_TextBox.DataBindings.Clear();
+                i_TextBox.Clear();
             }
 
-            listBox.DisplayMember = GetDisplayMember();
+            i_ListBox.DisplayMember = GetDisplayMember();
 
             try
             {
-                IEnumerable data = GetContent(facade);
+                IEnumerable data = GetContent(i_Facade);
                 if (data == null) return;
 
                 var list = new List<object>();
@@ -97,11 +97,11 @@ namespace BasicFacebookFeatures.ContentDisplayers
 
                 BindingSource bindingSource = new BindingSource();
                 bindingSource.DataSource = list;
-                listBox.DataSource = bindingSource;
+                i_ListBox.DataSource = bindingSource;
 
-                if (textBox != null)
+                if (i_TextBox != null)
                 {
-                    textBox.DataBindings.Add("Text", bindingSource, GetDisplayMember(), true, DataSourceUpdateMode.Never);
+                    i_TextBox.DataBindings.Add("Text", bindingSource, GetDisplayMember(), true, DataSourceUpdateMode.Never);
                 }
             }
             catch (Exception ex)

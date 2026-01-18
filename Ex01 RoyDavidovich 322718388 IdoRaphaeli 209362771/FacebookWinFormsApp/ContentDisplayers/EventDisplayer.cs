@@ -13,14 +13,14 @@ namespace BasicFacebookFeatures.ContentDisplayers
     {
         private readonly FormMain m_FormMain;
 
-        public EventDisplayer(FormMain formMain)
+        public EventDisplayer(FormMain I_FormMain)
         {
-            m_FormMain = formMain;
+            m_FormMain = I_FormMain;
         }
 
-        protected override IEnumerable GetContent(FacebookFacade facade)
+        protected override IEnumerable GetContent(FacebookFacade i_Facade)
         {
-            return facade.GetUserEvents();
+            return i_Facade.GetUserEvents();
         }
 
         protected override string GetContentTypeName()

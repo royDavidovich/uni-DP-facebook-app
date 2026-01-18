@@ -14,14 +14,14 @@ namespace BasicFacebookFeatures.ContentDisplayers
     {
         private readonly FormMain m_FormMain;
 
-        public LikedPagesDisplayer(FormMain formMain)
+        public LikedPagesDisplayer(FormMain i_FormMain)
         {
-            m_FormMain = formMain;
+            m_FormMain = i_FormMain;
         }
 
-        protected override IEnumerable GetContent(FacebookFacade facade)
+        protected override IEnumerable GetContent(FacebookFacade i_Facade)
         {
-            return facade.GetLikedPages();
+            return i_Facade.GetLikedPages();
         }
 
         protected override string GetContentTypeName()

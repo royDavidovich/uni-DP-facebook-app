@@ -440,8 +440,8 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "  Facebook";
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            this.Resize += new System.EventHandler(this.FormMain_Resize);
+            this.Load += new System.EventHandler(this.formMain_Load);
+            this.Resize += new System.EventHandler(this.formMain_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

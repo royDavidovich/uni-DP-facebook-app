@@ -13,14 +13,14 @@ namespace BasicFacebookFeatures.ContentDisplayers
     {
         private readonly FormMain m_FormMain;
 
-        public MusicDisplayer(FormMain formMain)
+        public MusicDisplayer(FormMain i_FormMain)
         {
-            m_FormMain = formMain;
+            m_FormMain = i_FormMain;
         }
 
-        protected override IEnumerable GetContent(FacebookFacade facade)
+        protected override IEnumerable GetContent(FacebookFacade i_Facade)
         {
-            return facade.GetMusic();
+            return i_Facade.GetMusic();
         }
 
         protected override string GetContentTypeName()

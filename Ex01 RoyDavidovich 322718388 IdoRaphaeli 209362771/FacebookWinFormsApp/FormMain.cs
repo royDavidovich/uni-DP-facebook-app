@@ -31,7 +31,7 @@ namespace BasicFacebookFeatures
             this.MinimumSize = new Size(800, 400);
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             m_FacebookFacade = FacebookFacade.Instance;
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -129,7 +129,7 @@ namespace BasicFacebookFeatures
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
         }
 
-        private void ShowPostEditorControls()
+        private void showPostEditorControls()
         {
             if (textBoxPostEdit != null)
             {
@@ -142,17 +142,23 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void HidePostEditorControls()
+        private void hidePostEditorControls()
         {
             if (labelAIPost != null)
+            {
                 labelAIPost.Visible = false;
-            
+            }
+
             if (buttonChangePost != null)
+            {
                 buttonChangePost.Visible = false;
-            
+            }
+
             if (textBoxPostEdit != null)
+            {
                 textBoxPostEdit.Visible = false;
-            
+            }
+
             if (textBoxPostEdit != null)
             {
                 textBoxPostEdit.Visible = false;
@@ -166,7 +172,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("posts", this);
             displayer.DisplayContent(listBoxMainTab, textBoxPostEdit, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            ShowPostEditorControls();
+            showPostEditorControls();
         }
 
         private void buttonAlbums_Click(object sender, EventArgs e)
@@ -174,7 +180,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("albums", this);
             displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonEvent_Click(object sender, EventArgs e)
@@ -182,7 +188,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("events", this);
             displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonGroups_Click(object sender, EventArgs e)
@@ -190,7 +196,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("groups", this);
             displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonFavTeams_Click(object sender, EventArgs e)
@@ -198,7 +204,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("teams", this);
             displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonLikedPaged_Click(object sender, EventArgs e)
@@ -206,7 +212,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("pages", this);
             displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonFavMusic_Click(object sender, EventArgs e)
@@ -214,7 +220,7 @@ namespace BasicFacebookFeatures
             FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("music", this);
             displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
             m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            HidePostEditorControls();
+            hidePostEditorControls();
         }
 
         private void buttonActivity_Click(object sender, EventArgs e)
@@ -247,12 +253,12 @@ namespace BasicFacebookFeatures
             tabControl1.SelectedTab = activityPage;
         }
 
-        private void FormMain_Resize(object sender, EventArgs e)
+        private void formMain_Resize(object sender, EventArgs e)
         {
-            UpdateMainLayout();
+            updateMainLayout();
         }
 
-        private void UpdateMainLayout()
+        private void updateMainLayout()
         {
             listBoxMainTab.Left = (int)(buttonPosts.Left);
             listBoxMainTab.Width = (int)(this.ClientSize.Width * 0.5);
@@ -283,15 +289,15 @@ namespace BasicFacebookFeatures
 
         }
 
-        private void makePictureCircular(PictureBox pb)
+        private void makePictureCircular(PictureBox i_Pb)
         {
             var path = new System.Drawing.Drawing2D.GraphicsPath();
-            path.AddEllipse(0, 0, pb.Width, pb.Height);
-            pb.Region = new Region(path);
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            path.AddEllipse(0, 0, i_Pb.Width, i_Pb.Height);
+            i_Pb.Region = new Region(path);
+            i_Pb.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private void formMain_Load(object sender, EventArgs e)
         {
             m_MainTab = tabPage2;
             tabControl1.TabPages.Remove(tabPage2);
@@ -299,7 +305,7 @@ namespace BasicFacebookFeatures
             m_PostingTab = tabPage3;
             tabControl1.TabPages.Remove(tabPage3);
 
-            UpdateMainLayout();
+            updateMainLayout();
         }
 
         private void buttonPostWithAI_Click(object sender, EventArgs e)
@@ -312,11 +318,11 @@ namespace BasicFacebookFeatures
             tabControl1.SelectedTab = m_PostingTab;
         }
 
-        public void LoadImageToPictureBox(string url)
+        public void LoadImageToPictureBox(string i_Url)
         {
-            if (!string.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(i_Url))
             {
-                pictureBoxMainTab.LoadAsync(url);
+                pictureBoxMainTab.LoadAsync(i_Url);
             }
         }
 

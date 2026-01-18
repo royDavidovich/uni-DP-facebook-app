@@ -9,14 +9,14 @@ namespace BasicFacebookFeatures.ContentDisplayers
     {
         private readonly FormMain m_FormMain;
 
-        public AlbumDisplayer(FormMain formMain)
+        public AlbumDisplayer(FormMain i_FormMain)
         {
-            m_FormMain = formMain;
+            m_FormMain = i_FormMain;
         }
 
-        protected override IEnumerable GetContent(FacebookFacade facade)
+        protected override IEnumerable GetContent(FacebookFacade i_Facade)
         {
-            return facade.GetUserAlbums();
+            return i_Facade.GetUserAlbums();
         }
 
         protected override string GetContentTypeName()
