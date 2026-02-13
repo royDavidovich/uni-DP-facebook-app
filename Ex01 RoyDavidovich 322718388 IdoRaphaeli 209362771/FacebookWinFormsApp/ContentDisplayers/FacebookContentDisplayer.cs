@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace BasicFacebookFeatures.ContentDisplayers
 {
+    // $G$ DSN-999 (-5) This clas is a logic class, therefore it should not call MessageBox.Show() or know Form, ListBox, TextBox...
+    // $G$ CSS-999 (-3) Structre of "if" and "foreach" blocs are not as required.
+
     public abstract class FacebookContentDisplayer
     {
         public static FacebookContentDisplayer Create(string i_Type, FormMain i_FormMain)
