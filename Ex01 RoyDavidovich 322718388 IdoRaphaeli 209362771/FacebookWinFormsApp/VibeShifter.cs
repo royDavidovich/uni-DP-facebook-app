@@ -10,12 +10,17 @@ using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Builders;
 using BasicFacebookFeatures.Forms;
+using BasicFacebookFeatures.Observers;
 using System.Drawing;
 using BasicFacebookFeatures.Utilities;
 
 namespace BasicFacebookFeatures
 {
-    public partial class VibeShifter : UserControl
+    /// <summary>
+    /// VibeShifter UserControl for AI-powered post creation
+    /// Implements ILoginObserver to handle automatic login state updates
+    /// </summary>
+    public partial class VibeShifter : UserControl, ILoginObserver
     {
         private const string k_MakeWebhookUrl = "https://hook.eu2.make.com/4749dpm5svcvbvodicxijf2eqojwusx6";
         private FacebookPostBuilder m_PostBuilder;
@@ -39,6 +44,20 @@ namespace BasicFacebookFeatures
             initializePostOptions();
             setupImagePreviewClickHandlers();
         }
+
+        // ========== Observer Pattern Implementation ==========
+
+        /// <summary>
+        /// Observer method: Called when login state changes
+        /// Updates the user and access token automatically
+        /// </summary>
+        public void UpdateLoginState(User i_LoggedInUser, string i_AccessToken)
+        {
+            LoggedInUser = i_LoggedInUser;
+            AccessToken = i_AccessToken;
+        }
+
+        // ========== Existing Code ==========
 
         private void setupImagePreviewClickHandlers()
         {
@@ -429,9 +448,6 @@ namespace BasicFacebookFeatures
             updateUIOnMainThread(() =>
             {
                 buttonGeneratePost.Enabled = true;
-                // Note:
-                // buttonPostToFb enabled only if transformation succeeded,
-                // so if PostToFb fails, you need to generate text again
             });
         }
 
@@ -444,7 +460,6 @@ namespace BasicFacebookFeatures
                 .WithAuthor(LoggedInUser)
                 .WithPrivacy((ePrivacyLevel)comboBoxPrivacy.SelectedIndex);
 
-            // Ensure all images and tags are in builder
             m_PostBuilder.AddImages(m_SelectedImagePaths);
             m_PostBuilder.AddTags(m_SelectedTags);
         }
@@ -456,14 +471,12 @@ namespace BasicFacebookFeatures
             if (string.IsNullOrWhiteSpace(textToPost) || textToPost == "Error.")
             {
                 MessageBox.Show("There is no valid text to post.");
-
                 return;
             }
 
             if (string.IsNullOrEmpty(AccessToken))
             {
                 MessageBox.Show("Error: Access Token is missing. Please login again.");
-
                 return;
             }
 
@@ -472,7 +485,6 @@ namespace BasicFacebookFeatures
             if (!success)
             {
                 MessageBox.Show($"Cannot post:\n{error}");
-
                 return;
             }
 
@@ -570,7 +582,6 @@ namespace BasicFacebookFeatures
             updateTagDisplay();
         }
 
-        //special function to make the comboBoxStyles_DropDown auto adjust
         private void comboBoxStyles_DropDown(object sender, EventArgs e)
         {
             ComboBox senderComboBox = (ComboBox)sender;

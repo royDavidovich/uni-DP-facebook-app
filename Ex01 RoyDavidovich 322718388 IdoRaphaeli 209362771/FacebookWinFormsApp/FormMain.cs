@@ -15,6 +15,7 @@ using BasicFacebookFeatures;
 using BasicFacebookFeatures.Facades;
 using BasicFacebookFeatures.ContentDisplayers;
 using BasicFacebookFeatures.Strategies;
+using BasicFacebookFeatures.Observers;
 
 namespace BasicFacebookFeatures
 {
@@ -34,6 +35,11 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             m_FacebookFacade = FacebookFacade.Instance;
             hidePostEditorControls();
+
+            // ========== Observer Pattern: Register Observers ==========
+            // Register VibeShifter (AI Posting tab) as an observer
+            m_FacebookFacade.AttachObserver(vibeShifter1);
+            // =========================================================
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -101,8 +107,14 @@ namespace BasicFacebookFeatures
 
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
-            vibeShifter1.LoggedInUser = m_FacebookFacade.LoggedInUser;
-            vibeShifter1.AccessToken = m_FacebookFacade.AccessToken;
+
+            // ========== Observer Pattern: Automatic Updates ==========
+            // Login state updates are now handled automatically
+            // by the Observer Pattern through FacebookFacade.NotifyObservers()
+            // The following manual assignments are NO LONGER NEEDED:
+            // vibeShifter1.LoggedInUser = m_FacebookFacade.LoggedInUser;
+            // vibeShifter1.AccessToken = m_FacebookFacade.AccessToken;
+            // =========================================================
 
             if (!tabControl1.TabPages.Contains(m_MainTab))
             {
@@ -237,7 +249,14 @@ namespace BasicFacebookFeatures
             chartActivity activityTabView = new chartActivity();
             activityTabView.Dock = DockStyle.Fill;
 
-            activityTabView.SetLoggedInUser(m_FacebookFacade.LoggedInUser);
+            // ========== Observer Pattern: Register and Initialize ==========
+            // Attach dynamically created chartActivity as observer
+            m_FacebookFacade.AttachObserver(activityTabView);
+            
+            // CRUCIAL: Manually initialize the observer with current login state
+            // since it wasn't registered when the user logged in
+            activityTabView.UpdateLoginState(m_FacebookFacade.LoggedInUser, m_FacebookFacade.AccessToken);
+            // ===============================================================
 
             activityPage.Controls.Add(activityTabView);
             tabControl1.TabPages.Add(activityPage);
@@ -295,10 +314,8 @@ namespace BasicFacebookFeatures
             m_PostingTab = tabPage3;
             tabControl1.TabPages.Remove(tabPage3);
 
-            // ===== FIX: Prevent ItemHeight from being overridden =====
             listBoxMainTab.IntegralHeight = true;
-            listBoxMainTab.ItemHeight = 18;  // Ensure it stays at 18px
-            // ========================================================
+            listBoxMainTab.ItemHeight = 18;
 
             updateMainLayout();
         }
@@ -328,9 +345,7 @@ namespace BasicFacebookFeatures
             if (binding != null)
             {
                 binding.WriteValue();
-
                 listBoxMainTab.Refresh();
-
                 MessageBox.Show("Post updated!");
             }
         }
@@ -343,7 +358,6 @@ namespace BasicFacebookFeatures
                 return;
             }
 
-            // Determine which strategy to use based on selected index
             switch (comboBoxSortStrategy.SelectedIndex)
             {
                 case 0: // No Sort
@@ -360,13 +374,9 @@ namespace BasicFacebookFeatures
                     break;
             }
 
-            // Refresh the display with the new sorting strategy
             refreshCurrentDisplay();
         }
 
-        /// <summary>
-        /// Helper method to refresh the current display with the new sort strategy
-        /// </summary>
         private void refreshCurrentDisplay()
         {
             if (m_CurrentDisplayer == null)
@@ -376,11 +386,8 @@ namespace BasicFacebookFeatures
 
             try
             {
-                // Determine which display method to call based on current content type
-                // We need to check which button was last clicked
                 if (listBoxMainTab.DataBindings.Count > 0 || listBoxMainTab.Items.Count > 0)
                 {
-                    // Check if textBoxPostEdit is visible (Posts display uses it)
                     if (textBoxPostEdit.Visible)
                     {
                         m_CurrentDisplayer.DisplayContent(listBoxMainTab, textBoxPostEdit, m_FacebookFacade);

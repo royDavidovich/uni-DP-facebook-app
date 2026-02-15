@@ -10,12 +10,16 @@ using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using BasicFacebookFeatures.Logics;
-using System.Linq;
+using BasicFacebookFeatures.Observers;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
-    public partial class chartActivity : UserControl
+    /// <summary>
+    /// Activity chart UserControl showing user post history
+    /// Implements ILoginObserver to handle automatic login state updates
+    /// </summary>
+    public partial class chartActivity : UserControl, ILoginObserver
     {
         private User m_LoggedInUser;
 
@@ -23,6 +27,19 @@ namespace BasicFacebookFeatures
         {
             InitializeComponent();
         }
+
+        // ========== Observer Pattern Implementation ==========
+
+        /// <summary>
+        /// Observer method: Called when login state changes
+        /// Updates the chart with the logged-in user's data
+        /// </summary>
+        public void UpdateLoginState(User i_LoggedInUser, string i_AccessToken)
+        {
+            SetLoggedInUser(i_LoggedInUser);
+        }
+
+        // ========== Existing Code ==========
 
         private void comboBoxTime_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -97,7 +114,7 @@ namespace BasicFacebookFeatures
                 {
                     label = point.Date.ToString("MM/yyyy");
                 }
-                else // Since beginning
+                else
                 {
                     label = point.Date.Year.ToString();
                 }
@@ -311,7 +328,6 @@ namespace BasicFacebookFeatures
 
         private void labelActivity_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

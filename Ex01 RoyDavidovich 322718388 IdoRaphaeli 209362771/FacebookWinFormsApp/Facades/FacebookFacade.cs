@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using BasicFacebookFeatures.Observers;
 
 namespace BasicFacebookFeatures.Facades
 {
     /// <summary>
     /// Facade pattern - simplifies access to Facebook services and manages login state
+    /// Also acts as the Subject in the Observer Design Pattern
     /// </summary>
     public class FacebookFacade
     {
@@ -15,6 +17,7 @@ namespace BasicFacebookFeatures.Facades
         
         private LoginResult m_LoginResult;
         private User m_LoggedInUser;
+        private readonly List<ILoginObserver> r_Observers = new List<ILoginObserver>();
 
         private FacebookFacade() { }
 
@@ -43,6 +46,49 @@ namespace BasicFacebookFeatures.Facades
         public string AccessToken => m_LoginResult?.AccessToken;
         public bool IsLoggedIn => m_LoggedInUser != null;
 
+        // ========== Observer Pattern Implementation ==========
+
+        /// <summary>
+        /// Subscribe an observer to login state changes
+        /// </summary>
+        public void AttachObserver(ILoginObserver i_Observer)
+        {
+            if (i_Observer == null)
+            {
+                throw new ArgumentNullException(nameof(i_Observer));
+            }
+
+            if (!r_Observers.Contains(i_Observer))
+            {
+                r_Observers.Add(i_Observer);
+            }
+        }
+
+        /// <summary>
+        /// Unsubscribe an observer from login state changes
+        /// </summary>
+        public void DetachObserver(ILoginObserver i_Observer)
+        {
+            if (i_Observer != null)
+            {
+                r_Observers.Remove(i_Observer);
+            }
+        }
+
+        /// <summary>
+        /// Notify all observers of login state change
+        /// Called internally after successful login or logout
+        /// </summary>
+        private void NotifyObservers()
+        {
+            foreach (ILoginObserver observer in r_Observers)
+            {
+                observer.UpdateLoginState(m_LoggedInUser, AccessToken);
+            }
+        }
+
+        // ========== Facebook Authentication Methods ==========
+
         public LoginResult Login(string i_AppId, params string[] i_Permissions)
         {
             m_LoginResult = FacebookService.Login(i_AppId, i_Permissions);
@@ -50,6 +96,7 @@ namespace BasicFacebookFeatures.Facades
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
                 m_LoggedInUser = m_LoginResult.LoggedInUser;
+                NotifyObservers();  // Notify observers of successful login
             }
 
             return m_LoginResult;
@@ -62,6 +109,7 @@ namespace BasicFacebookFeatures.Facades
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
                 m_LoggedInUser = m_LoginResult.LoggedInUser;
+                NotifyObservers();  // Notify observers of successful token connection
             }
 
             return m_LoginResult;
@@ -72,7 +120,10 @@ namespace BasicFacebookFeatures.Facades
             FacebookService.LogoutWithUI();
             m_LoggedInUser = null;
             m_LoginResult = null;
+            NotifyObservers();  // Notify observers of logout
         }
+
+        // ========== Content Retrieval Methods ==========
 
         public List<Post> GetUserPosts()
         {
