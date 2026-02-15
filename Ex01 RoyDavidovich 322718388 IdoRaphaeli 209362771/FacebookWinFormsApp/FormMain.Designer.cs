@@ -48,6 +48,7 @@
             this.buttonEvent = new System.Windows.Forms.Button();
             this.buttonAlbums = new System.Windows.Forms.Button();
             this.buttonPosts = new System.Windows.Forms.Button();
+            this.comboBoxSortStrategy = new System.Windows.Forms.ComboBox();
             this.buttonChangePost = new System.Windows.Forms.Button();
             this.textBoxPostEdit = new System.Windows.Forms.TextBox();
             this.pictureBoxMainTabLogedInUser = new System.Windows.Forms.PictureBox();
@@ -194,6 +195,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.splitContainer1.Panel2.Controls.Add(this.comboBoxSortStrategy);
             this.splitContainer1.Panel2.Controls.Add(this.buttonChangePost);
             this.splitContainer1.Panel2.Controls.Add(this.textBoxPostEdit);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
@@ -338,6 +340,20 @@
             this.buttonPosts.UseVisualStyleBackColor = false;
             this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
             // 
+            // comboBoxSortStrategy
+            // 
+            this.comboBoxSortStrategy.FormattingEnabled = true;
+            this.comboBoxSortStrategy.Items.AddRange(new object[] {
+            "Default (No Sort)",
+            "Ascending (A-Z)",
+            "Descending (Z-A)"});
+            this.comboBoxSortStrategy.Location = new System.Drawing.Point(295, 8);
+            this.comboBoxSortStrategy.Name = "comboBoxSortStrategy";
+            this.comboBoxSortStrategy.Size = new System.Drawing.Size(175, 26);
+            this.comboBoxSortStrategy.TabIndex = 6;
+            this.comboBoxSortStrategy.Text = "Default (No Sort)";
+            this.comboBoxSortStrategy.SelectedIndexChanged += new System.EventHandler(this.comboBoxSortStrategy_SelectedIndexChanged);
+            // 
             // buttonChangePost
             // 
             this.buttonChangePost.BackColor = System.Drawing.Color.DarkGreen;
@@ -384,9 +400,9 @@
             this.listBoxMainTab.ForeColor = System.Drawing.Color.White;
             this.listBoxMainTab.FormattingEnabled = true;
             this.listBoxMainTab.ItemHeight = 18;
-            this.listBoxMainTab.Location = new System.Drawing.Point(3, 3);
+            this.listBoxMainTab.Location = new System.Drawing.Point(3, 42);
             this.listBoxMainTab.Name = "listBoxMainTab";
-            this.listBoxMainTab.Size = new System.Drawing.Size(468, 198);
+            this.listBoxMainTab.Size = new System.Drawing.Size(467, 360);
             this.listBoxMainTab.TabIndex = 0;
             this.listBoxMainTab.SelectedIndexChanged += new System.EventHandler(this.listBoxMainTabMain_SelectedIndexChanged);
             // 
@@ -424,7 +440,7 @@
             this.vibeShifter1.LoggedInUser = null;
             this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4);
             this.vibeShifter1.Name = "vibeShifter1";
-            this.vibeShifter1.Size = new System.Drawing.Size(850, 414);
+            this.vibeShifter1.Size = new System.Drawing.Size(850, 409);
             this.vibeShifter1.TabIndex = 0;
             // 
             // FormMain
@@ -488,6 +504,7 @@
         private System.Windows.Forms.Label labelAIPost;
         private System.Windows.Forms.Button buttonChangePost;
         private System.Windows.Forms.TextBox textBoxPostEdit;
+        private System.Windows.Forms.ComboBox comboBoxSortStrategy;
     }
 }
 

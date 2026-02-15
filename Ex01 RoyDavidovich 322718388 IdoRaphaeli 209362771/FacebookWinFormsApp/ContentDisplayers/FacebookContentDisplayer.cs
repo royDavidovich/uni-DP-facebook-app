@@ -1,17 +1,27 @@
 ﻿using BasicFacebookFeatures.Facades;
+using BasicFacebookFeatures.Strategies;
 using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BasicFacebookFeatures.ContentDisplayers
 {
-    // $G$ DSN-999 (-5) This clas is a logic class, therefore it should not call MessageBox.Show() or know Form, ListBox, TextBox...
-    // $G$ CSS-999 (-3) Structre of "if" and "foreach" blocs are not as required.
-
     public abstract class FacebookContentDisplayer
     {
+        /// <summary>
+        /// Strategy for sorting displayed content
+        /// Defaults to NoSortStrategy (no sorting)
+        /// </summary>
+        public ISortStrategy SortStrategy { get; set; }
+
+        public FacebookContentDisplayer()
+        {
+            SortStrategy = new NoSortStrategy();
+        }
+
         public static FacebookContentDisplayer Create(string i_Type, FormMain i_FormMain)
         {
             switch (i_Type.ToLower())
@@ -45,9 +55,23 @@ namespace BasicFacebookFeatures.ContentDisplayers
             {
                 IEnumerable data = GetContent(i_Facade);
 
-                if (data == null) return;
+                if (data == null)
+                {
+                    return;
+                }
 
+                // Convert to list of objects for sorting
+                List<object> itemsList = new List<object>();
                 foreach (var item in data)
+                {
+                    itemsList.Add(item);
+                }
+
+                // Apply sorting strategy
+                IEnumerable<object> sortedItems = SortStrategy.Sort(itemsList, GetDisplayMember());
+
+                // Add sorted items to ListBox
+                foreach (var item in sortedItems)
                 {
                     i_ListBox.Items.Add(item);
                 }
@@ -63,23 +87,11 @@ namespace BasicFacebookFeatures.ContentDisplayers
             }
         }
 
-        protected abstract IEnumerable GetContent(FacebookFacade i_Facade);
-        protected abstract string GetContentTypeName();
-
-        protected virtual string GetDisplayMember()
-        {
-            return "Name";
-        }
-
-        public virtual Action<object> GetSelectionHandler()
-        {
-            return null;
-        }
-
         public void DisplayContent(ListBox i_ListBox, TextBox i_TextBox, FacebookFacade i_Facade, Label i_LabelCount = null)
         {
             i_ListBox.DataSource = null;
             i_ListBox.Items.Clear();
+            
             if (i_TextBox != null)
             {
                 i_TextBox.DataBindings.Clear();
@@ -91,15 +103,30 @@ namespace BasicFacebookFeatures.ContentDisplayers
             try
             {
                 IEnumerable data = GetContent(i_Facade);
-                if (data == null) return;
+                
+                if (data == null)
+                {
+                    return;
+                }
 
-                var list = new List<object>();
-                foreach (var item in data) list.Add(item);
+                // Convert to list of objects
+                List<object> itemsList = new List<object>();
+                foreach (var item in data)
+                {
+                    itemsList.Add(item);
+                }
 
-                if (list.Count == 0) return;
+                if (itemsList.Count == 0)
+                {
+                    return;
+                }
 
+                // Apply sorting strategy
+                IEnumerable<object> sortedItems = SortStrategy.Sort(itemsList, GetDisplayMember());
+
+                // Create BindingSource with sorted data
                 BindingSource bindingSource = new BindingSource();
-                bindingSource.DataSource = list;
+                bindingSource.DataSource = sortedItems.ToList();
                 i_ListBox.DataSource = bindingSource;
 
                 if (i_TextBox != null)
@@ -111,6 +138,19 @@ namespace BasicFacebookFeatures.ContentDisplayers
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        protected abstract IEnumerable GetContent(FacebookFacade i_Facade);
+        protected abstract string GetContentTypeName();
+
+        protected virtual string GetDisplayMember()
+        {
+            return "Name";
+        }
+
+        public virtual Action<object> GetSelectionHandler()
+        {
+            return null;
         }
     }
 }

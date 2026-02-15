@@ -14,6 +14,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using BasicFacebookFeatures;
 using BasicFacebookFeatures.Facades;
 using BasicFacebookFeatures.ContentDisplayers;
+using BasicFacebookFeatures.Strategies;
 
 namespace BasicFacebookFeatures
 {
@@ -24,6 +25,7 @@ namespace BasicFacebookFeatures
         private FacebookFacade m_FacebookFacade;
 
         private Action<object> m_OnMainSelectionChanged;
+        private FacebookContentDisplayer m_CurrentDisplayer;
 
         public FormMain()
         {
@@ -167,61 +169,50 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void buttonPosts_Click(object sender, EventArgs e)
+        private void loadContentCategory(string i_ContentType, bool i_ShowTextEditor = false)
         {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("posts", this);
-            displayer.DisplayContent(listBoxMainTab, textBoxPostEdit, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            showPostEditorControls();
+            m_CurrentDisplayer = FacebookContentDisplayer.Create(i_ContentType, this);
+
+            if (i_ShowTextEditor)
+            {
+                m_CurrentDisplayer.DisplayContent(listBoxMainTab, textBoxPostEdit, m_FacebookFacade);
+                showPostEditorControls();
+            }
+            else
+            {
+                m_CurrentDisplayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+                hidePostEditorControls();
+            }
+
+            m_OnMainSelectionChanged = m_CurrentDisplayer.GetSelectionHandler();
+            resetSortStrategyComboBox();
         }
+
+        private void resetSortStrategyComboBox()
+        {
+            comboBoxSortStrategy.SelectedIndex = 0;
+        }
+
+        private void buttonPosts_Click(object sender, EventArgs e)
+            => loadContentCategory("posts", i_ShowTextEditor: true);
 
         private void buttonAlbums_Click(object sender, EventArgs e)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("albums", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            hidePostEditorControls();
-        }
+            => loadContentCategory("albums");
 
         private void buttonEvent_Click(object sender, EventArgs e)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("events", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            hidePostEditorControls();
-        }
+            => loadContentCategory("events");
 
         private void buttonGroups_Click(object sender, EventArgs e)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("groups", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            hidePostEditorControls();
-        }
+            => loadContentCategory("groups");
 
         private void buttonFavTeams_Click(object sender, EventArgs e)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("teams", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            hidePostEditorControls();
-        }
+            => loadContentCategory("teams");
 
         private void buttonLikedPaged_Click(object sender, EventArgs e)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("pages", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            hidePostEditorControls();
-        }
+            => loadContentCategory("pages");
 
         private void buttonFavMusic_Click(object sender, EventArgs e)
-        {
-            FacebookContentDisplayer displayer = FacebookContentDisplayer.Create("music", this);
-            displayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
-            m_OnMainSelectionChanged = displayer.GetSelectionHandler();
-            hidePostEditorControls();
-        }
+            => loadContentCategory("music");
 
         private void buttonActivity_Click(object sender, EventArgs e)
         {
@@ -262,7 +253,7 @@ namespace BasicFacebookFeatures
         {
             listBoxMainTab.Left = (int)(buttonPosts.Left);
             listBoxMainTab.Width = (int)(this.ClientSize.Width * 0.5);
-            listBoxMainTab.Height = this.ClientSize.Height - listBoxMainTab.Top;
+            listBoxMainTab.Height = splitContainer1.Panel1.ClientSize.Height - listBoxMainTab.Top;
             listBoxMainTab.BorderStyle = BorderStyle.None;
 
             int leftAfterListBox = listBoxMainTab.Right;
@@ -286,7 +277,6 @@ namespace BasicFacebookFeatures
             buttonChangePost.Width = pictureBoxMainTab.Width;
             buttonChangePost.Left = pictureBoxMainTab.Left;
             buttonChangePost.Top = textBoxPostEdit.Bottom + 18;
-
         }
 
         private void makePictureCircular(PictureBox i_Pb)
@@ -304,6 +294,11 @@ namespace BasicFacebookFeatures
 
             m_PostingTab = tabPage3;
             tabControl1.TabPages.Remove(tabPage3);
+
+            // ===== FIX: Prevent ItemHeight from being overridden =====
+            listBoxMainTab.IntegralHeight = true;
+            listBoxMainTab.ItemHeight = 18;  // Ensure it stays at 18px
+            // ========================================================
 
             updateMainLayout();
         }
@@ -337,6 +332,68 @@ namespace BasicFacebookFeatures
                 listBoxMainTab.Refresh();
 
                 MessageBox.Show("Post updated!");
+            }
+        }
+
+        private void comboBoxSortStrategy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (m_CurrentDisplayer == null)
+            {
+                MessageBox.Show("Please select a content category first.");
+                return;
+            }
+
+            // Determine which strategy to use based on selected index
+            switch (comboBoxSortStrategy.SelectedIndex)
+            {
+                case 0: // No Sort
+                    m_CurrentDisplayer.SortStrategy = new NoSortStrategy();
+                    break;
+                case 1: // Ascending (A-Z)
+                    m_CurrentDisplayer.SortStrategy = new AscendingSortStrategy();
+                    break;
+                case 2: // Descending (Z-A)
+                    m_CurrentDisplayer.SortStrategy = new DescendingSortStrategy();
+                    break;
+                default:
+                    m_CurrentDisplayer.SortStrategy = new NoSortStrategy();
+                    break;
+            }
+
+            // Refresh the display with the new sorting strategy
+            refreshCurrentDisplay();
+        }
+
+        /// <summary>
+        /// Helper method to refresh the current display with the new sort strategy
+        /// </summary>
+        private void refreshCurrentDisplay()
+        {
+            if (m_CurrentDisplayer == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // Determine which display method to call based on current content type
+                // We need to check which button was last clicked
+                if (listBoxMainTab.DataBindings.Count > 0 || listBoxMainTab.Items.Count > 0)
+                {
+                    // Check if textBoxPostEdit is visible (Posts display uses it)
+                    if (textBoxPostEdit.Visible)
+                    {
+                        m_CurrentDisplayer.DisplayContent(listBoxMainTab, textBoxPostEdit, m_FacebookFacade);
+                    }
+                    else
+                    {
+                        m_CurrentDisplayer.DisplayContent(listBoxMainTab, m_FacebookFacade);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error refreshing display: {ex.Message}");
             }
         }
     }

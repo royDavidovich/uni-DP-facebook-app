@@ -111,6 +111,10 @@
     <Compile Include="Forms\MockPostDisplay.Designer.cs">
       <DependentUpon>MockPostDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategies\AscendingSortStrategy.cs" />
+    <Compile Include="Strategies\DescendingSortStrategy.cs" />
+    <Compile Include="Strategies\ISortStrategy.cs" />
+    <Compile Include="Strategies\NoSortStrategy.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="Logics\ActivityPoint.cs" />
     <Compile Include="Program.cs" />
