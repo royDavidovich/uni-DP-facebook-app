@@ -1,5 +1,10 @@
 ﻿using BasicFacebookFeatures;
+using BasicFacebookFeatures;
 using BasicFacebookFeatures.Builders;
+using BasicFacebookFeatures.ContentDisplayers;
+using BasicFacebookFeatures.Facades;
+using BasicFacebookFeatures.Observers;
+using BasicFacebookFeatures.Strategies;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
@@ -9,13 +14,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using BasicFacebookFeatures;
-using BasicFacebookFeatures.Facades;
-using BasicFacebookFeatures.ContentDisplayers;
-using BasicFacebookFeatures.Strategies;
-using BasicFacebookFeatures.Observers;
 
 namespace BasicFacebookFeatures
 {
@@ -23,6 +24,7 @@ namespace BasicFacebookFeatures
     {
         private TabPage m_PostingTab;
         private TabPage m_MainTab;
+        private TabPage m_PhotoEditorTab;
         private FacebookFacade m_FacebookFacade;
 
         private Action<object> m_OnMainSelectionChanged;
@@ -31,7 +33,6 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
-            this.MinimumSize = new Size(800, 400);
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             m_FacebookFacade = FacebookFacade.Instance;
             hidePostEditorControls();
@@ -314,6 +315,9 @@ namespace BasicFacebookFeatures
             m_PostingTab = tabPage3;
             tabControl1.TabPages.Remove(tabPage3);
 
+            m_PhotoEditorTab = tabPhotoEditor;
+            tabControl1.TabPages.Remove(tabPhotoEditor);
+
             listBoxMainTab.IntegralHeight = true;
             listBoxMainTab.ItemHeight = 18;
 
@@ -402,6 +406,16 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show($"Error refreshing display: {ex.Message}");
             }
+        }
+
+        private void buttonPhotoEditor_Click(object sender, EventArgs e)
+        {
+            if (!tabControl1.TabPages.Contains(m_PhotoEditorTab))
+            {
+                tabControl1.TabPages.Add(m_PhotoEditorTab);
+            }
+
+            tabControl1.SelectedTab = m_PhotoEditorTab;
         }
     }
 }
