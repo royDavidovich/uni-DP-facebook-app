@@ -58,7 +58,11 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.labelAIPost = new System.Windows.Forms.Label();
             this.tabPhotoEditor = new System.Windows.Forms.TabPage();
+            this.pictureBoxEditor = new System.Windows.Forms.PictureBox();
+            this.listBoxEditorAlbums = new System.Windows.Forms.ListBox();
             this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
+            this.buttonFilterGrayscale = new System.Windows.Forms.Button();
+            this.buttonFilterWatermark = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -70,6 +74,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tabPhotoEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEditor)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -453,12 +459,35 @@
             // tabPhotoEditor
             // 
             this.tabPhotoEditor.BackColor = System.Drawing.Color.MidnightBlue;
+            this.tabPhotoEditor.Controls.Add(this.buttonFilterWatermark);
+            this.tabPhotoEditor.Controls.Add(this.buttonFilterGrayscale);
+            this.tabPhotoEditor.Controls.Add(this.pictureBoxEditor);
+            this.tabPhotoEditor.Controls.Add(this.listBoxEditorAlbums);
             this.tabPhotoEditor.Location = new System.Drawing.Point(4, 31);
             this.tabPhotoEditor.Name = "tabPhotoEditor";
             this.tabPhotoEditor.Padding = new System.Windows.Forms.Padding(3);
             this.tabPhotoEditor.Size = new System.Drawing.Size(856, 411);
             this.tabPhotoEditor.TabIndex = 3;
             this.tabPhotoEditor.Text = "Photo Editor";
+            // 
+            // pictureBoxEditor
+            // 
+            this.pictureBoxEditor.Location = new System.Drawing.Point(468, 19);
+            this.pictureBoxEditor.Name = "pictureBoxEditor";
+            this.pictureBoxEditor.Size = new System.Drawing.Size(287, 264);
+            this.pictureBoxEditor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxEditor.TabIndex = 1;
+            this.pictureBoxEditor.TabStop = false;
+            // 
+            // listBoxEditorAlbums
+            // 
+            this.listBoxEditorAlbums.FormattingEnabled = true;
+            this.listBoxEditorAlbums.ItemHeight = 22;
+            this.listBoxEditorAlbums.Location = new System.Drawing.Point(5, 3);
+            this.listBoxEditorAlbums.Name = "listBoxEditorAlbums";
+            this.listBoxEditorAlbums.Size = new System.Drawing.Size(359, 400);
+            this.listBoxEditorAlbums.TabIndex = 0;
+            this.listBoxEditorAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxEditorAlbums_SelectedIndexChanged);
             // 
             // vibeShifter1
             // 
@@ -471,6 +500,26 @@
             this.vibeShifter1.Name = "vibeShifter1";
             this.vibeShifter1.Size = new System.Drawing.Size(850, 405);
             this.vibeShifter1.TabIndex = 0;
+            // 
+            // buttonFilterGrayscale
+            // 
+            this.buttonFilterGrayscale.Location = new System.Drawing.Point(433, 324);
+            this.buttonFilterGrayscale.Name = "buttonFilterGrayscale";
+            this.buttonFilterGrayscale.Size = new System.Drawing.Size(133, 36);
+            this.buttonFilterGrayscale.TabIndex = 2;
+            this.buttonFilterGrayscale.Text = "Black & White";
+            this.buttonFilterGrayscale.UseVisualStyleBackColor = true;
+            this.buttonFilterGrayscale.Click += new System.EventHandler(this.buttonFilterGrayscale_Click);
+            // 
+            // buttonFilterWatermark
+            // 
+            this.buttonFilterWatermark.Location = new System.Drawing.Point(650, 324);
+            this.buttonFilterWatermark.Name = "buttonFilterWatermark";
+            this.buttonFilterWatermark.Size = new System.Drawing.Size(133, 36);
+            this.buttonFilterWatermark.TabIndex = 3;
+            this.buttonFilterWatermark.Text = "Watermark";
+            this.buttonFilterWatermark.UseVisualStyleBackColor = true;
+            this.buttonFilterWatermark.Click += new System.EventHandler(this.buttonFilterWatermark_Click);
             // 
             // FormMain
             // 
@@ -501,6 +550,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTabLogedInUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMainTab)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.tabPhotoEditor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEditor)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -537,6 +588,10 @@
         private System.Windows.Forms.ComboBox comboBoxSortStrategy;
         private System.Windows.Forms.Button buttonPhotoEditor;
         private System.Windows.Forms.TabPage tabPhotoEditor;
+        private System.Windows.Forms.ListBox listBoxEditorAlbums;
+        private System.Windows.Forms.PictureBox pictureBoxEditor;
+        private System.Windows.Forms.Button buttonFilterGrayscale;
+        private System.Windows.Forms.Button buttonFilterWatermark;
     }
 }
 

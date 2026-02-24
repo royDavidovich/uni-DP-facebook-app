@@ -27,6 +27,7 @@ namespace BasicFacebookFeatures
         private TabPage m_PhotoEditorTab;
         private FacebookFacade m_FacebookFacade;
 
+        private BasicFacebookFeatures.Decorators.IPhoto m_CurrentPhoto;
         private Action<object> m_OnMainSelectionChanged;
         private FacebookContentDisplayer m_CurrentDisplayer;
 
@@ -416,6 +417,63 @@ namespace BasicFacebookFeatures
             }
 
             tabControl1.SelectedTab = m_PhotoEditorTab;
+            loadAlbumsToPhotoEditor();
+        }
+
+        private void loadAlbumsToPhotoEditor()
+        {
+            listBoxEditorAlbums.Items.Clear();
+
+            listBoxEditorAlbums.DisplayMember = "Name";
+
+            try
+            {
+                foreach (FacebookWrapper.ObjectModel.Album album in m_FacebookFacade.LoggedInUser.Albums)
+                {
+                    listBoxEditorAlbums.Items.Add(album);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not load albums: " + ex.Message);
+            }
+        }
+
+        private void listBoxEditorAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxEditorAlbums.SelectedItem is FacebookWrapper.ObjectModel.Album selectedAlbum)
+            {
+                if (selectedAlbum.PictureAlbumURL != null)
+                {
+                    pictureBoxEditor.Load(selectedAlbum.PictureAlbumURL);
+
+                    m_CurrentPhoto = new BasicFacebookFeatures.Decorators.FacebookPhoto(pictureBoxEditor.Image);
+
+                    pictureBoxMainTab.Image = pictureBoxEditor.Image;
+                }
+            }
+        }
+
+        private void buttonFilterGrayscale_Click(object sender, EventArgs e)
+        {
+            if (m_CurrentPhoto != null)
+            {
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.GrayscaleFilterDecorator(m_CurrentPhoto);
+
+                pictureBoxEditor.Image = m_CurrentPhoto.GetImage();
+                pictureBoxMainTab.Image = pictureBoxEditor.Image;
+            }
+        }
+
+        private void buttonFilterWatermark_Click(object sender, EventArgs e)
+        {
+            if (m_CurrentPhoto != null)
+            {
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.WatermarkFilterDecorator(m_CurrentPhoto);
+
+                pictureBoxEditor.Image = m_CurrentPhoto.GetImage();
+                pictureBoxMainTab.Image = pictureBoxEditor.Image;
+            }
         }
     }
 }

@@ -97,6 +97,7 @@
     <Compile Include="ContentDisplayers\MusicDisplayer.cs" />
     <Compile Include="ContentDisplayers\PostDisplayer.cs" />
     <Compile Include="ContentDisplayers\TeamDisplayer.cs" />
+    <Compile Include="Decorators\PhotoFilters.cs" />
     <Compile Include="Facades\FacebookFacade.cs" />
     <Compile Include="ContentDisplayers\FacebookContentDisplayer.cs" />
     <Compile Include="FormMain.cs">
