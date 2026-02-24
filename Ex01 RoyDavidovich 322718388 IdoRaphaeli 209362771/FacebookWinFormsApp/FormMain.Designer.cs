@@ -58,11 +58,15 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.labelAIPost = new System.Windows.Forms.Label();
             this.tabPhotoEditor = new System.Windows.Forms.TabPage();
+            this.buttonFilterBrightness = new System.Windows.Forms.Button();
+            this.buttonFilterCoolBlue = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonUndo = new System.Windows.Forms.Button();
+            this.buttonFilterSepia = new System.Windows.Forms.Button();
+            this.buttonFilterGrayscale = new System.Windows.Forms.Button();
             this.pictureBoxEditor = new System.Windows.Forms.PictureBox();
             this.listBoxEditorAlbums = new System.Windows.Forms.ListBox();
             this.vibeShifter1 = new BasicFacebookFeatures.VibeShifter();
-            this.buttonFilterGrayscale = new System.Windows.Forms.Button();
-            this.buttonFilterWatermark = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -122,7 +126,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(864, 446);
+            this.tabControl1.Size = new System.Drawing.Size(864, 438);
             this.tabControl1.TabIndex = 54;
             // 
             // tabPage1
@@ -178,7 +182,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(856, 411);
+            this.tabPage2.Size = new System.Drawing.Size(856, 403);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Menu";
             // 
@@ -211,7 +215,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTabLogedInUser);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxMainTab);
             this.splitContainer1.Panel2.Controls.Add(this.listBoxMainTab);
-            this.splitContainer1.Size = new System.Drawing.Size(850, 405);
+            this.splitContainer1.Size = new System.Drawing.Size(850, 397);
             this.splitContainer1.SplitterDistance = 190;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -372,7 +376,7 @@
             "Default (No Sort)",
             "Ascending (A-Z)",
             "Descending (Z-A)"});
-            this.comboBoxSortStrategy.Location = new System.Drawing.Point(295, 8);
+            this.comboBoxSortStrategy.Location = new System.Drawing.Point(116, 6);
             this.comboBoxSortStrategy.Name = "comboBoxSortStrategy";
             this.comboBoxSortStrategy.Size = new System.Drawing.Size(175, 30);
             this.comboBoxSortStrategy.TabIndex = 6;
@@ -459,7 +463,11 @@
             // tabPhotoEditor
             // 
             this.tabPhotoEditor.BackColor = System.Drawing.Color.MidnightBlue;
-            this.tabPhotoEditor.Controls.Add(this.buttonFilterWatermark);
+            this.tabPhotoEditor.Controls.Add(this.buttonFilterBrightness);
+            this.tabPhotoEditor.Controls.Add(this.buttonFilterCoolBlue);
+            this.tabPhotoEditor.Controls.Add(this.buttonSave);
+            this.tabPhotoEditor.Controls.Add(this.buttonUndo);
+            this.tabPhotoEditor.Controls.Add(this.buttonFilterSepia);
             this.tabPhotoEditor.Controls.Add(this.buttonFilterGrayscale);
             this.tabPhotoEditor.Controls.Add(this.pictureBoxEditor);
             this.tabPhotoEditor.Controls.Add(this.listBoxEditorAlbums);
@@ -470,9 +478,72 @@
             this.tabPhotoEditor.TabIndex = 3;
             this.tabPhotoEditor.Text = "Photo Editor";
             // 
+            // buttonFilterBrightness
+            // 
+            this.buttonFilterBrightness.Location = new System.Drawing.Point(545, 357);
+            this.buttonFilterBrightness.Name = "buttonFilterBrightness";
+            this.buttonFilterBrightness.Size = new System.Drawing.Size(133, 36);
+            this.buttonFilterBrightness.TabIndex = 7;
+            this.buttonFilterBrightness.Text = "Brightness +";
+            this.buttonFilterBrightness.UseVisualStyleBackColor = true;
+            this.buttonFilterBrightness.Click += new System.EventHandler(this.buttonFilterBrightness_Click_1);
+            // 
+            // buttonFilterCoolBlue
+            // 
+            this.buttonFilterCoolBlue.Location = new System.Drawing.Point(391, 357);
+            this.buttonFilterCoolBlue.Name = "buttonFilterCoolBlue";
+            this.buttonFilterCoolBlue.Size = new System.Drawing.Size(133, 36);
+            this.buttonFilterCoolBlue.TabIndex = 6;
+            this.buttonFilterCoolBlue.Text = "Cool Blue";
+            this.buttonFilterCoolBlue.UseVisualStyleBackColor = true;
+            this.buttonFilterCoolBlue.Click += new System.EventHandler(this.buttonFilterCoolBlue_Click_1);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.BackColor = System.Drawing.Color.ForestGreen;
+            this.buttonSave.Location = new System.Drawing.Point(722, 182);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(103, 30);
+            this.buttonSave.TabIndex = 5;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = false;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonUndo
+            // 
+            this.buttonUndo.BackColor = System.Drawing.Color.Red;
+            this.buttonUndo.Location = new System.Drawing.Point(722, 91);
+            this.buttonUndo.Name = "buttonUndo";
+            this.buttonUndo.Size = new System.Drawing.Size(103, 30);
+            this.buttonUndo.TabIndex = 4;
+            this.buttonUndo.Tag = "";
+            this.buttonUndo.Text = "Undo";
+            this.buttonUndo.UseVisualStyleBackColor = false;
+            this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
+            // 
+            // buttonFilterSepia
+            // 
+            this.buttonFilterSepia.Location = new System.Drawing.Point(545, 305);
+            this.buttonFilterSepia.Name = "buttonFilterSepia";
+            this.buttonFilterSepia.Size = new System.Drawing.Size(133, 36);
+            this.buttonFilterSepia.TabIndex = 3;
+            this.buttonFilterSepia.Text = "Vintage";
+            this.buttonFilterSepia.UseVisualStyleBackColor = true;
+            this.buttonFilterSepia.Click += new System.EventHandler(this.buttonFilterVintage_Click);
+            // 
+            // buttonFilterGrayscale
+            // 
+            this.buttonFilterGrayscale.Location = new System.Drawing.Point(391, 305);
+            this.buttonFilterGrayscale.Name = "buttonFilterGrayscale";
+            this.buttonFilterGrayscale.Size = new System.Drawing.Size(133, 36);
+            this.buttonFilterGrayscale.TabIndex = 2;
+            this.buttonFilterGrayscale.Text = "Black & White";
+            this.buttonFilterGrayscale.UseVisualStyleBackColor = true;
+            this.buttonFilterGrayscale.Click += new System.EventHandler(this.buttonFilterGrayscale_Click);
+            // 
             // pictureBoxEditor
             // 
-            this.pictureBoxEditor.Location = new System.Drawing.Point(468, 19);
+            this.pictureBoxEditor.Location = new System.Drawing.Point(391, 19);
             this.pictureBoxEditor.Name = "pictureBoxEditor";
             this.pictureBoxEditor.Size = new System.Drawing.Size(287, 264);
             this.pictureBoxEditor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -498,39 +569,21 @@
             this.vibeShifter1.LoggedInUser = null;
             this.vibeShifter1.Margin = new System.Windows.Forms.Padding(4);
             this.vibeShifter1.Name = "vibeShifter1";
-            this.vibeShifter1.Size = new System.Drawing.Size(850, 405);
+            this.vibeShifter1.Size = new System.Drawing.Size(850, 411);
             this.vibeShifter1.TabIndex = 0;
-            // 
-            // buttonFilterGrayscale
-            // 
-            this.buttonFilterGrayscale.Location = new System.Drawing.Point(433, 324);
-            this.buttonFilterGrayscale.Name = "buttonFilterGrayscale";
-            this.buttonFilterGrayscale.Size = new System.Drawing.Size(133, 36);
-            this.buttonFilterGrayscale.TabIndex = 2;
-            this.buttonFilterGrayscale.Text = "Black & White";
-            this.buttonFilterGrayscale.UseVisualStyleBackColor = true;
-            this.buttonFilterGrayscale.Click += new System.EventHandler(this.buttonFilterGrayscale_Click);
-            // 
-            // buttonFilterWatermark
-            // 
-            this.buttonFilterWatermark.Location = new System.Drawing.Point(650, 324);
-            this.buttonFilterWatermark.Name = "buttonFilterWatermark";
-            this.buttonFilterWatermark.Size = new System.Drawing.Size(133, 36);
-            this.buttonFilterWatermark.TabIndex = 3;
-            this.buttonFilterWatermark.Text = "Watermark";
-            this.buttonFilterWatermark.UseVisualStyleBackColor = true;
-            this.buttonFilterWatermark.Click += new System.EventHandler(this.buttonFilterWatermark_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(864, 446);
+            this.ClientSize = new System.Drawing.Size(864, 438);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(882, 485);
             this.MinimumSize = new System.Drawing.Size(882, 485);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -591,7 +644,11 @@
         private System.Windows.Forms.ListBox listBoxEditorAlbums;
         private System.Windows.Forms.PictureBox pictureBoxEditor;
         private System.Windows.Forms.Button buttonFilterGrayscale;
-        private System.Windows.Forms.Button buttonFilterWatermark;
+        private System.Windows.Forms.Button buttonFilterSepia;
+        private System.Windows.Forms.Button buttonFilterBrightness;
+        private System.Windows.Forms.Button buttonFilterCoolBlue;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonUndo;
     }
 }
 

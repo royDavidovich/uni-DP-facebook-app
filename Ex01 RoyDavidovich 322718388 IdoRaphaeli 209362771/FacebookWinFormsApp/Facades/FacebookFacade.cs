@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using BasicFacebookFeatures.Observers;
+using System.Drawing;
 
 namespace BasicFacebookFeatures.Facades
 {
@@ -18,6 +19,7 @@ namespace BasicFacebookFeatures.Facades
         private LoginResult m_LoginResult;
         private User m_LoggedInUser;
         private readonly List<ILoginObserver> r_Observers = new List<ILoginObserver>();
+        private Dictionary<string, Image> m_EditedImagesCache = new Dictionary<string, Image>();
 
         private FacebookFacade() { }
 
@@ -252,6 +254,20 @@ namespace BasicFacebookFeatures.Facades
         public string GetUserName()
         {
             return m_LoggedInUser?.Name ?? "Not logged in";
+        }
+
+        public void SaveEditedImage(string i_AlbumId, Image i_EditedImage)
+        {
+            m_EditedImagesCache[i_AlbumId] = i_EditedImage;
+        }
+
+        public Image GetEditedImage(string i_AlbumId)
+        {
+            if (m_EditedImagesCache.ContainsKey(i_AlbumId))
+            {
+                return m_EditedImagesCache[i_AlbumId];
+            }
+            return null;
         }
     }
 }

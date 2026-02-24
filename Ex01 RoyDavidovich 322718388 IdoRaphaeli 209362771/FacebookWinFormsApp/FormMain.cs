@@ -27,9 +27,10 @@ namespace BasicFacebookFeatures
         private TabPage m_PhotoEditorTab;
         private FacebookFacade m_FacebookFacade;
 
-        private BasicFacebookFeatures.Decorators.IPhoto m_CurrentPhoto;
         private Action<object> m_OnMainSelectionChanged;
         private FacebookContentDisplayer m_CurrentDisplayer;
+        private BasicFacebookFeatures.Decorators.IPhoto m_CurrentPhoto;
+        private Image m_OriginalImage;
 
         public FormMain()
         {
@@ -140,6 +141,17 @@ namespace BasicFacebookFeatures
             if (m_OnMainSelectionChanged == null || listBoxMainTab.SelectedItems.Count != 1)
             {
                 return;
+            }
+
+            if (listBoxMainTab.SelectedItem is FacebookWrapper.ObjectModel.Album selectedAlbum)
+            {
+                Image cachedImage = m_FacebookFacade.GetEditedImage(selectedAlbum.Id);
+
+                if (cachedImage != null)
+                {
+                    pictureBoxMainTab.Image = cachedImage;
+                    return;
+                }
             }
 
             m_OnMainSelectionChanged(listBoxMainTab.SelectedItem);
@@ -443,15 +455,32 @@ namespace BasicFacebookFeatures
         {
             if (listBoxEditorAlbums.SelectedItem is FacebookWrapper.ObjectModel.Album selectedAlbum)
             {
-                if (selectedAlbum.PictureAlbumURL != null)
+                Image cachedImage = m_FacebookFacade.GetEditedImage(selectedAlbum.Id);
+
+                if (cachedImage != null)
+                {
+                    m_OriginalImage = cachedImage;
+                    pictureBoxEditor.Image = m_OriginalImage;
+                }
+                else if (selectedAlbum.PictureAlbumURL != null)
                 {
                     pictureBoxEditor.Load(selectedAlbum.PictureAlbumURL);
+                    m_OriginalImage = pictureBoxEditor.Image;
+                }
 
-                    m_CurrentPhoto = new BasicFacebookFeatures.Decorators.FacebookPhoto(pictureBoxEditor.Image);
-
-                    pictureBoxMainTab.Image = pictureBoxEditor.Image;
+                if (m_OriginalImage != null)
+                {
+                    m_CurrentPhoto = new BasicFacebookFeatures.Decorators.FacebookPhoto(m_OriginalImage);
+                    pictureBoxMainTab.Image = m_OriginalImage;
                 }
             }
+        }
+
+        private void applyCurrentPhotoFilter()
+        {
+            Image updatedImage = m_CurrentPhoto.GetImage();
+            pictureBoxEditor.Image = updatedImage;
+            pictureBoxMainTab.Image = updatedImage;
         }
 
         private void buttonFilterGrayscale_Click(object sender, EventArgs e)
@@ -465,14 +494,55 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void buttonFilterWatermark_Click(object sender, EventArgs e)
+        private void buttonFilterVintage_Click(object sender, EventArgs e)
         {
             if (m_CurrentPhoto != null)
             {
-                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.WatermarkFilterDecorator(m_CurrentPhoto);
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.SepiaFilterDecorator(m_CurrentPhoto);
+                applyCurrentPhotoFilter();
+            }
+        }
 
-                pictureBoxEditor.Image = m_CurrentPhoto.GetImage();
-                pictureBoxMainTab.Image = pictureBoxEditor.Image;
+        private void buttonFilterCoolBlue_Click_1(object sender, EventArgs e)
+        {
+            if (m_CurrentPhoto != null)
+            {
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.CoolBlueFilterDecorator(m_CurrentPhoto);
+                applyCurrentPhotoFilter();
+            }
+        }
+
+        private void buttonFilterBrightness_Click_1(object sender, EventArgs e)
+        {
+            if (m_CurrentPhoto != null)
+            {
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.BrightnessFilterDecorator(m_CurrentPhoto);
+                applyCurrentPhotoFilter();
+            }
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (listBoxEditorAlbums.SelectedItem is FacebookWrapper.ObjectModel.Album selectedAlbum && m_CurrentPhoto != null)
+            {
+                Image finalEditedImage = m_CurrentPhoto.GetImage();
+
+                m_FacebookFacade.SaveEditedImage(selectedAlbum.Id, finalEditedImage);
+
+                m_OriginalImage = finalEditedImage;
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.FacebookPhoto(m_OriginalImage);
+
+                MessageBox.Show("Image saved successfully!", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void buttonUndo_Click(object sender, EventArgs e)
+        {
+            if (m_OriginalImage != null)
+            {
+                m_CurrentPhoto = new BasicFacebookFeatures.Decorators.FacebookPhoto(m_OriginalImage);
+
+                applyCurrentPhotoFilter();
             }
         }
     }

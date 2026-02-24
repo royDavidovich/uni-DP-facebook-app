@@ -81,4 +81,124 @@ namespace BasicFacebookFeatures.Decorators
             return img;
         }
     }
+
+    public class SepiaFilterDecorator : PhotoFilterDecorator
+    {
+        public SepiaFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
+
+        public override Image GetImage()
+        {
+            Image originalImage = base.GetImage();
+            Bitmap bmp = new Bitmap(originalImage);
+
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    Color c = bmp.GetPixel(i, j);
+
+                    int tr = (int)(0.393 * c.R + 0.769 * c.G + 0.189 * c.B);
+                    int tg = (int)(0.349 * c.R + 0.686 * c.G + 0.168 * c.B);
+                    int tb = (int)(0.272 * c.R + 0.534 * c.G + 0.131 * c.B);
+
+                    int r = Math.Min(255, tr);
+                    int g = Math.Min(255, tg);
+                    int b = Math.Min(255, tb);
+
+                    bmp.SetPixel(i, j, Color.FromArgb(r, g, b));
+                }
+            }
+            return bmp;
+        }
+    }
+
+    public class CoolBlueFilterDecorator : PhotoFilterDecorator
+    {
+        public CoolBlueFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
+
+        public override Image GetImage()
+        {
+            Image originalImage = base.GetImage();
+            Bitmap bmp = new Bitmap(originalImage);
+
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    Color c = bmp.GetPixel(i, j);
+
+                    int r = Math.Max(0, c.R - 10);
+                    int g = c.G;
+                    int b = Math.Min(255, c.B + 40);
+
+                    bmp.SetPixel(i, j, Color.FromArgb(r, g, b));
+                }
+            }
+            return bmp;
+        }
+    }
+
+    public class BrightnessFilterDecorator : PhotoFilterDecorator
+    {
+        public BrightnessFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
+
+        public override Image GetImage()
+        {
+            Image originalImage = base.GetImage();
+            Bitmap bmp = new Bitmap(originalImage);
+            int boost = 40;
+
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    Color c = bmp.GetPixel(i, j);
+
+                    int r = Math.Min(255, c.R + boost);
+                    int g = Math.Min(255, c.G + boost);
+                    int b = Math.Min(255, c.B + boost);
+
+                    bmp.SetPixel(i, j, Color.FromArgb(r, g, b));
+                }
+            }
+            return bmp;
+        }
+    }
+
+    public class VignetteFilterDecorator : PhotoFilterDecorator
+    {
+        public VignetteFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
+
+        public override Image GetImage()
+        {
+            Image originalImage = base.GetImage();
+            Bitmap bmp = new Bitmap(originalImage);
+
+            int centerX = bmp.Width / 2;
+            int centerY = bmp.Height / 2;
+
+            double maxDistance = Math.Sqrt((centerX * centerX) + (centerY * centerY));
+
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    Color c = bmp.GetPixel(i, j);
+
+                    double distance = Math.Sqrt(Math.Pow(i - centerX, 2) + Math.Pow(j - centerY, 2));
+
+                    double factor = 1.0 - (distance / maxDistance);
+
+                    factor = Math.Pow(factor, 0.5);
+
+                    int r = (int)(c.R * factor);
+                    int g = (int)(c.G * factor);
+                    int b = (int)(c.B * factor);
+
+                    bmp.SetPixel(i, j, Color.FromArgb(r, g, b));
+                }
+            }
+            return bmp;
+        }
+    }
 }
