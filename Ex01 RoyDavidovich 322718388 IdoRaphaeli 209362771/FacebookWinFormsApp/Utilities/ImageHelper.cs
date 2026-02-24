@@ -9,10 +9,8 @@ namespace BasicFacebookFeatures.Utilities
     /// Note - this was created with the help of AI, because it was only for UI purposes,
     /// in order to "view" images we had to shrink their size
 
-    /// <summary>
     /// Utility class for image loading and manipulation operations
     /// Provides memory-efficient image loading with automatic resizing
-    /// </summary>
     public static class ImageHelper
     {
         private const long k_MaxSizeInBytes = 5 * 1024 * 1024; //5MB
@@ -20,10 +18,8 @@ namespace BasicFacebookFeatures.Utilities
         private const int k_PreviewWidth = 100;
         private const int k_PreviewHeight = 100;
 
-        /// <summary>
         /// Load an image with memory optimization
         /// Automatically resizes large images to prevent out-of-memory exceptions
-        /// </summary>
         /// <param name="i_ImagePath">Path to the image file</param>
         /// <returns>Loaded and optionally resized Image object, or null if invalid</returns>
         public static Image LoadImageWithMemoryManagement(string i_ImagePath)
@@ -69,10 +65,8 @@ namespace BasicFacebookFeatures.Utilities
             }
         }
 
-        /// <summary>
         /// Resize an image while maintaining aspect ratio
         /// Uses high-quality bicubic interpolation for best results
-        /// </summary>
         /// <param name="i_Image">Image to resize</param>
         /// <param name="i_MaxWidth">Maximum width in pixels</param>
         /// <param name="i_MaxHeight">Maximum height in pixels</param>
@@ -118,9 +112,7 @@ namespace BasicFacebookFeatures.Utilities
             }
         }
 
-        /// <summary>
         /// Validate image file existence and format
-        /// </summary>
         /// <param name="i_ImagePath">Path to validate</param>
         /// <returns>True if valid image file, false otherwise</returns>
         public static bool IsValidImageFile(string i_ImagePath)
@@ -148,9 +140,7 @@ namespace BasicFacebookFeatures.Utilities
             }
         }
 
-        /// <summary>
         /// Dispose image safely
-        /// </summary>
         /// <param name="i_Image">Image to dispose</param>
         public static void SafeDisposeImage(ref Image i_Image)
         {

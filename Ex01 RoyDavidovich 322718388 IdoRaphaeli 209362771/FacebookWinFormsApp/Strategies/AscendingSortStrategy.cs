@@ -5,16 +5,8 @@ using System.Reflection;
 
 namespace BasicFacebookFeatures.Strategies
 {
-    /// <summary>
-    /// Concrete strategy: Ascending sort (A-Z)
-    /// Sorts items alphabetically in ascending order using Reflection
-    /// </summary>
     public class AscendingSortStrategy : ISortStrategy
     {
-        /// <summary>
-        /// Sort items in ascending order (A-Z) by the specified property
-        /// Uses Reflection to access property values for comparison
-        /// </summary>
         public IEnumerable<object> Sort(IEnumerable<object> i_Items, string i_PropertyName)
         {
             if (i_Items == null)
@@ -34,9 +26,6 @@ namespace BasicFacebookFeatures.Strategies
             }
         }
 
-        /// <summary>
-        /// Get property value from an object using Reflection
-        /// </summary>
         private object GetPropertyValue(object i_Item, string i_PropertyName)
         {
             if (i_Item == null)

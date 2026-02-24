@@ -7,10 +7,8 @@ using System.Drawing;
 
 namespace BasicFacebookFeatures.Facades
 {
-    /// <summary>
-    /// Facade pattern - simplifies access to Facebook services and manages login state
-    /// Also acts as the Subject in the Observer Design Pattern
-    /// </summary>
+    // Facade pattern - simplifies access to Facebook services and manages login state
+    // Also acts as the Subject in the Observer Design Pattern
     public class FacebookFacade
     {
         private static FacebookFacade s_Instance;
@@ -23,9 +21,7 @@ namespace BasicFacebookFeatures.Facades
 
         private FacebookFacade() { }
 
-        /// <summary>
-        /// Singleton instance - ensures one Facebook session throughout the app
-        /// </summary>
+        // Singleton instance - ensures one Facebook session throughout the app
         public static FacebookFacade Instance
         {
             get
@@ -50,9 +46,6 @@ namespace BasicFacebookFeatures.Facades
 
         // ========== Observer Pattern Implementation ==========
 
-        /// <summary>
-        /// Subscribe an observer to login state changes
-        /// </summary>
         public void AttachObserver(ILoginObserver i_Observer)
         {
             if (i_Observer == null)
@@ -66,9 +59,6 @@ namespace BasicFacebookFeatures.Facades
             }
         }
 
-        /// <summary>
-        /// Unsubscribe an observer from login state changes
-        /// </summary>
         public void DetachObserver(ILoginObserver i_Observer)
         {
             if (i_Observer != null)
@@ -77,10 +67,6 @@ namespace BasicFacebookFeatures.Facades
             }
         }
 
-        /// <summary>
-        /// Notify all observers of login state change
-        /// Called internally after successful login or logout
-        /// </summary>
         private void NotifyObservers()
         {
             foreach (ILoginObserver observer in r_Observers)

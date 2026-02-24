@@ -64,24 +64,6 @@ namespace BasicFacebookFeatures.Decorators
         }
     }
 
-    public class WatermarkFilterDecorator : PhotoFilterDecorator
-    {
-        public WatermarkFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
-
-        public override Image GetImage()
-        {
-            Image img = base.GetImage();
-
-            using (Graphics g = Graphics.FromImage(img))
-            {
-                Font font = new Font("Arial", 20, FontStyle.Bold);
-                Brush brush = new SolidBrush(Color.FromArgb(150, 255, 255, 255));
-                g.DrawString("Design Patterns", font, brush, new PointF(10, 10));
-            }
-            return img;
-        }
-    }
-
     public class SepiaFilterDecorator : PhotoFilterDecorator
     {
         public SepiaFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
@@ -157,43 +139,6 @@ namespace BasicFacebookFeatures.Decorators
                     int r = Math.Min(255, c.R + boost);
                     int g = Math.Min(255, c.G + boost);
                     int b = Math.Min(255, c.B + boost);
-
-                    bmp.SetPixel(i, j, Color.FromArgb(r, g, b));
-                }
-            }
-            return bmp;
-        }
-    }
-
-    public class VignetteFilterDecorator : PhotoFilterDecorator
-    {
-        public VignetteFilterDecorator(IPhoto i_Photo) : base(i_Photo) { }
-
-        public override Image GetImage()
-        {
-            Image originalImage = base.GetImage();
-            Bitmap bmp = new Bitmap(originalImage);
-
-            int centerX = bmp.Width / 2;
-            int centerY = bmp.Height / 2;
-
-            double maxDistance = Math.Sqrt((centerX * centerX) + (centerY * centerY));
-
-            for (int i = 0; i < bmp.Width; i++)
-            {
-                for (int j = 0; j < bmp.Height; j++)
-                {
-                    Color c = bmp.GetPixel(i, j);
-
-                    double distance = Math.Sqrt(Math.Pow(i - centerX, 2) + Math.Pow(j - centerY, 2));
-
-                    double factor = 1.0 - (distance / maxDistance);
-
-                    factor = Math.Pow(factor, 0.5);
-
-                    int r = (int)(c.R * factor);
-                    int g = (int)(c.G * factor);
-                    int b = (int)(c.B * factor);
 
                     bmp.SetPixel(i, j, Color.FromArgb(r, g, b));
                 }
