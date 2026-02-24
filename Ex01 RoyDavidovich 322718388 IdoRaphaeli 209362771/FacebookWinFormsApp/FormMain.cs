@@ -1,5 +1,4 @@
 ﻿using BasicFacebookFeatures;
-using BasicFacebookFeatures;
 using BasicFacebookFeatures.Builders;
 using BasicFacebookFeatures.ContentDisplayers;
 using BasicFacebookFeatures.Facades;

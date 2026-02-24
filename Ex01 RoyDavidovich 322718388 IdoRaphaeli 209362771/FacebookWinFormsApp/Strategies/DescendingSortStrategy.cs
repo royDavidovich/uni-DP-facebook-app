@@ -16,7 +16,7 @@ namespace BasicFacebookFeatures.Strategies
 
             try
             {
-                return i_Items.OrderByDescending(item => GetPropertyValue(item, i_PropertyName)).ToList();
+                return i_Items.OrderByDescending(i_Item => getPropertyValue(i_Item, i_PropertyName)).ToList();
             }
             catch (Exception ex)
             {
@@ -26,7 +26,7 @@ namespace BasicFacebookFeatures.Strategies
             }
         }
 
-        private object GetPropertyValue(object i_Item, string i_PropertyName)
+        private object getPropertyValue(object i_Item, string i_PropertyName)
         {
             if (i_Item == null)
             {

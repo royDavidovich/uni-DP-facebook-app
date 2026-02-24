@@ -31,7 +31,7 @@ namespace BasicFacebookFeatures.Decorators
     {
         protected IPhoto m_Photo;
 
-        public PhotoFilterDecorator(IPhoto i_Photo)
+        protected PhotoFilterDecorator(IPhoto i_Photo)
         {
             m_Photo = i_Photo;
         }

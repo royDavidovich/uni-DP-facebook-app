@@ -25,7 +25,6 @@ namespace BasicFacebookFeatures.Builders
             PostType = ePostType.TextOnly;
         }
 
-        // $G$ NTT-999 (-3) you should use Enviorment.NewLine instead of \n.
         public override string ToString()
         {
             return $"Post: {Content}" + Environment.NewLine +
